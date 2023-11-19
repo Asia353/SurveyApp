@@ -6,7 +6,10 @@ function QuestionItem({ item }: { item: Question }) {
   return (
     <Card shadow="sm" className="p-2 qusetion-component">
       <CardBody>
-        <div>{item.description}</div>
+        <div>
+          {item.description} type: {item.type} id: {item.id} options:{" "}
+          {item.options}
+        </div>
       </CardBody>
     </Card>
   );

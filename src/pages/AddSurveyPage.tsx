@@ -3,21 +3,41 @@ import "./AddSurveyPage.css";
 import { Button, Card, CardBody, CardHeader, Input } from "@nextui-org/react";
 import { QuestionItem, QuestionForm } from "../features";
 
-type AddSurveyPageProps = {};
-export type Question = { description: string; type: string };
+// type AddSurveyPageProps = {};
+export type Question = {
+  description: string;
+  type: string;
+  id: number;
+  options: string[];
+};
 
 function Page() {
   const [questionsList, setQuestionsList] = useState<Question[]>([
-    { description: "Question 1", type: "open" },
-    { description: "Question 2", type: "open" },
+    { description: "Question 1", type: "open", id: 1, options: [] },
+    { description: "Question 2", type: "open", id: 2, options: [] },
   ]);
 
-  const [newQuestion, setNewQuestion] = useState<Question>();
+  const [newQuestion, setNewQuestion] = useState<Question>({
+    description: "",
+    type: "",
+    id: 0,
+    options: [],
+  });
 
   function addQuestion() {
     // setQuestionsList((x) => [...x, newQuestion]);
-    if (newQuestion) setQuestionsList([...questionsList, newQuestion]);
-    setNewQuestion({ description: " ", type: " " });
+
+    setQuestionsList([
+      ...questionsList,
+      {
+        description: newQuestion.description,
+        type: newQuestion.description,
+        id: questionsList[questionsList.length - 1].id + 1,
+        options: newQuestion.options,
+      },
+    ]);
+
+    setNewQuestion({ description: " ", type: " ", id: 0, options: [] });
   }
 
   return (
@@ -37,16 +57,14 @@ function Page() {
           }}
         >
           <div className="add-question-button-panel flex flex-col">
-            <Input
-              type="text"
-              label="Question description"
-              value={newQuestion?.description}
-              onChange={(e) => {
-                setNewQuestion({ description: e.target.value, type: "open" });
-              }}
+            <Button className="button self-end">+</Button>
+            <QuestionForm
+              addQuestion={addQuestion}
+              question={newQuestion}
+              setNewQuestion={setNewQuestion}
             />
             <Button className="button self-end" onPress={addQuestion}>
-              +
+              SAVE
             </Button>
           </div>
         </form>
