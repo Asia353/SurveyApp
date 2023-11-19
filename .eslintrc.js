@@ -30,6 +30,7 @@ module.exports = {
   plugins: ["react", "@typescript-eslint", "prettier"],
   rules: {
     "react/jsx-no-bind": "off",
-    // "@typescript-eslint/no-unused-vars": "warn",
+    "@typescript-eslint/no-unused-vars": "warn",
+    "import/no-cycle": "off",
   },
 };

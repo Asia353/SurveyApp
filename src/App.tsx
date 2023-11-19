@@ -18,8 +18,6 @@ function App() {
           <Route path="/add-survey" element={<AddSurveyPage />} />
           <Route path="/my-survey" element={<div>my survey</div>} />
         </Routes>
-        {/* <Button onClick={() => setNumber(number + 1)}>dodaj</Button>
-        <div>{number}</div> */}
       </NextUIProvider>
     </Router>
   );
