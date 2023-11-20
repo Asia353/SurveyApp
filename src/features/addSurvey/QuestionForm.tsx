@@ -1,53 +1,76 @@
-import { Input } from "@nextui-org/react";
-import React from "react";
+import { Button, Card, Input, Select, SelectItem } from "@nextui-org/react";
+import React, { useState } from "react";
 import { Question } from "../../pages/AddSurveyPage";
+import { AnswearsAdding } from "..";
 // dla każdego z elementów new question osobny state
 function QuestionForm({
   addQuestion,
   question,
-  setNewQuestion,
 }: {
-  addQuestion: () => void;
+  addQuestion: (
+    description: string,
+    type: string,
+    id: number,
+    options: string[],
+  ) => void;
   question: Question;
-  setNewQuestion: (question: Question) => void;
 }) {
+  const [description, setDescription] = useState(question.description);
+  const [type, setType] = useState(question.type);
+  const [options, setOptions] = useState(question.options);
+
+  const typesList = ["one option", "many options", "open"];
+
+  function addNewQuestion() {
+    addQuestion(description, type, question.id, options);
+    setDescription("");
+    setType("");
+    setOptions([]);
+  }
+
   return (
-    <div className="flex flex-col gap-2 mt-4 mb-4">
-      {/* <div>Jestem w question form</div> */}
-      <Input
-        type="text"
-        label="Question description"
-        value={question?.description}
-        onChange={(e) => {
-          setNewQuestion({
-            ...question,
-            description: e.target.value,
-          });
-        }}
-      />
-      <Input
-        type="text"
-        label="Type"
-        value={question?.type}
-        onChange={(e) => {
-          setNewQuestion({
-            ...question,
-            type: e.target.value,
-          });
-        }}
-      />
-      <Input
-        type="text"
-        label="Option"
-        // value={question?.options}
-        onChange={(e) => {
-          setNewQuestion({
-            ...question,
-            options: [...question.options, e.target.value],
-          });
-        }}
-      />
-    </div>
+    <Card className="p-4 mt-4">
+      <div className="flex flex-col gap-2 mt-4 mb-4">
+        <Input
+          type="text"
+          label="Question description"
+          value={description}
+          onChange={(e) => {
+            setDescription(e.target.value);
+          }}
+        />
+        <Select
+          label="Select question's type"
+          selectedKeys={[type]}
+          onChange={(e) => {
+            setType(e.target.value);
+          }}
+        >
+          {typesList.map((element) => (
+            <SelectItem key={element} value={element}>
+              {element}
+            </SelectItem>
+          ))}
+        </Select>
+        {/* <Input
+          type="text"
+          label="Option"
+          value={
+            options.length > 0
+              ? options.reduce((all, element) => all + element)
+              : ""
+          }
+          onChange={(e) => {
+            setOptions([...question.options, e.target.value]);
+          }}
+        /> */}
+
+        {type === "one option" && <AnswearsAdding />}
+        <Button className="button self-end mt-2" onPress={addNewQuestion}>
+          SAVE
+        </Button>
+      </div>
+    </Card>
   );
 }
 
