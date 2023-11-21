@@ -4,7 +4,7 @@ import { Add, EmojiHappy } from "iconsax-react";
 import OneAnswer from "./OneAnswer";
 
 function AnswersAdding() {
-  const [answersList, setAnswersList] = useState(["Answer1", "Answer2"]);
+  const [answersList, setAnswersList] = useState<string[]>([]);
   const [newAnswer, setNewAnswer] = useState("");
 
   function addAnswerToList() {
@@ -12,11 +12,21 @@ function AnswersAdding() {
     setNewAnswer("");
   }
 
+  function deleteAnswerFromList(id: number) {
+    setAnswersList((prevList) =>
+      prevList.filter((element, index) => index !== id),
+    );
+  }
+
   return (
     <Card className="p-4">
       <div className=" flex flex-col">
-        {answersList.map((answer) => (
-          <OneAnswer answer={answer} />
+        {answersList.map((answer, index) => (
+          <OneAnswer
+            answer={answer}
+            id={index}
+            deleteAnswerFromList={deleteAnswerFromList}
+          />
         ))}
       </div>
       <div className=" flex flex-row mt-2">
@@ -38,7 +48,7 @@ function AnswersAdding() {
           }}
         />
         <Button
-          className="ml-auto self-center ml-4 h-12"
+          className="self-center h-auto w-auto p-0 min-w-0 ml-4"
           size="sm"
           variant="light"
           onClick={addAnswerToList}

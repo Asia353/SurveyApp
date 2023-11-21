@@ -1,7 +1,19 @@
 import React from "react";
 import { EmojiHappy } from "iconsax-react";
+import { ActionButton } from "./QuestionItem";
 
-function OneAnswer({ answer }: { answer: string }) {
+function OneAnswer({
+  answer,
+  id,
+  deleteAnswerFromList,
+}: {
+  answer: string;
+  id: number;
+  deleteAnswerFromList: (id: number) => void;
+}) {
+  function deleteAnswer() {
+    deleteAnswerFromList(id);
+  }
   // return <p>{answer}</p>;
   return (
     <div className="flex flex-row pb-3">
@@ -12,6 +24,7 @@ function OneAnswer({ answer }: { answer: string }) {
         variant="Bold"
       />
       <p>{answer}</p>
+      <ActionButton actionIcon="Trash" onClickFunction={deleteAnswer} />
     </div>
   );
 }

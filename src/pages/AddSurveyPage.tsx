@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import "./AddSurveyPage.css";
-import { Button, Card, CardBody, CardHeader, Input } from "@nextui-org/react";
+import { Button, Card, CardHeader } from "@nextui-org/react";
 import { QuestionItem, QuestionForm } from "../features";
 
 export type Question = {
@@ -16,7 +16,7 @@ function Page() {
     { description: "Question 2", type: "open", id: 2, options: [] },
   ]);
 
-  const [newQuestion, setNewQuestion] = useState<Question>({
+  const [newQuestion] = useState<Question>({
     description: "",
     type: "",
     id: 0,
@@ -34,7 +34,11 @@ function Page() {
     // setQuestionsList((x) => [...x, newQuestion]);
 
     let newId = id;
-    if (id === 0) newId = questionsList[questionsList.length - 1].id + 1;
+    if (id === 0)
+      newId =
+        questionsList.length > 0
+          ? questionsList[questionsList.length - 1].id + 1
+          : 0;
 
     setQuestionsList([
       ...questionsList,

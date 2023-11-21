@@ -1,10 +1,48 @@
 /* eslint-disable @typescript-eslint/no-unused-expressions */
-import { Button, Card, CardBody } from "@nextui-org/react";
+import { Button, Card, CardBody, Tooltip } from "@nextui-org/react";
 import React from "react";
-import { Trash } from "iconsax-react";
+import { Edit, Sun1, Trash } from "iconsax-react";
 
 import { Question } from "../../pages/AddSurveyPage";
 
+export function ActionButton({
+  actionIcon,
+  onClickFunction,
+}: {
+  actionIcon: string;
+  onClickFunction: () => void;
+}) {
+  function icon() {
+    const size = "16";
+    const className = "m-1";
+    if (actionIcon === "Trash") {
+      return (
+        <Tooltip content="delete" offset={10}>
+          <Trash size={size} className={className} onClick={onClickFunction} />
+        </Tooltip>
+      );
+    }
+    if (actionIcon === "Edit") {
+      return (
+        <Tooltip content="edit">
+          <Edit size={size} className={className} onClick={onClickFunction} />
+        </Tooltip>
+      );
+    }
+    return <Sun1 size={size} className={className} onClick={onClickFunction} />;
+  }
+
+  return (
+    <Button
+      className=" min-w-0 p-0 ml-auto"
+      size="sm"
+      variant="light"
+      onClick={onClickFunction}
+    >
+      {icon()}
+    </Button>
+  );
+}
 function QuestionItem({
   item,
   deleteQuestion,
@@ -18,15 +56,20 @@ function QuestionItem({
     deleteQuestion(index);
   }
 
+  function editItem() {
+    console.log("Jestem w edit item");
+  }
+
   return (
     <Card shadow="sm" className="p-2 qusetion-component">
       <CardBody className="flex flex-row">
-        <div>
-          {item.id}, index: {index}, {item.description}
+        <div className=" self-center">
+          {item.id}. {item.description}
         </div>
-        <Button className=" ml-auto" variant="light" onClick={deleteItem}>
-          <Trash size="15" />
-        </Button>
+        <div className=" ml-auto">
+          <ActionButton actionIcon="Edit" onClickFunction={editItem} />
+          <ActionButton actionIcon="Trash" onClickFunction={deleteItem} />
+        </div>
       </CardBody>
     </Card>
   );
