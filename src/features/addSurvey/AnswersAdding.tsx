@@ -1,21 +1,7 @@
 import { Button, Card, Input } from "@nextui-org/react";
 import React, { useState } from "react";
 import { Add, EmojiHappy } from "iconsax-react";
-
-function OneAnswer({ answer }: { answer: string }) {
-  // return <p>{answer}</p>;
-  return (
-    <div className="flex flex-row pb-3">
-      <EmojiHappy
-        className="self-center mr-4"
-        size="22"
-        color="gray"
-        variant="Bold"
-      />
-      <p>{answer}</p>
-    </div>
-  );
-}
+import OneAnswer from "./OneAnswer";
 
 function AnswersAdding() {
   const [answersList, setAnswersList] = useState(["Answer1", "Answer2"]);
@@ -33,11 +19,11 @@ function AnswersAdding() {
           <OneAnswer answer={answer} />
         ))}
       </div>
-      <div className=" flex flex-row">
+      <div className=" flex flex-row mt-2">
         <EmojiHappy
           className="self-center mr-4"
           size="28"
-          color="gray"
+          color="#71717A"
           variant="Bold"
         />
         <Input
@@ -57,7 +43,7 @@ function AnswersAdding() {
           variant="light"
           onClick={addAnswerToList}
         >
-          <Add size="28" color="gray" variant="Linear" />
+          <Add size="28" color="#71717A" variant="Linear" />
         </Button>
       </div>
     </Card>

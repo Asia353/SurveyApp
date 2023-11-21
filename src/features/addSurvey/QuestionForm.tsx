@@ -2,7 +2,7 @@ import { Button, Card, Input, Select, SelectItem } from "@nextui-org/react";
 import React, { useState } from "react";
 import { Question } from "../../pages/AddSurveyPage";
 import { AnswearsAdding } from "..";
-// dla każdego z elementów new question osobny state
+
 function QuestionForm({
   addQuestion,
   question,
@@ -52,20 +52,9 @@ function QuestionForm({
             </SelectItem>
           ))}
         </Select>
-        {/* <Input
-          type="text"
-          label="Option"
-          value={
-            options.length > 0
-              ? options.reduce((all, element) => all + element)
-              : ""
-          }
-          onChange={(e) => {
-            setOptions([...question.options, e.target.value]);
-          }}
-        /> */}
-
-        {type === "one option" && <AnswearsAdding />}
+        {(type === "one option" || type === "many options") && (
+          <AnswearsAdding />
+        )}
         <Button className="button self-end mt-2" onPress={addNewQuestion}>
           SAVE
         </Button>

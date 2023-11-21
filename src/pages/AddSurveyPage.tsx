@@ -49,6 +49,12 @@ function Page() {
     // setNewQuestion({ description: " ", type: " ", id: 0, options: [] });
   }
 
+  function deleteQuestion(id: number) {
+    setQuestionsList((prevList) =>
+      prevList.filter((element, index) => index !== id),
+    );
+  }
+
   return (
     <div className="page flex items-center justify-center">
       <Card className="survey-component">
@@ -57,7 +63,11 @@ function Page() {
         </CardHeader>
         <div className="questions-view-component justify-center gap-2 flex flex-col mb-4">
           {questionsList.map((item, index) => (
-            <QuestionItem item={item} />
+            <QuestionItem
+              item={item}
+              deleteQuestion={deleteQuestion}
+              index={index}
+            />
           ))}
         </div>
         <form
@@ -75,15 +85,8 @@ function Page() {
               +
             </Button>
             {questionEditorAvaliable && (
-              <QuestionForm
-                addQuestion={addQuestion}
-                question={newQuestion}
-                // setNewQuestion={setNewQuestion}
-              />
+              <QuestionForm addQuestion={addQuestion} question={newQuestion} />
             )}
-            {/* <Button className="button self-end" onPress={addQuestion}>
-              SAVE
-            </Button> */}
           </div>
         </form>
       </Card>
