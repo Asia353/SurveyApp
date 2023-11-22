@@ -1,6 +1,6 @@
 import React from "react";
 import { EmojiHappy } from "iconsax-react";
-import { ActionButton } from "./QuestionItem";
+import ActionButton from "./ActionButton";
 
 function OneAnswer({
   answer,

@@ -29,7 +29,7 @@ function AnswersAdding() {
           />
         ))}
       </div>
-      <div className=" flex flex-row mt-2">
+      <div className=" flex flex-row">
         <EmojiHappy
           className="self-center mr-4"
           size="28"

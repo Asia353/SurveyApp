@@ -1,48 +1,10 @@
 /* eslint-disable @typescript-eslint/no-unused-expressions */
-import { Button, Card, CardBody, Tooltip } from "@nextui-org/react";
-import React from "react";
-import { Edit, Sun1, Trash } from "iconsax-react";
+import { Button, Card, CardBody, CardFooter, Tooltip } from "@nextui-org/react";
+import React, { useState } from "react";
 
 import { Question } from "../../pages/AddSurveyPage";
+import ActionButton from "./ActionButton";
 
-export function ActionButton({
-  actionIcon,
-  onClickFunction,
-}: {
-  actionIcon: string;
-  onClickFunction: () => void;
-}) {
-  function icon() {
-    const size = "16";
-    const className = "m-1";
-    if (actionIcon === "Trash") {
-      return (
-        <Tooltip content="delete" offset={10}>
-          <Trash size={size} className={className} onClick={onClickFunction} />
-        </Tooltip>
-      );
-    }
-    if (actionIcon === "Edit") {
-      return (
-        <Tooltip content="edit">
-          <Edit size={size} className={className} onClick={onClickFunction} />
-        </Tooltip>
-      );
-    }
-    return <Sun1 size={size} className={className} onClick={onClickFunction} />;
-  }
-
-  return (
-    <Button
-      className=" min-w-0 p-0 ml-auto"
-      size="sm"
-      variant="light"
-      onClick={onClickFunction}
-    >
-      {icon()}
-    </Button>
-  );
-}
 function QuestionItem({
   item,
   deleteQuestion,
@@ -52,6 +14,7 @@ function QuestionItem({
   deleteQuestion: (id: number) => void;
   index: number;
 }) {
+  const [showDetails, setShowDetails] = useState(false);
   function deleteItem() {
     deleteQuestion(index);
   }
@@ -60,17 +23,36 @@ function QuestionItem({
     console.log("Jestem w edit item");
   }
 
+  function details() {
+    setShowDetails(!showDetails);
+  }
+
   return (
-    <Card shadow="sm" className="p-2 qusetion-component">
+    <Card
+      shadow="sm"
+      className="p-2 qusetion-component"
+      // isPressable
+      // onPress={() => console.log("Jestem w show details")}
+    >
       <CardBody className="flex flex-row">
         <div className=" self-center">
           {item.id}. {item.description}
         </div>
-        <div className=" ml-auto">
+        <div className=" ml-auto flex flex-row">
+          {showDetails ? (
+            <ActionButton actionIcon="ArrowUp2" onClickFunction={details} />
+          ) : (
+            <ActionButton actionIcon="ArrowDown2" onClickFunction={details} />
+          )}
           <ActionButton actionIcon="Edit" onClickFunction={editItem} />
           <ActionButton actionIcon="Trash" onClickFunction={deleteItem} />
         </div>
       </CardBody>
+      {showDetails && (
+        <CardFooter>
+          <div>Jestem</div>
+        </CardFooter>
+      )}
     </Card>
   );
 }
