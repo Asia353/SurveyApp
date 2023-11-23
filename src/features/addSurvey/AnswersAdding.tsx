@@ -10,10 +10,14 @@ function AnswersAdding({
 }: {
   answersList: string[];
   deleteAnswerFromList: (id: number) => void;
-  addAnswerToList: (newAnswer: string) => string;
+  addAnswerToList: (newAnswer: string) => void;
 }) {
   const [newAnswer, setNewAnswer] = useState("");
 
+  function addAnswer() {
+    addAnswerToList(newAnswer);
+    setNewAnswer("");
+  }
   return (
     <Card className="p-4">
       <div className=" flex flex-col">
@@ -47,7 +51,7 @@ function AnswersAdding({
           className="self-center h-auto w-auto p-0 min-w-0 ml-4"
           size="sm"
           variant="light"
-          onClick={() => setNewAnswer(() => addAnswerToList(newAnswer))}
+          onClick={addAnswer}
         >
           <Add size="28" color="#71717A" variant="Linear" />
         </Button>

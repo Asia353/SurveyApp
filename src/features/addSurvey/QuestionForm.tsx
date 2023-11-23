@@ -19,18 +19,12 @@ function QuestionForm({
   const [type, setType] = useState(question.type);
   const [options, setOptions] = useState(question.options);
 
-  const [answersList, setAnswersList] = useState<string[]>([]);
-
   function addAnswerToList(newAnswer: string) {
-    setAnswersList([...answersList, newAnswer]);
-    return "";
-    // setNewAnswer("");
+    setOptions([...options, newAnswer]);
   }
 
   function deleteAnswerFromList(id: number) {
-    setAnswersList((prevList) =>
-      prevList.filter((element, index) => index !== id),
-    );
+    setOptions((prevList) => prevList.filter((element, index) => index !== id));
   }
 
   const typesList = ["one option", "many options", "open"];
@@ -40,7 +34,6 @@ function QuestionForm({
     setDescription("");
     setType("");
     setOptions([]);
-    setAnswersList([]);
   }
 
   return (
@@ -69,7 +62,7 @@ function QuestionForm({
         </Select>
         {(type === "one option" || type === "many options") && (
           <AnswearsAdding
-            answersList={answersList}
+            answersList={options}
             deleteAnswerFromList={deleteAnswerFromList}
             addAnswerToList={addAnswerToList}
           />
