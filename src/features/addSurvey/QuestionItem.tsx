@@ -50,7 +50,10 @@ function QuestionItem({
       </CardBody>
       {showDetails && (
         <CardFooter>
-          <div>Jestem</div>
+          <div>
+            type: {item.type} . . . options length: {item.options.length} . . .
+            options: {item.options}
+          </div>
         </CardFooter>
       )}
     </Card>

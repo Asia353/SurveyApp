@@ -24,7 +24,9 @@ function OneAnswer({
         variant="Bold"
       />
       <p>{answer}</p>
-      <ActionButton actionIcon="Trash" onClickFunction={deleteAnswer} />
+      <div className=" ml-auto">
+        <ActionButton actionIcon="Trash" onClickFunction={deleteAnswer} />
+      </div>
     </div>
   );
 }

@@ -19,6 +19,20 @@ function QuestionForm({
   const [type, setType] = useState(question.type);
   const [options, setOptions] = useState(question.options);
 
+  const [answersList, setAnswersList] = useState<string[]>([]);
+
+  function addAnswerToList(newAnswer: string) {
+    setAnswersList([...answersList, newAnswer]);
+    return "";
+    // setNewAnswer("");
+  }
+
+  function deleteAnswerFromList(id: number) {
+    setAnswersList((prevList) =>
+      prevList.filter((element, index) => index !== id),
+    );
+  }
+
   const typesList = ["one option", "many options", "open"];
 
   function addNewQuestion() {
@@ -26,6 +40,7 @@ function QuestionForm({
     setDescription("");
     setType("");
     setOptions([]);
+    setAnswersList([]);
   }
 
   return (
@@ -53,7 +68,11 @@ function QuestionForm({
           ))}
         </Select>
         {(type === "one option" || type === "many options") && (
-          <AnswearsAdding />
+          <AnswearsAdding
+            answersList={answersList}
+            deleteAnswerFromList={deleteAnswerFromList}
+            addAnswerToList={addAnswerToList}
+          />
         )}
         <Button className="button self-end mt-2" onPress={addNewQuestion}>
           SAVE

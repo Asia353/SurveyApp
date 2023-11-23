@@ -3,20 +3,16 @@ import React, { useState } from "react";
 import { Add, EmojiHappy } from "iconsax-react";
 import OneAnswer from "./OneAnswer";
 
-function AnswersAdding() {
-  const [answersList, setAnswersList] = useState<string[]>([]);
+function AnswersAdding({
+  answersList,
+  deleteAnswerFromList,
+  addAnswerToList,
+}: {
+  answersList: string[];
+  deleteAnswerFromList: (id: number) => void;
+  addAnswerToList: (newAnswer: string) => string;
+}) {
   const [newAnswer, setNewAnswer] = useState("");
-
-  function addAnswerToList() {
-    setAnswersList([...answersList, newAnswer]);
-    setNewAnswer("");
-  }
-
-  function deleteAnswerFromList(id: number) {
-    setAnswersList((prevList) =>
-      prevList.filter((element, index) => index !== id),
-    );
-  }
 
   return (
     <Card className="p-4">
@@ -51,7 +47,7 @@ function AnswersAdding() {
           className="self-center h-auto w-auto p-0 min-w-0 ml-4"
           size="sm"
           variant="light"
-          onClick={addAnswerToList}
+          onClick={() => setNewAnswer(() => addAnswerToList(newAnswer))}
         >
           <Add size="28" color="#71717A" variant="Linear" />
         </Button>
