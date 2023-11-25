@@ -1,32 +1,29 @@
-import React from "react";
+import React, { useState } from "react";
 import { EmojiHappy } from "iconsax-react";
 import ActionButton from "./ActionButton";
 
 function OneAnswer({
-  answer,
-  id,
-  deleteAnswerFromList,
+  answer, // editAnswer,
 }: {
   answer: string;
-  id: number;
-  deleteAnswerFromList: (id: number) => void;
+  // editAnswer: (id: number, newValue: string) => void;
 }) {
-  function deleteAnswer() {
-    deleteAnswerFromList(id);
-  }
   // return <p>{answer}</p>;
+  // const [editElement, setEditElement] = useState(false);
+
+  // function edit(id: number, newValue: string) {
+  //   if (editElement) editAnswer(id, newValue);
+  // }
+
   return (
-    <div className="flex flex-row pb-3">
+    <div className="flex flex-row">
       <EmojiHappy
         className="self-center mr-5"
         size="22"
         color="#A1A1AA"
         variant="Bold"
       />
-      <p>{answer}</p>
-      <div className=" ml-auto">
-        <ActionButton actionIcon="Trash" onClickFunction={deleteAnswer} />
-      </div>
+      {answer}
     </div>
   );
 }

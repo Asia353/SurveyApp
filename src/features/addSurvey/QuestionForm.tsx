@@ -3,6 +3,8 @@ import React, { useState } from "react";
 import { Question } from "../../pages/AddSurveyPage";
 import { AnswearsAdding } from "..";
 
+export const typesList = ["one option", "many options", "open"];
+
 function QuestionForm({
   addQuestion,
   question,
@@ -27,7 +29,13 @@ function QuestionForm({
     setOptions((prevList) => prevList.filter((element, index) => index !== id));
   }
 
-  const typesList = ["one option", "many options", "open"];
+  function editAnswer(id: number, newValue: string) {
+    setOptions((prevOptions) =>
+      prevOptions.map((option, index) => (index === id ? newValue : option)),
+    );
+  }
+
+  // const typesList = ["one option", "many options", "open"];
 
   function addNewQuestion() {
     addQuestion(description, type, question.id, options);
@@ -65,6 +73,7 @@ function QuestionForm({
             answersList={options}
             deleteAnswerFromList={deleteAnswerFromList}
             addAnswerToList={addAnswerToList}
+            editAnswer={editAnswer}
           />
         )}
         <Button className="button self-end mt-2" onPress={addNewQuestion}>

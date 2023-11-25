@@ -1,16 +1,18 @@
 import { Button, Card, Input } from "@nextui-org/react";
 import React, { useState } from "react";
 import { Add, EmojiHappy } from "iconsax-react";
-import OneAnswer from "./OneAnswer";
+import AnswerEditing from "./AnswerEditing";
 
 function AnswersAdding({
   answersList,
   deleteAnswerFromList,
   addAnswerToList,
+  editAnswer,
 }: {
   answersList: string[];
   deleteAnswerFromList: (id: number) => void;
   addAnswerToList: (newAnswer: string) => void;
+  editAnswer: (id: number, newAnswer: string) => void;
 }) {
   const [newAnswer, setNewAnswer] = useState("");
 
@@ -18,14 +20,20 @@ function AnswersAdding({
     addAnswerToList(newAnswer);
     setNewAnswer("");
   }
+
+  // function editAnswer(id: number, newValue: string) {
+  //   // answersList[id] = newValue;
+  // }
+
   return (
     <Card className="p-4">
       <div className=" flex flex-col">
         {answersList.map((answer, index) => (
-          <OneAnswer
+          <AnswerEditing
             answer={answer}
             id={index}
             deleteAnswerFromList={deleteAnswerFromList}
+            editAnswer={editAnswer}
           />
         ))}
       </div>

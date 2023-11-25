@@ -12,8 +12,18 @@ export type Question = {
 
 function Page() {
   const [questionsList, setQuestionsList] = useState<Question[]>([
-    { description: "Question 1", type: "open", id: 1, options: [] },
-    { description: "Question 2", type: "open", id: 2, options: [] },
+    {
+      description: "Question 1",
+      type: "one option",
+      id: 1,
+      options: ["a1", "a2", "a3"],
+    },
+    {
+      description: "Question 2",
+      type: "many options",
+      id: 2,
+      options: ["a1", "a2", "a3"],
+    },
   ]);
 
   const [newQuestion] = useState<Question>({
@@ -59,6 +69,44 @@ function Page() {
     );
   }
 
+  // function setOpenQuestion(questionId: number) {
+  //   setQuestionsList((prevList) =>
+  //     prevList.map((element, index) =>
+  //       index === questionId ? { ...element, option: [] } : element,
+  //     ),
+  //   );
+  //   // setType(() => newType);
+  // }
+
+  function saveEditedQuestion(
+    questionId: number,
+    newDescription: string,
+    newType: string,
+    newOptions: string[],
+  ) {
+    // console.log(questionId, newDescription, newType, newOptions);
+
+    setQuestionsList((prevList) =>
+      prevList.map((element, index) =>
+        index === questionId
+          ? {
+              ...element,
+              description: newDescription,
+              type: newType,
+              options: newOptions,
+            }
+          : element,
+      ),
+    );
+    // console.log("po zmianie:");
+    // console.log(questionsList);
+  }
+
+  function printValues() {
+    console.log("Print questions: ");
+    console.log(questionsList);
+  }
+
   return (
     <div className="page flex items-center justify-center">
       <Card className="survey-component">
@@ -70,6 +118,8 @@ function Page() {
             <QuestionItem
               item={item}
               deleteQuestion={deleteQuestion}
+              saveEditedQuestion={saveEditedQuestion}
+              printValues={printValues}
               index={index}
             />
           ))}
