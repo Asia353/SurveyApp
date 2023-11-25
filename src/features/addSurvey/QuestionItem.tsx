@@ -11,10 +11,11 @@ import {
 import React, { useState } from "react";
 import { Back } from "iconsax-react";
 
-import { Question } from "../../pages/AddSurveyPage";
+import { Question } from "../../types";
 import ActionButton from "./ActionButton";
 import OneAnswer from "./OneAnswer";
 import { typesList } from "./QuestionForm";
+import AnswersAdding from "./AnswersAdding";
 
 function QuestionItem({
   item,
@@ -79,6 +80,21 @@ function QuestionItem({
     setNewOptions(item.options);
   }
 
+  function deleteAnswerFromList(id: number) {
+    setNewOptions((list) => list.filter((element, idx) => idx !== id));
+    // setOptions((prevList) => prevList.filter((element, index) => index !== id));
+  }
+
+  function addAnswerToList(newValue: string) {
+    setNewOptions((list) => [...list, newValue]);
+  }
+
+  function editAnswer(id: number, newValue: string) {
+    setNewOptions((prevOptions) =>
+      prevOptions.map((option, idx) => (idx === id ? newValue : option)),
+    );
+  }
+
   return (
     <Card shadow="sm" className="p-2 qusetion-component">
       <CardBody className="flex flex-row">
@@ -123,17 +139,25 @@ function QuestionItem({
               ))}
             </Select>
           </div>
-          <div className="flex flex-col">
-            {newOptions.map((answer, idx) => (
+          <div className=" mt-4 min-w-full">
+            {/* {newOptions.map((answer, idx) => (
               <OneAnswer answer={answer} />
-            ))}
+            ))} */}
+            {newType !== "open" && (
+              <AnswersAdding
+                answersList={newOptions}
+                deleteAnswerFromList={deleteAnswerFromList}
+                addAnswerToList={addAnswerToList}
+                editAnswer={editAnswer}
+              />
+            )}
           </div>
           <div className="flex flex-row self-end mt-4 gap-2">
             <Button className="min-w-0 p-3" onClick={handleSaveButtonClick}>
               SAVE
             </Button>
             <Button className="min-w-0 p-2" onClick={handleBackButtonClick}>
-              <Back />
+              <Back size="20" color="#71717A" variant="Linear" />
             </Button>
             {/* <Button className="min-w-0 p-2" onClick={printValues}>
               pr

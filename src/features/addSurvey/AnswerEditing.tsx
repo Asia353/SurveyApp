@@ -17,27 +17,27 @@ function AnswerEditing({
   editAnswer: (id: number, newValue: string) => void;
 }) {
   const [isEditing, setIsEditing] = useState(false);
-  const [editedAnswer, setEditedAnswer] = useState(answer);
+  const [newAnswer, setNewAnswer] = useState(answer);
 
   function deleteAnswer() {
     deleteAnswerFromList(id);
   }
 
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setEditedAnswer(e.target.value);
-  };
-
-  function handleEditButtonClick() {
-    if (isEditing) {
-      editAnswer(id, editedAnswer);
-    } else setIsEditing(!editAnswer);
+  function saveEditedAnswer() {
+    editAnswer(id, newAnswer);
+    setIsEditing(false);
   }
 
-  function handleKeyDown(e: React.KeyboardEvent<HTMLInputElement>) {
-    if (e.key === "Enter") {
-      setIsEditing(!isEditing);
-    }
+  function dontSaveEditedAnswer() {
+    setNewAnswer(answer);
+    setIsEditing(false);
   }
+
+  // function handleKeyDown(e: React.KeyboardEvent<HTMLInputElement>) {
+  //   if (e.key === "Enter") {
+  //     setIsEditing(!isEditing);
+  //   }
+  // }
 
   return (
     <div
@@ -54,17 +54,30 @@ function AnswerEditing({
       {/* <OneAnswer answer={answer} /> */}
       {isEditing ? (
         <Input
-          value={editedAnswer}
-          onChange={handleInputChange}
-          onBlur={handleEditButtonClick}
-          autoFocus
-          onKeyDown={handleKeyDown}
+          className="mr-4"
+          value={newAnswer}
+          onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+            setNewAnswer(e.target.value);
+          }}
+          // onBlur={() => saveEditedAnswer()}
+          onBlur={() => {
+            saveEditedAnswer();
+          }}
+          // autoFocus
+          onKeyDown={(e) => {
+            if (e.key === "Enter") {
+              saveEditedAnswer();
+            }
+          }}
         />
       ) : (
-        <OneAnswer answer={editedAnswer} />
+        <OneAnswer answer={newAnswer} />
       )}
       <div className=" ml-auto">
-        <ActionButton actionIcon="Trash" onClickFunction={deleteAnswer} />
+        <ActionButton
+          actionIcon="Trash"
+          onClickFunction={() => deleteAnswerFromList(id)}
+        />
       </div>
     </div>
   );

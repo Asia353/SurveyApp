@@ -1,10 +1,11 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { NextUIProvider } from "@nextui-org/react";
 import { Route, Routes, BrowserRouter as Router } from "react-router-dom";
 
 import "./App.css";
 import NavBar from "./components/NavBar";
-import { AddSurveyPage } from "./pages";
+import { AddSurveyPage, MySurvaysPage } from "./pages";
+import { SurveysContextProvider } from "./SurveysContext";
 
 function App() {
   // const [number, setNumber] = useState(5);
@@ -15,8 +16,22 @@ function App() {
       <NextUIProvider>
         <NavBar />
         <Routes>
-          <Route path="/add-survey" element={<AddSurveyPage />} />
-          <Route path="/my-survey" element={<div>my survey</div>} />
+          <Route
+            path="/add-survey"
+            element={
+              <SurveysContextProvider>
+                <AddSurveyPage />
+              </SurveysContextProvider>
+            }
+          />
+          <Route
+            path="/my-survey"
+            element={
+              <SurveysContextProvider>
+                <MySurvaysPage />
+              </SurveysContextProvider>
+            }
+          />
         </Routes>
       </NextUIProvider>
     </Router>

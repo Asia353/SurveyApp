@@ -1,6 +1,6 @@
 import { Button, Card, Input, Select, SelectItem } from "@nextui-org/react";
 import React, { useState } from "react";
-import { Question } from "../../pages/AddSurveyPage";
+import { Question } from "../../types";
 import { AnswearsAdding } from "..";
 
 export const typesList = ["one option", "many options", "open"];
@@ -26,7 +26,7 @@ function QuestionForm({
   }
 
   function deleteAnswerFromList(id: number) {
-    setOptions((prevList) => prevList.filter((element, index) => index !== id));
+    setOptions((prevList) => prevList.filter((_, index) => index !== id));
   }
 
   function editAnswer(id: number, newValue: string) {

@@ -30,6 +30,7 @@ function AnswersAdding({
       <div className=" flex flex-col">
         {answersList.map((answer, index) => (
           <AnswerEditing
+            key={`${answer}`}
             answer={answer}
             id={index}
             deleteAnswerFromList={deleteAnswerFromList}

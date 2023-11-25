@@ -1,14 +1,11 @@
-import React, { useState } from "react";
-import "./AddSurveyPage.css";
-import { Button, Card, CardHeader } from "@nextui-org/react";
-import { QuestionItem, QuestionForm } from "../features";
+import React, { useContext, useState } from "react";
+import { Add } from "iconsax-react";
 
-export type Question = {
-  description: string;
-  type: string;
-  id: number;
-  options: string[];
-};
+import "./Page.css";
+import { Button, Card, CardHeader, Input } from "@nextui-org/react";
+import { QuestionItem, QuestionForm } from "../features";
+import { Question } from "../types";
+import { useSurveyContext } from "../SurveysContext";
 
 function Page() {
   const [questionsList, setQuestionsList] = useState<Question[]>([
@@ -26,6 +23,8 @@ function Page() {
     },
   ]);
 
+  const surveysContext = useSurveyContext();
+
   const [newQuestion] = useState<Question>({
     description: "",
     type: "",
@@ -34,6 +33,15 @@ function Page() {
   });
 
   const [questionEditorAvaliable, setQuestionEditorAvaliable] = useState(false);
+  const [surveyNameEditorAvaliable, setSurveyNameEditorAvaliable] =
+    useState(false);
+  const [surveyName, setSurveyName] = useState("New Survey");
+
+  function addSurvey() {
+    const newId = surveysContext.surveysList.length + 1;
+    const newSurvey = { name: surveyName, id: newId, questions: questionsList };
+    surveysContext.addSurveyToList(newSurvey);
+  }
 
   function addQuestion(
     description: string,
@@ -60,6 +68,8 @@ function Page() {
       },
     ]);
 
+    setQuestionEditorAvaliable(false);
+
     // setNewQuestion({ description: " ", type: " ", id: 0, options: [] });
   }
 
@@ -69,23 +79,12 @@ function Page() {
     );
   }
 
-  // function setOpenQuestion(questionId: number) {
-  //   setQuestionsList((prevList) =>
-  //     prevList.map((element, index) =>
-  //       index === questionId ? { ...element, option: [] } : element,
-  //     ),
-  //   );
-  //   // setType(() => newType);
-  // }
-
   function saveEditedQuestion(
     questionId: number,
     newDescription: string,
     newType: string,
     newOptions: string[],
   ) {
-    // console.log(questionId, newDescription, newType, newOptions);
-
     setQuestionsList((prevList) =>
       prevList.map((element, index) =>
         index === questionId
@@ -108,12 +107,51 @@ function Page() {
   }
 
   return (
-    <div className="page flex items-center justify-center">
-      <Card className="survey-component">
-        <CardHeader className="items-start">
-          <p>Name: New survey</p>
+    <div className="flex flex-col items-center justify-center p-8">
+      <Card className="survey-component p-7">
+        <CardHeader className="mb-7 p-0">
+          {surveyNameEditorAvaliable ? (
+            <Input
+              className="m-0"
+              value={surveyName}
+              onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+                setSurveyName(e.target.value);
+              }}
+              onBlur={() => setSurveyNameEditorAvaliable(false)}
+              autoFocus
+              onKeyDown={(e) => {
+                if (e.key === "Enter") setSurveyNameEditorAvaliable(false);
+              }}
+            />
+          ) : (
+            <div
+              className="flex flex-row"
+              role="button"
+              tabIndex={0}
+              onFocus={() => setSurveyNameEditorAvaliable(true)}
+              // onClick={() => setSurveyNameEditorAvaliable(true)}
+              // onKeyDown={(e) => {
+              //   if (e.key === "Enter") {
+              //     setSurveyNameEditorAvaliable(false);
+              //   }
+              // }}
+            >
+              <p className="mr-2">Name: </p>
+              <p>{surveyName}</p>
+            </div>
+
+            // role="button" // Dodaj role przycisku, aby określić, że jest to interaktywny element
+            // className="flex flex-row pb-3"
+            // tabIndex={0}
+            // onClick={() => setIsEditing(true)}
+            // onKeyDown={(e) => {
+            //   if (e.key === "Enter") {
+            //     setIsEditing(true);
+            //   }
+            // }}
+          )}
         </CardHeader>
-        <div className="questions-view-component justify-center gap-2 flex flex-col mb-4">
+        <div className="justify-center gap-2 flex flex-col mb-4">
           {questionsList.map((item, index) => (
             <QuestionItem
               item={item}
@@ -136,11 +174,14 @@ function Page() {
                 setQuestionEditorAvaliable(!questionEditorAvaliable)
               }
             >
-              +
+              <Add size="28" color="#71717A" variant="Linear" />
             </Button>
             {questionEditorAvaliable && (
               <QuestionForm addQuestion={addQuestion} question={newQuestion} />
             )}
+            <Button className="mt-4" onClick={addSurvey}>
+              SAVE SURVEY
+            </Button>
           </div>
         </form>
       </Card>
