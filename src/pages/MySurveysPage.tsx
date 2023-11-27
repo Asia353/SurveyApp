@@ -1,5 +1,6 @@
 import React, { useState } from "react";
-import { Card, CardHeader, Input } from "@nextui-org/react";
+import { Button, Card, CardHeader, Input } from "@nextui-org/react";
+import { Link } from "react-router-dom";
 
 import "./Page.css";
 import SurveyListView from "../features/mySurveys/SurveysListView";
@@ -15,6 +16,9 @@ function Page() {
         <CardHeader className="m=0 p-0">
           <SurveyListView />
         </CardHeader>
+        <Button className="mt-10" as={Link} to="/add-survey">
+          ADD NEW SURVEY
+        </Button>
       </Card>
     </div>
   );

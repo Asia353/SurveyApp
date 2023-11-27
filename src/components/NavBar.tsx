@@ -14,7 +14,7 @@ export default function Test() {
   return (
     <NavBarComponent>
       <NavbarBrand>
-        <p className="font-bold text-inherit">NAZWA</p>
+        <p className="font-bold text-inherit">ANKIETY</p>
       </NavbarBrand>
 
       <NavbarContent className="sm:flex gap-4" justify="center">
