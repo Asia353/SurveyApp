@@ -3,11 +3,15 @@ import { Add } from "iconsax-react";
 
 import "./Page.css";
 import { Button, Card, CardHeader, Input } from "@nextui-org/react";
-import { QuestionItem, QuestionForm } from "../features";
+import { QuestionForm, QuestionItemEdit } from "../features";
 import { Question } from "../types";
 import { useSurveyContext } from "../SurveysContext";
+import QuestionItem from "../features/mySurveys/QuestionItem";
+import QuestionListView from "../features/QuestionsListView";
 
 function Page() {
+  const edit = true;
+
   const [questionsList, setQuestionsList] = useState<Question[]>([
     {
       description: "Question 1",
@@ -97,13 +101,6 @@ function Page() {
           : element,
       ),
     );
-    // console.log("po zmianie:");
-    // console.log(questionsList);
-  }
-
-  function printValues() {
-    console.log("Print questions: ");
-    console.log(questionsList);
   }
 
   return (
@@ -129,38 +126,21 @@ function Page() {
               role="button"
               tabIndex={0}
               onFocus={() => setSurveyNameEditorAvaliable(true)}
-              // onClick={() => setSurveyNameEditorAvaliable(true)}
-              // onKeyDown={(e) => {
-              //   if (e.key === "Enter") {
-              //     setSurveyNameEditorAvaliable(false);
-              //   }
-              // }}
             >
               <p className="mr-2">Name: </p>
               <p>{surveyName}</p>
             </div>
-
-            // role="button" // Dodaj role przycisku, aby określić, że jest to interaktywny element
-            // className="flex flex-row pb-3"
-            // tabIndex={0}
-            // onClick={() => setIsEditing(true)}
-            // onKeyDown={(e) => {
-            //   if (e.key === "Enter") {
-            //     setIsEditing(true);
-            //   }
-            // }}
           )}
         </CardHeader>
         <div className="justify-center gap-2 flex flex-col mb-4">
-          {questionsList.map((item, index) => (
-            <QuestionItem
-              item={item}
-              deleteQuestion={deleteQuestion}
-              saveEditedQuestion={saveEditedQuestion}
-              printValues={printValues}
-              index={index}
-            />
-          ))}
+          {/* {questionsList.map((item, index) => ( */}
+          <QuestionListView
+            questionsList={questionsList}
+            // id={index}
+            deleteQuestion={deleteQuestion}
+            saveEditedQuestion={saveEditedQuestion}
+            edit={edit}
+          />
         </div>
         <form
           onSubmit={(e) => {

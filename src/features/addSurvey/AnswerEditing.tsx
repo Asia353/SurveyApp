@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { EmojiHappy } from "iconsax-react";
 import { Input } from "@nextui-org/react";
 
-import ActionButton from "./ActionButton";
+import ActionButton from "../../components/Button/ActionButton";
 import OneAnswer from "./OneAnswer";
 
 function AnswerEditing({

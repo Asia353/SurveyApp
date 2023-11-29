@@ -4,7 +4,7 @@ import React, { useState } from "react";
 
 import { Question } from "../../types";
 import OneAnswer from "../addSurvey/OneAnswer";
-import ActionButton from "../addSurvey/ActionButton";
+import ActionButton from "../../components/Button/ActionButton";
 
 function QuestionItem({ item, index }: { item: Question; index: number }) {
   const [showDetails, setShowDetails] = useState(false);
@@ -18,7 +18,7 @@ function QuestionItem({ item, index }: { item: Question; index: number }) {
   }
 
   return (
-    <Card shadow="sm" className="p-2 qusetion-component">
+    <Card shadow="sm" className="p-2">
       <CardBody className="flex flex-row">
         <div className=" self-center">
           {item.id}. {newDescription}

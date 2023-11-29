@@ -36,7 +36,7 @@ function App() {
             path="/description-survey"
             element={
               <SurveysContextProvider>
-                {/* <SurveyDescriptionPage /> */}
+                <SurveyDescriptionPage surveyId={0} />
               </SurveysContextProvider>
             }
           />

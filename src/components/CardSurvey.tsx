@@ -1,22 +1,20 @@
-import React, { useState } from "react";
-import { Button, Card, CardBody, CardHeader, Input } from "@nextui-org/react";
+import { Button, CardBody, CardHeader } from "@nextui-org/react";
+import { Card } from "iconsax-react";
 import { Link } from "react-router-dom";
 
-import "./Page.css";
+import React from "react";
 import SurveyListView from "../features/mySurveys/SurveysListView";
-import { useSurveyContext } from "../SurveysContext";
 
-function Page() {
-  // const cardClassValue = "flex flex-col items-center justify-center p-8";
+function CardSurvey() {
   return (
     <div className="flex flex-col items-center justify-center p-8">
       <Card className="survey-component p-7">
         <CardHeader className="mb-7 p-0">
           <p>My Survays</p>
         </CardHeader>
-        <div className="m-0 p-0">
+        <CardBody className="m=0 p-0">
           <SurveyListView />
-        </div>
+        </CardBody>
         <Button className="mt-10" as={Link} to="/add-survey">
           ADD NEW SURVEY
         </Button>
@@ -24,5 +22,3 @@ function Page() {
     </div>
   );
 }
-
-export default Page;

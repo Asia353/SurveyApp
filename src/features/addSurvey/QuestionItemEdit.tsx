@@ -6,25 +6,24 @@ import {
   CardFooter,
   Select,
   SelectItem,
-  Tooltip,
 } from "@nextui-org/react";
 import React, { useState } from "react";
 import { Back } from "iconsax-react";
 
 import { Question } from "../../types";
-import ActionButton from "./ActionButton";
+import ActionButton from "../../components/Button/ActionButton";
 import OneAnswer from "./OneAnswer";
 import { typesList } from "./QuestionForm";
 import AnswersAdding from "./AnswersAdding";
 
-function QuestionItem({
+function QuestionItemEdit({
   item,
+  index,
   deleteQuestion,
   saveEditedQuestion,
-  printValues,
-  index,
 }: {
   item: Question;
+  index: number;
   deleteQuestion: (id: number) => void;
   saveEditedQuestion: (
     id: number,
@@ -32,8 +31,6 @@ function QuestionItem({
     type: string,
     options: string[],
   ) => void;
-  printValues: () => void;
-  index: number;
 }) {
   const [showDetails, setShowDetails] = useState(false);
   const [editQuestion, setEditQuestion] = useState(false);
@@ -45,10 +42,6 @@ function QuestionItem({
   function deleteItem() {
     deleteQuestion(index);
   }
-
-  // function editItem() {
-  //   console.log("Jestem w edit item");
-  // }
 
   function details() {
     setEditQuestion(false);
@@ -63,13 +56,9 @@ function QuestionItem({
   function editType(newValue: string) {
     setNewType(newValue);
     if (newValue === "open") setNewOptions([]);
-    // console.log(newOptions);
   }
 
-  // function handleEditButtonClick() {}
-
   function handleSaveButtonClick() {
-    // console.log(newDescription, newType, newOptions);
     saveEditedQuestion(index, newDescription, newType, newOptions);
     details();
   }
@@ -82,7 +71,6 @@ function QuestionItem({
 
   function deleteAnswerFromList(id: number) {
     setNewOptions((list) => list.filter((element, idx) => idx !== id));
-    // setOptions((prevList) => prevList.filter((element, index) => index !== id));
   }
 
   function addAnswerToList(newValue: string) {
@@ -96,10 +84,12 @@ function QuestionItem({
   }
 
   return (
-    <Card shadow="sm" className="p-2 qusetion-component">
-      <CardBody className="flex flex-row">
+    <Card shadow="sm">
+      <CardBody className="flex flex-row p-5">
         <div className=" self-center">
-          {item.id}. {newDescription}
+          <p className=" text-medium">
+            {item.id}. {newDescription}
+          </p>
         </div>
         <div className=" ml-auto flex flex-row">
           {showDetails ? (
@@ -140,9 +130,6 @@ function QuestionItem({
             </Select>
           </div>
           <div className=" mt-4 min-w-full">
-            {/* {newOptions.map((answer, idx) => (
-              <OneAnswer answer={answer} />
-            ))} */}
             {newType !== "open" && (
               <AnswersAdding
                 answersList={newOptions}
@@ -159,9 +146,6 @@ function QuestionItem({
             <Button className="min-w-0 p-2" onClick={handleBackButtonClick}>
               <Back size="20" color="#71717A" variant="Linear" />
             </Button>
-            {/* <Button className="min-w-0 p-2" onClick={printValues}>
-              pr
-            </Button> */}
           </div>
         </CardFooter>
       )}
@@ -169,4 +153,4 @@ function QuestionItem({
   );
 }
 
-export default QuestionItem;
+export default QuestionItemEdit;

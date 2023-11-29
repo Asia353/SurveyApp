@@ -29,14 +29,8 @@ export function SurveysContextProvider({
 }) {
   const [surveysList, setSurveysList] = useState<Survey[]>([]);
 
-  function print(Name: string) {
-    console.log(Name);
-  }
-
   const contextValue = useMemo(() => {
     function addSurveyToList(newSurvey: Survey) {
-      console.log(newSurvey);
-
       setSurveysList((list) => [...list, newSurvey]);
     }
 
