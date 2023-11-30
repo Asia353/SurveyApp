@@ -4,33 +4,37 @@ import { Link } from "react-router-dom";
 
 import { useSurveyContext } from "../../SurveysContext";
 import { SurveyDescriptionPage } from "../../pages";
+import { Survey } from "../../types";
 
-function SurveyListView() {
-  const surveysContext = useSurveyContext();
+function SurveyListView({ surveysList }: { surveysList: Survey[] }) {
+  // const surveysContext = useSurveyContext();
 
   const [description, setDescription] = useState(false);
   const [descriptionElementId, setDescriptionElementId] = useState(-1);
 
   return (
     <div className="flex flex-col w-full gap-2">
-      {surveysContext.surveysList.map((element, index) =>
+      {surveysList.map((element, index) =>
         description && descriptionElementId === index ? (
           <>
             {/* <SurveyDescriptionPage surveyId={index} /> */}
-            <Link color="foregrourend" to="/description-survey">
+            {/* <Link color="foregrourend" to="/description-survey">
               My Survey
-            </Link>
+            </Link> */}
           </>
         ) : (
-          <Card
-            isPressable
-            onPress={() => {
-              setDescription(true);
-              setDescriptionElementId(index);
-            }}
+          // <Link color="foregrourend" to="/description-survey">
+          <Link
+            color="foregrourend"
+            to={`/description-survey?surveyid=${index + 1}`}
+            // to="/description-survey"
           >
-            <CardHeader className="p-5">{element.name}</CardHeader>
-          </Card>
+            <Card>
+              <CardHeader className="p-5">
+                {element.id}. {element.name}
+              </CardHeader>
+            </Card>
+          </Link>
         ),
       )}
     </div>

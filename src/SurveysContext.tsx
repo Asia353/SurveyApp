@@ -1,5 +1,5 @@
 import React, { useContext, useMemo, useState } from "react";
-import { Survey } from "./types";
+import { Survey, Question } from "./types";
 
 type SurveysContextType = {
   surveysList: Survey[];
@@ -27,7 +27,31 @@ export function SurveysContextProvider({
 }: {
   children: React.ReactNode;
 }) {
-  const [surveysList, setSurveysList] = useState<Survey[]>([]);
+  const surveyTest = {
+    name: "SurveyTest",
+    id: 1,
+    questions: [
+      {
+        description: "Q1",
+        type: "one option",
+        id: 1,
+        options: ["a1", "a2", "a3"],
+      },
+      {
+        description: "Q2",
+        type: "more option",
+        id: 2,
+        options: ["a11", "a22", "a33"],
+      },
+      {
+        description: "Q3",
+        type: "open",
+        id: 3,
+        options: [],
+      },
+    ],
+  };
+  const [surveysList, setSurveysList] = useState<Survey[]>([surveyTest]);
 
   const contextValue = useMemo(() => {
     function addSurveyToList(newSurvey: Survey) {

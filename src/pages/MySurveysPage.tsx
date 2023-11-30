@@ -7,6 +7,7 @@ import SurveyListView from "../features/mySurveys/SurveysListView";
 import { useSurveyContext } from "../SurveysContext";
 
 function Page() {
+  const context = useSurveyContext();
   // const cardClassValue = "flex flex-col items-center justify-center p-8";
   return (
     <div className="flex flex-col items-center justify-center p-8">
@@ -15,7 +16,7 @@ function Page() {
           <p>My Survays</p>
         </CardHeader>
         <div className="m-0 p-0">
-          <SurveyListView />
+          <SurveyListView surveysList={context.surveysList} />
         </div>
         <Button className="mt-10" as={Link} to="/add-survey">
           ADD NEW SURVEY

@@ -12,9 +12,7 @@ function CardSurvey() {
         <CardHeader className="mb-7 p-0">
           <p>My Survays</p>
         </CardHeader>
-        <CardBody className="m=0 p-0">
-          <SurveyListView />
-        </CardBody>
+        <CardBody className="m=0 p-0">{/* <SurveyListView /> */}</CardBody>
         <Button className="mt-10" as={Link} to="/add-survey">
           ADD NEW SURVEY
         </Button>

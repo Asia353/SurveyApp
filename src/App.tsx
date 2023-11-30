@@ -1,5 +1,5 @@
-import React, { useEffect } from "react";
-import { NextUIProvider } from "@nextui-org/react";
+import React, { useEffect, useState } from "react";
+import { Button, NextUIProvider } from "@nextui-org/react";
 import { Route, Routes, BrowserRouter as Router } from "react-router-dom";
 
 import "./App.css";
@@ -8,9 +8,6 @@ import { AddSurveyPage, MySurvaysPage, SurveyDescriptionPage } from "./pages";
 import { SurveysContextProvider } from "./SurveysContext";
 
 function App() {
-  // const [number, setNumber] = useState(5);
-  // const navigate = useNavigate();
-
   return (
     <Router>
       <NextUIProvider>
@@ -36,7 +33,7 @@ function App() {
             path="/description-survey"
             element={
               <SurveysContextProvider>
-                <SurveyDescriptionPage surveyId={0} />
+                <SurveyDescriptionPage />
               </SurveysContextProvider>
             }
           />
