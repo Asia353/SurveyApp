@@ -24,7 +24,7 @@ export default function Test() {
           </Link>
         </NavbarItem>
         <NavbarItem>
-          <Link color="foreground" to="/my-survey">
+          <Link color="foreground" to="/my-surveys">
             My Survey
           </Link>
         </NavbarItem>

@@ -41,6 +41,7 @@ function QuestionListView({
           {questionsList.map((question, index) => {
             return (
               <QuestionItemEdit
+                key={`${question.description}`}
                 item={question}
                 index={index}
                 deleteQuestion={deleteQuestion}

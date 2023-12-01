@@ -7,6 +7,7 @@ import { useSurveyContext } from "../SurveysContext";
 import QuestionListView from "../features/QuestionsListView";
 import ActionButton from "../components/Button/ActionButton";
 import EditSurvey from "../features/addSurvey/EditSurvey";
+import { Survey } from "../types";
 
 function Page() {
   const context = useSurveyContext();
@@ -24,53 +25,52 @@ function Page() {
     context.delQuestionFromList(surveyId - 1, questionId);
   };
 
-  const [newQuestionList, setNewQuestionList] = useState(
+  const [surveyQuestions, setSurveyQuestions] = useState(
     context.surveysList.find((element) => element.id === surveyId)?.questions,
   );
 
-  const [newId, seNewId] = useState(
-    context.surveysList.find((element) => element.id === surveyId)?.id,
-  );
+  const getNewId = () => {
+    return surveyId;
+  };
 
-  const [newName, setNewName] = useState(
+  const [surveyName, setSurveyName] = useState(
     context.surveysList.find((element) => element.id === surveyId)?.name,
   );
 
-  const save = () => {};
-
   return (
-    <div className="flex flex-col items-center justify-center p-8">
-      <Card className="survey-component p-7">
-        <CardHeader className="mb-7 p-0 flex flex-row justify-between">
-          {context.surveysList[surveyId - 1]?.name}
-          <ActionButton actionIcon="Edit" onClickFunction={changeEdit} />
-        </CardHeader>
-        {!isEdit ? (
-          <QuestionListView
-            questionsList={context.surveysList[surveyId - 1].questions}
-            edit={false}
-            deleteQuestion={() => {}}
-            saveEditedQuestion={() => {}}
-          />
-        ) : (
-          // <EditSurvey
-          //   // questionList={context.surveysList[surveyId - 1].questions}
-          //   surveyName={context.surveysList[surveyId - 1].name}
-          //   setSurvey={}
-          //   saveFunction={() => {}}
-          // />
-          <p>{surveyId - 1}</p>
-          // <>{console.log("ds")}</>
-          // <QuestionListView
-          //   questionsList={context.surveysList[surveyId - 1].questions}
-          //   edit={isEdit}
-          //   deleteQuestion={delQuestion}
-          //   saveEditedQuestion={() => {}}
-          // />
-        )}
+    <div>
+      {surveyName && surveyQuestions ? (
+        <div className="flex flex-col items-center justify-center p-8">
+          <Card className="survey-component p-7">
+            <CardHeader className="mb-7 p-0 flex flex-row justify-between">
+              {context.surveysList[surveyId - 1]?.name}
+              <ActionButton actionIcon="Edit" onClickFunction={changeEdit} />
+            </CardHeader>
+            {!isEdit ? (
+              <QuestionListView
+                questionsList={context.surveysList[surveyId - 1].questions}
+                edit={false}
+                deleteQuestion={() => {}}
+                saveEditedQuestion={() => {}}
+              />
+            ) : (
+              <EditSurvey
+                // questionList={context.surveysList[surveyId - 1].questions}
+                key={`${surveyName}`}
+                surveyName={surveyName}
+                surveyId={surveyId}
+                surveyQuestions={surveyQuestions}
+                getNewId={getNewId}
+                saveFunction={context.updateSurvey}
+              />
+            )}
 
-        {/* <Button onclick={save}>SAVE</Button> */}
-      </Card>
+            {/* <Button onclick={save}>SAVE</Button> */}
+          </Card>
+        </div>
+      ) : (
+        <p>Page not found</p>
+      )}
     </div>
   );
 }

@@ -1,5 +1,6 @@
 import React, { useContext, useState } from "react";
 import { Add } from "iconsax-react";
+import { Link } from "react-router-dom";
 
 // import "./Page.css";
 import { Button, Card, CardHeader, Input } from "@nextui-org/react";
@@ -10,17 +11,19 @@ import QuestionForm from "./QuestionForm";
 function EditSurvey({
   surveyName,
   surveyId,
-  surveyOptions,
+  surveyQuestions,
+  getNewId,
   saveFunction,
 }: {
   surveyName: string;
   surveyId: number;
-  surveyOptions: Question[];
+  surveyQuestions: Question[];
+  getNewId: () => number;
   saveFunction: (survey: Survey) => void;
 }) {
   const edit = true;
   const [newQuestionsList, setNewQuestionsList] =
-    useState<Question[]>(surveyOptions);
+    useState<Question[]>(surveyQuestions);
   const [newSurveyName, setNewSurveyName] = useState(surveyName);
   const [newId] = useState(surveyId);
 
@@ -74,9 +77,11 @@ function EditSurvey({
   function saveSurvey() {
     saveFunction({
       name: newSurveyName,
-      id: 1,
+      id: getNewId(),
       questions: newQuestionsList,
     });
+    // setNewQuestionsList(surveyQuestions);
+    // setNewSurveyName(surveyName);
   }
 
   function saveEditedQuestion(
@@ -152,7 +157,12 @@ function EditSurvey({
           {questionEditorAvaliable && (
             <QuestionForm addQuestion={addQuestion} question={newQuestion} />
           )}
-          <Button className="mt-4" onClick={saveSurvey}>
+          <Button
+            as={Link}
+            to="/my-surveys"
+            className="mt-4"
+            onClick={saveSurvey}
+          >
             SAVE SURVEY
           </Button>
         </div>

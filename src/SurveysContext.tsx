@@ -5,12 +5,14 @@ type SurveysContextType = {
   surveysList: Survey[];
   addSurveyToList: (newSurvey: Survey) => void;
   delQuestionFromList: (surveyId: number, questionId: number) => void;
+  updateSurvey: (survey: Survey) => void;
 };
 
 const surveysContextInitValue = {
   surveysList: [],
   addSurveyToList: () => {},
   delQuestionFromList: () => {},
+  updateSurvey: () => {},
 };
 
 const SurveysContext = React.createContext<SurveysContextType>(
@@ -79,7 +81,22 @@ export function SurveysContextProvider({
       );
     }
 
-    return { surveysList, addSurveyToList, delQuestionFromList };
+    function updateSurvey(survey: Survey) {
+      setSurveysList((list) =>
+        list.map((currentSurvey, sIndex) => {
+          if (currentSurvey.id === survey.id) {
+            return {
+              ...currentSurvey,
+              questions: survey.questions,
+              name: survey.name,
+            };
+          }
+          return survey;
+        }),
+      );
+    }
+
+    return { surveysList, addSurveyToList, delQuestionFromList, updateSurvey };
   }, [surveysList]);
 
   return (

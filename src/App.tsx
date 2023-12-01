@@ -22,7 +22,7 @@ function App() {
             }
           />
           <Route
-            path="/my-survey"
+            path="/my-surveys"
             element={
               <SurveysContextProvider>
                 <MySurvaysPage />

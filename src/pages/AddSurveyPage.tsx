@@ -20,21 +20,6 @@ function Page() {
   const [surveyId, setSurveyId] = useState(newId());
   const [surveyOptions, setSurveyOptions] = useState<Question[]>([]);
 
-  function saveData(name: string, id: number, options: Question[]) {
-    setSurveyName(name);
-    setSurveyId(1);
-    setSurveyOptions(options);
-  }
-
-  function addSurvey() {
-    const newSurvey = {
-      name: surveyName,
-      id: surveyId,
-      questions: surveyOptions,
-    };
-    surveysContext.addSurveyToList(newSurvey);
-  }
-
   return (
     <div className="flex flex-col items-center justify-center p-8">
       <Card className="survey-component p-7">
@@ -42,11 +27,8 @@ function Page() {
           key={`${surveyName}`}
           surveyName={surveyName}
           surveyId={surveyId}
-          surveyOptions={surveyOptions}
-          // getNewId={newId}
-          // setSurveyId={setSurveyId}
-          // setSurveyName={setSurveyName}
-          // setSyrveyOption={setSurveyOptions}
+          surveyQuestions={surveyOptions}
+          getNewId={newId}
           saveFunction={surveysContext.addSurveyToList}
         />
       </Card>

@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Button, Card, CardBody, CardHeader, Input } from "@nextui-org/react";
 import { Link } from "react-router-dom";
+import { randomInt } from "crypto";
 
 import "./Page.css";
 import SurveyListView from "../features/mySurveys/SurveysListView";
@@ -16,7 +17,7 @@ function Page() {
           <p>My Survays</p>
         </CardHeader>
         <div className="m-0 p-0">
-          <SurveyListView key={`${"aaa"}`} surveysList={context.surveysList} />
+          <SurveyListView key={`${"sss"}`} surveysList={context.surveysList} />
         </div>
         <Button className="mt-10" as={Link} to="/add-survey">
           ADD NEW SURVEY
