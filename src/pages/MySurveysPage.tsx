@@ -16,7 +16,7 @@ function Page() {
           <p>My Survays</p>
         </CardHeader>
         <div className="m-0 p-0">
-          <SurveyListView surveysList={context.surveysList} />
+          <SurveyListView key={`${"aaa"}`} surveysList={context.surveysList} />
         </div>
         <Button className="mt-10" as={Link} to="/add-survey">
           ADD NEW SURVEY

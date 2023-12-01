@@ -27,7 +27,13 @@ function QuestionListView({
       {!edit ? (
         <div className=" justify-center gap-2 flex flex-col">
           {questionsList.map((question, index) => {
-            return <QuestionItem item={question} index={index} />;
+            return (
+              <QuestionItem
+                key={`${question.description}`}
+                item={question}
+                index={index}
+              />
+            );
           })}
         </div>
       ) : (

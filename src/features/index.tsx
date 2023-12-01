@@ -2,3 +2,4 @@
 export { default as QuestionForm } from "./addSurvey/QuestionForm";
 export { default as QuestionItemEdit } from "./addSurvey/QuestionItemEdit";
 export { default as AnswearsAdding } from "./addSurvey/AnswersAdding";
+export { default as EditSurvey } from "./addSurvey/EditSurvey";
