@@ -6,6 +6,8 @@ import "./App.css";
 import NavBar from "./components/NavBar";
 import { AddSurveyPage, MySurvaysPage, SurveyDescriptionPage } from "./pages";
 import { SurveysContextProvider } from "./SurveysContext";
+import LogInPage from "./pages/LogInPage";
+import SignUpPage from "./pages/SignUpPage";
 
 function App() {
   return (
@@ -34,6 +36,22 @@ function App() {
             element={
               <SurveysContextProvider>
                 <SurveyDescriptionPage />
+              </SurveysContextProvider>
+            }
+          />
+          <Route
+            path="/log-in"
+            element={
+              <SurveysContextProvider>
+                <LogInPage />
+              </SurveysContextProvider>
+            }
+          />
+          <Route
+            path="/sign-up"
+            element={
+              <SurveysContextProvider>
+                <SignUpPage />
               </SurveysContextProvider>
             }
           />

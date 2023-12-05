@@ -32,12 +32,13 @@ export default function Test() {
 
       <NavbarContent justify="end">
         <NavbarItem className="lg:flex">
-          <Link to="/test">Login</Link>
+          <Link to="/log-in">Log in</Link>
         </NavbarItem>
         <NavbarItem>
-          <Button as={Link} color="primary" href="#" variant="flat">
+          {/* <Button as={Link} color="primary" href="#" variant="flat">
             Sign Up
-          </Button>
+          </Button> */}
+          <Link to="/sign-up">Sign up</Link>
         </NavbarItem>
       </NavbarContent>
     </NavBarComponent>
