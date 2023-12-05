@@ -1,5 +1,5 @@
 import { Tooltip } from "@nextui-org/react";
-import { ArrowDown2, ArrowUp2, Edit, Sun1, Trash } from "iconsax-react";
+import { ArrowDown2, ArrowUp2, Edit, Send, Sun1, Trash } from "iconsax-react";
 import React from "react";
 
 function getTooltipContent(actionIcon: string) {
@@ -12,6 +12,8 @@ function getTooltipContent(actionIcon: string) {
       return "Details";
     case "ArrowUp2":
       return "Hide details";
+    case "Send":
+      return "Upload";
     default:
       return "";
   }
@@ -29,6 +31,7 @@ function ActionButton({
     Edit: <Edit size="16" className="m-1" />,
     ArrowDown2: <ArrowDown2 size="16" className="m-1" />,
     ArrowUp2: <ArrowUp2 size="16" className="m-1" />,
+    Send: <Send size="16" className="m-1" />,
     Default: <Sun1 size="16" className="m-1" />,
   };
 

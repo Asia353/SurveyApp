@@ -7,7 +7,6 @@ import { useSurveyContext } from "../SurveysContext";
 import QuestionListView from "../features/QuestionsListView";
 import ActionButton from "../components/Button/ActionButton";
 import EditSurvey from "../features/addSurvey/EditSurvey";
-import { Survey } from "../types";
 
 function Page() {
   const context = useSurveyContext();

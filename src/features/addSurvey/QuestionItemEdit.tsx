@@ -84,7 +84,12 @@ function QuestionItemEdit({
   }
 
   return (
-    <Card shadow="sm">
+    <Card
+      shadow="sm"
+      onPress={details}
+      // onKeyDown={() => console.log("d")}
+      isPressable
+    >
       <CardBody className="flex flex-row p-5">
         <div className=" self-center">
           <p className=" text-medium">

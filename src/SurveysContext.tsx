@@ -59,13 +59,13 @@ export function SurveysContextProvider({
 
   const contextValue = useMemo(() => {
     function addSurveyToList(newSurvey: Survey) {
-      console.log(newSurvey);
+      // console.log(newSurvey);
       setSurveysList((list) => [...list, newSurvey]);
     }
 
     function delQuestionFromList(surveyId: number, questionId: number) {
       // poxniej pewnie lepiej zamias sIndex i qIndex używać survey.id i question.id
-      console.log(surveyId);
+      // console.log(surveyId);
       setSurveysList((list) =>
         list.map((survey, sIndex) => {
           if (sIndex === surveyId) {
@@ -83,16 +83,15 @@ export function SurveysContextProvider({
 
     function updateSurvey(survey: Survey) {
       setSurveysList((list) =>
-        list.map((currentSurvey, sIndex) => {
-          if (currentSurvey.id === survey.id) {
-            return {
-              ...currentSurvey,
-              questions: survey.questions,
-              name: survey.name,
-            };
-          }
-          return survey;
-        }),
+        list.map((currentSurvey) =>
+          currentSurvey.id === survey.id
+            ? {
+                ...currentSurvey,
+                questions: survey.questions,
+                name: survey.name,
+              }
+            : currentSurvey,
+        ),
       );
     }
 
