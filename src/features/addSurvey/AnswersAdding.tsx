@@ -39,12 +39,14 @@ function AnswersAdding({
         ))}
       </div>
       <div className=" flex flex-row">
-        <EmojiHappy
-          className="self-center mr-4"
-          size="28"
-          color="#71717A"
-          variant="Bold"
-        />
+        <div className="self-center">
+          <EmojiHappy
+            className="self-center mr-4"
+            size="22"
+            color="#71717A"
+            variant="Bold"
+          />
+        </div>
         <Input
           // className=""
           variant="bordered"

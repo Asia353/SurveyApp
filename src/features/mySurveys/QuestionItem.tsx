@@ -18,7 +18,8 @@ function QuestionItem({ item, index }: { item: Question; index: number }) {
   }
 
   return (
-    <Card shadow="sm" className="p-2">
+    // <Card shadow="sm" className="p-2">
+    <Card shadow="sm" className="p-2" isPressable onPress={details}>
       <CardBody className="flex flex-row">
         <div className=" self-center">
           {item.id}. {newDescription}

@@ -1,5 +1,13 @@
 import { Tooltip } from "@nextui-org/react";
-import { ArrowDown2, ArrowUp2, Edit, Send, Sun1, Trash } from "iconsax-react";
+import {
+  ArrowDown2,
+  ArrowUp2,
+  Edit,
+  EmojiHappy,
+  Send,
+  Sun1,
+  Trash,
+} from "iconsax-react";
 import React from "react";
 
 function getTooltipContent(actionIcon: string) {
@@ -32,6 +40,14 @@ function ActionButton({
     ArrowDown2: <ArrowDown2 size="16" className="m-1" />,
     ArrowUp2: <ArrowUp2 size="16" className="m-1" />,
     Send: <Send size="16" className="m-1" />,
+    EmojiHappy: (
+      <EmojiHappy
+        className="self-center mr-5"
+        size="22"
+        color="#A1A1AA"
+        variant="Bold"
+      />
+    ),
     Default: <Sun1 size="16" className="m-1" />,
   };
 

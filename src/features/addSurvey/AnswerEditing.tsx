@@ -51,19 +51,25 @@ function AnswerEditing({
         }
       }}
     >
-      {/* <OneAnswer answer={answer} /> */}
+      <div className=" self-center">
+        <EmojiHappy
+          className="self-center"
+          size="22"
+          color="#A1A1AA"
+          variant="Bold"
+        />
+      </div>
+
       {isEditing ? (
         <Input
-          className="mr-4"
+          className="mr-4 ml-4"
           value={newAnswer}
           onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
             setNewAnswer(e.target.value);
           }}
-          // onBlur={() => saveEditedAnswer()}
           onBlur={() => {
             saveEditedAnswer();
           }}
-          // autoFocus
           onKeyDown={(e) => {
             if (e.key === "Enter") {
               saveEditedAnswer();
@@ -71,9 +77,9 @@ function AnswerEditing({
           }}
         />
       ) : (
-        <OneAnswer answer={newAnswer} />
+        <p className="p-0 pl-4 m-0">{newAnswer}</p>
       )}
-      <div className=" ml-auto">
+      <div className=" self-center ml-auto">
         <ActionButton
           actionIcon="Trash"
           onClickFunction={() => deleteAnswerFromList(id)}

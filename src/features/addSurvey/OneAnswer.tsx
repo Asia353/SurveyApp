@@ -1,19 +1,7 @@
 import React, { useState } from "react";
 import { EmojiHappy } from "iconsax-react";
 
-function OneAnswer({
-  answer, // editAnswer,
-}: {
-  answer: string;
-  // editAnswer: (id: number, newValue: string) => void;
-}) {
-  // return <p>{answer}</p>;
-  // const [editElement, setEditElement] = useState(false);
-
-  // function edit(id: number, newValue: string) {
-  //   if (editElement) editAnswer(id, newValue);
-  // }
-
+function OneAnswer({ answer }: { answer: string }) {
   return (
     <div className="flex flex-row">
       <EmojiHappy
