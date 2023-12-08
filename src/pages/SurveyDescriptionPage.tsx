@@ -43,7 +43,9 @@ function Page() {
           <Card className="survey-component p-7">
             <CardHeader className="mb-7 p-0 flex flex-row justify-between">
               {context.surveysList[surveyId - 1]?.name}
-              <ActionButton actionIcon="Edit" onClickFunction={changeEdit} />
+              {!context.surveysList[surveyId - 1].published && (
+                <ActionButton actionIcon="Edit" onClickFunction={changeEdit} />
+              )}
             </CardHeader>
             {!isEdit ? (
               <QuestionListView

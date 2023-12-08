@@ -19,6 +19,7 @@ function Page() {
           <SurveyListView
             key={`${"keySurveyListViewss"}`}
             surveysList={context.surveysList}
+            surveyPublish={context.publishSurvey}
           />
         </div>
         <Button className="mt-10" as={Link} to="/add-survey">

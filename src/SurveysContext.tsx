@@ -6,6 +6,7 @@ type SurveysContextType = {
   addSurveyToList: (newSurvey: Survey) => void;
   delQuestionFromList: (surveyId: number, questionId: number) => void;
   updateSurvey: (survey: Survey) => void;
+  publishSurvey: (surveyIndex: number) => void;
 };
 
 const surveysContextInitValue = {
@@ -13,6 +14,7 @@ const surveysContextInitValue = {
   addSurveyToList: () => {},
   delQuestionFromList: () => {},
   updateSurvey: () => {},
+  publishSurvey: () => {},
 };
 
 const SurveysContext = React.createContext<SurveysContextType>(
@@ -43,7 +45,7 @@ export function SurveysContextProvider({
       },
       {
         description: "Q2",
-        type: "more option",
+        type: "many options",
         id: 2,
         options: ["a11", "a22", "a33"],
       },
@@ -54,6 +56,7 @@ export function SurveysContextProvider({
         options: [],
       },
     ],
+    published: false,
   };
   const [surveysList, setSurveysList] = useState<Survey[]>([surveyTest]);
 
@@ -95,7 +98,26 @@ export function SurveysContextProvider({
       );
     }
 
-    return { surveysList, addSurveyToList, delQuestionFromList, updateSurvey };
+    function publishSurvey(surveyIndex: number) {
+      setSurveysList((list) =>
+        list.map((currentSurvey, index) =>
+          index === surveyIndex
+            ? {
+                ...currentSurvey,
+                published: true,
+              }
+            : currentSurvey,
+        ),
+      );
+    }
+
+    return {
+      surveysList,
+      addSurveyToList,
+      delQuestionFromList,
+      updateSurvey,
+      publishSurvey,
+    };
   }, [surveysList]);
 
   return (

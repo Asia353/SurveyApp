@@ -9,4 +9,5 @@ export type Survey = {
   name: string;
   id: number;
   questions: Question[];
+  published: boolean;
 };

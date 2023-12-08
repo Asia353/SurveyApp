@@ -79,6 +79,7 @@ function EditSurvey({
       name: newSurveyName,
       id: getNewId(),
       questions: newQuestionsList,
+      published: false,
     });
     // setNewQuestionsList(surveyQuestions);
     // setNewSurveyName(surveyName);

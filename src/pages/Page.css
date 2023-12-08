@@ -9,3 +9,9 @@
     min-width: 150px;
     width: 100%;
 }
+
+.form-component {
+    height: 100vh;
+    background: radial-gradient(circle, #C9A9E9, #99C7FB);
+
+}

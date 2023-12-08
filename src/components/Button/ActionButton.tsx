@@ -4,6 +4,7 @@ import {
   ArrowUp2,
   Edit,
   EmojiHappy,
+  Link2,
   Send,
   Sun1,
   Trash,
@@ -21,7 +22,9 @@ function getTooltipContent(actionIcon: string) {
     case "ArrowUp2":
       return "Hide details";
     case "Send":
-      return "Upload";
+      return "Publish";
+    case "Link2":
+      return "Copy link";
     default:
       return "";
   }
@@ -40,6 +43,7 @@ function ActionButton({
     ArrowDown2: <ArrowDown2 size="16" className="m-1" />,
     ArrowUp2: <ArrowUp2 size="16" className="m-1" />,
     Send: <Send size="16" className="m-1" />,
+    Link2: <Link2 size="16" className="m-1" />,
     EmojiHappy: (
       <EmojiHappy
         className="self-center mr-5"

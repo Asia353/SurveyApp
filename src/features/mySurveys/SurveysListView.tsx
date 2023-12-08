@@ -1,50 +1,74 @@
 import React, { useEffect, useState } from "react";
-import { Button, Card, CardBody, CardHeader } from "@nextui-org/react";
+import {
+  Button,
+  Card,
+  CardBody,
+  CardFooter,
+  CardHeader,
+} from "@nextui-org/react";
 import { Link } from "react-router-dom";
+import { Link2 } from "iconsax-react";
 
 import { useSurveyContext } from "../../SurveysContext";
 import { SurveyDescriptionPage } from "../../pages";
 import { Survey } from "../../types";
 import ActionButton from "../../components/Button/ActionButton";
 
-function SurveyListView({ surveysList }: { surveysList: Survey[] }) {
-  // const surveysContext = useSurveyContext();
+function SurveyListView({
+  surveysList,
+  surveyPublish,
+}: {
+  surveysList: Survey[];
+  surveyPublish: (surveyIndex: number) => void;
+}) {
+  const publishS = (index: number) => {
+    surveyPublish(index);
+  };
 
-  const [description, setDescription] = useState(false);
-  const [descriptionElementId, setDescriptionElementId] = useState(-1);
-
+  const [show, setShow] = useState(false);
   return (
     <div className="flex flex-col w-full gap-2">
-      {surveysList.map((element, index) =>
-        description && descriptionElementId === index ? (
-          <>
-            {/* <SurveyDescriptionPage surveyId={index} /> */}
-            {/* <Link color="foregrourend" to="/description-survey">
-              My Survey
-            </Link> */}
-          </>
-        ) : (
-          // <Link color="foregrourend" to="/description-survey">
+      {surveysList.map((element, index) => (
+        // element.published ? (
+        //   <>
+        //     {/* <SurveyDescriptionPage surveyId={index} /> */}
+        //     {/* <Link color="foregrourend" to="/description-survey">
+        //       My Survey
+        //     </Link> */}
+        //   </>
+        // ) : (
+        <Card
+          className="flex flex-row p-5"
+          key={`${element.name} ${element.id}`}
+        >
           <Link
-            key={`${element.name} ${element.id}`}
             color="foregrourend"
             to={`/description-survey?surveyid=${index + 1}`}
-            // to="/description-survey"
+            className="flex flex-row w-full"
           >
-            <Card className="flex flex-row">
-              <CardHeader className="p-5">
-                {element.id}. {element.name}
-              </CardHeader>
-              {/* <div className=" ml-auto">
-                <ActionButton
-                  actionIcon="Send"
-                  onClickFunction={() => console.log("save")}
-                />
-              </div> */}
-            </Card>
+            <CardHeader className="p-0 w-auto">
+              {element.id}. {element.name}
+            </CardHeader>
           </Link>
-        ),
-      )}
+          <CardFooter className="p-0 justify-end">
+            {!element.published ? (
+              <ActionButton
+                actionIcon="Send"
+                onClickFunction={() => {
+                  surveyPublish(index);
+                }}
+              />
+            ) : (
+              <Link
+                color="foregrourend"
+                to={`/survey-form?surveyid=${index + 1}`}
+              >
+                <Link2 size="16" />
+              </Link>
+            )}
+          </CardFooter>
+        </Card>
+      ))}
     </div>
   );
 }

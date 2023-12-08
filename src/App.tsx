@@ -4,7 +4,12 @@ import { Route, Routes, BrowserRouter as Router } from "react-router-dom";
 
 import "./App.css";
 import NavBar from "./components/NavBar";
-import { AddSurveyPage, MySurvaysPage, SurveyDescriptionPage } from "./pages";
+import {
+  AddSurveyPage,
+  MySurvaysPage,
+  SurveyDescriptionPage,
+  SurveyFormPage,
+} from "./pages";
 import { SurveysContextProvider } from "./SurveysContext";
 import LogInPage from "./pages/LogInPage";
 import SignUpPage from "./pages/SignUpPage";
@@ -36,6 +41,14 @@ function App() {
             element={
               <SurveysContextProvider>
                 <SurveyDescriptionPage />
+              </SurveysContextProvider>
+            }
+          />
+          <Route
+            path="/survey-form"
+            element={
+              <SurveysContextProvider>
+                <SurveyFormPage />
               </SurveysContextProvider>
             }
           />
