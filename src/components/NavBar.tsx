@@ -1,5 +1,5 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, Route } from "react-router-dom";
 
 import {
   Navbar as NavBarComponent,
@@ -8,9 +8,15 @@ import {
   NavbarItem,
   // Link,
   Button,
+  Tabs,
+  Tab,
 } from "@nextui-org/react";
+import { SurveysContextProvider } from "../SurveysContext";
+import { SurveyDescriptionPage } from "../pages";
 
 export default function Test() {
+  const [selected, setSelected] = React.useState<string>("Add Survey");
+
   return (
     <NavBarComponent>
       <NavbarBrand>

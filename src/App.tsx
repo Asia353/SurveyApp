@@ -6,7 +6,7 @@ import "./App.css";
 import NavBar from "./components/NavBar";
 import {
   AddSurveyPage,
-  MySurvaysPage,
+  MySurveysPage,
   SurveyDescriptionPage,
   SurveyFormPage,
 } from "./pages";
@@ -32,7 +32,7 @@ function App() {
             path="/my-surveys"
             element={
               <SurveysContextProvider>
-                <MySurvaysPage />
+                <MySurveysPage />
               </SurveysContextProvider>
             }
           />

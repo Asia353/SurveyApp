@@ -5,6 +5,7 @@ import {
   CardBody,
   CardFooter,
   CardHeader,
+  Tooltip,
 } from "@nextui-org/react";
 import { Link } from "react-router-dom";
 import { Link2 } from "iconsax-react";
@@ -59,12 +60,26 @@ function SurveyListView({
                 }}
               />
             ) : (
-              <Link
-                color="foregrourend"
-                to={`/survey-form?surveyid=${index + 1}`}
-              >
-                <Link2 size="16" />
-              </Link>
+              <div className="flex">
+                <ActionButton actionIcon="Diagram" onClickFunction={() => {}} />
+                {/* nie działa dobrze przez całkowite odśwezanie. Będzie git z bazą pewnie */}
+                <ActionButton
+                  actionIcon="Link2"
+                  onClickFunction={() =>
+                    navigator.clipboard.writeText(
+                      `http://localhost:3000/survey-form?surveyid=${index + 1}`,
+                    )
+                  }
+                />
+                {/* <Link
+                  color="foregrourend"
+                  to={`/survey-form?surveyid=${index + 1}`}
+                >
+                  <Tooltip content="Copy link" offset={10}>
+                    <Link2 className="m-1" size="16" />
+                  </Tooltip>
+                </Link> */}
+              </div>
             )}
           </CardFooter>
         </Card>

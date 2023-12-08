@@ -13,7 +13,7 @@ function Page() {
     <div className="flex flex-col items-center justify-center p-8">
       <Card className="survey-component p-7">
         <CardHeader className="mb-7 p-0">
-          <p>My Survays</p>
+          <p>My Surveys</p>
         </CardHeader>
         <div className="m-0 p-0">
           <SurveyListView

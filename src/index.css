@@ -12,8 +12,10 @@ body {
 
   /* height: 100vh; */
   min-height: 100vh;
-  /* background-color: #cce3fd; */
-  background: radial-gradient(circle, #C9A9E9, #99C7FB);
+  /* background-color: #B3B1A0; */
+  background-color: #BFCAD6;
+
+  /* background: radial-gradient(circle, #CCE3FD, #99C7FB); */
 
   /* background-color: rgb(230, 230, 221); */
 }

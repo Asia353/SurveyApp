@@ -2,6 +2,7 @@ import { Tooltip } from "@nextui-org/react";
 import {
   ArrowDown2,
   ArrowUp2,
+  Diagram,
   Edit,
   EmojiHappy,
   Link2,
@@ -25,6 +26,8 @@ function getTooltipContent(actionIcon: string) {
       return "Publish";
     case "Link2":
       return "Copy link";
+    case "Diagram":
+      return "Show statistics";
     default:
       return "";
   }
@@ -44,6 +47,7 @@ function ActionButton({
     ArrowUp2: <ArrowUp2 size="16" className="m-1" />,
     Send: <Send size="16" className="m-1" />,
     Link2: <Link2 size="16" className="m-1" />,
+    Diagram: <Diagram size="16" className="m-1" />,
     EmojiHappy: (
       <EmojiHappy
         className="self-center mr-5"

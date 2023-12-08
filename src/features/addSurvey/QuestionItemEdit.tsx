@@ -93,7 +93,7 @@ function QuestionItemEdit({
       <CardBody className="flex flex-row p-5">
         <div className=" self-center">
           <p className=" text-medium">
-            {item.id}. {newDescription}
+            {index + 1}. {newDescription}
           </p>
         </div>
         <div className=" ml-auto flex flex-row">
