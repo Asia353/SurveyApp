@@ -48,7 +48,7 @@ function SurveyListView({
             className="flex flex-row w-full"
           >
             <CardHeader className="p-0 w-auto">
-              {element.id}. {element.name}
+              {index + 1}. {element.name}
             </CardHeader>
           </Link>
           <CardFooter className="p-0 justify-end">

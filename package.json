@@ -13,6 +13,7 @@
     "@types/react-dom": "^18.2.15",
     "eslint-config-prettier": "^9.0.0",
     "eslint-plugin-prettier": "^5.0.1",
+    "firebase": "^10.7.1",
     "framer-motion": "^10.16.5",
     "iconsax-react": "^0.0.8",
     "prettier": "^3.1.0",

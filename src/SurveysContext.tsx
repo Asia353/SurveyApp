@@ -1,5 +1,7 @@
-import React, { useContext, useMemo, useState } from "react";
-import { Survey } from "./types";
+import React, { useContext, useEffect, useMemo, useState } from "react";
+import { addDoc, collection, getDocs } from "firebase/firestore";
+import { database } from "./firebase-config";
+import { Survey, Question } from "./types";
 
 type SurveysContextType = {
   surveysList: Survey[];
@@ -7,7 +9,31 @@ type SurveysContextType = {
   delQuestionFromList: (surveyId: number, questionId: number) => void;
   updateSurvey: (survey: Survey) => void;
   publishSurvey: (surveyIndex: number) => void;
+  // upadteSurveyList: (surveyList: Survey[]) => void;
 };
+
+async function loadSurveysFromFirestore() {
+  try {
+    const surveysCollection = collection(database, "surveys");
+    const surveysSnapshot = await getDocs(surveysCollection);
+
+    const surveysList: Survey[] = surveysSnapshot.docs.map((doc) => {
+      const data = doc.data();
+      return {
+        id: data.id,
+        name: data.name,
+        questions: data.questions || [],
+        published: data.published || false,
+      } as Survey;
+    });
+
+    console.log("Załadowano ankiety z Firestore:", surveysList);
+    return surveysList;
+  } catch (error) {
+    console.error("Błąd podczas ładowania ankiet z Firestore:", error);
+    return [];
+  }
+}
 
 const surveysContextInitValue = {
   surveysList: [],
@@ -15,6 +41,7 @@ const surveysContextInitValue = {
   delQuestionFromList: () => {},
   updateSurvey: () => {},
   publishSurvey: () => {},
+  upadteSurveyList: () => {},
 };
 
 const SurveysContext = React.createContext<SurveysContextType>(
@@ -33,37 +60,31 @@ export function SurveysContextProvider({
 }: {
   children: React.ReactNode;
 }) {
-  const surveyTest = {
-    name: "SurveyTest",
-    id: 1,
-    questions: [
-      {
-        description: "Q1",
-        type: "one option",
-        id: 1,
-        options: ["a1", "a2", "a3"],
-      },
-      {
-        description: "Q2",
-        type: "many options",
-        id: 2,
-        options: ["a11", "a22", "a33"],
-      },
-      {
-        description: "Q3",
-        type: "open",
-        id: 3,
-        options: [],
-      },
-    ],
-    published: false,
-  };
-  const [surveysList, setSurveysList] = useState<Survey[]>([surveyTest]);
+  const [surveysList, setSurveysList] = useState<Survey[]>([]);
+
+  useEffect(() => {
+    const asyncFunction = async () => {
+      setSurveysList(await loadSurveysFromFirestore());
+    };
+    asyncFunction();
+  }, []);
 
   const contextValue = useMemo(() => {
-    function addSurveyToList(newSurvey: Survey) {
+    async function addSurveyToList(newSurvey: Survey) {
       // console.log(newSurvey);
       setSurveysList((list) => [...list, newSurvey]);
+
+      await addDoc(collection(database, "surveys"), {
+        name: newSurvey.name,
+        id: newSurvey.id,
+        published: newSurvey.published,
+        questions: newSurvey.questions.map((question) => ({
+          description: question.description,
+          type: question.type,
+          id: question.id,
+          options: question.options,
+        })),
+      });
     }
 
     function delQuestionFromList(surveyId: number, questionId: number) {
@@ -111,12 +132,17 @@ export function SurveysContextProvider({
       );
     }
 
+    // function upadteSurveyList(newList: Survey[]) {
+    //   setSurveysList(() => newList);
+    // }
+
     return {
       surveysList,
       addSurveyToList,
       delQuestionFromList,
       updateSurvey,
       publishSurvey,
+      // upadteSurveyList,
     };
   }, [surveysList]);
 
