@@ -16,16 +16,20 @@ function Page() {
   const surveyId = Number(searchParams.get("surveyid"));
   const [isEdit, setIsEdit] = useState(false);
 
+  const currentSurvey = context.surveysList.find(
+    (element) => element.id === surveyId,
+  );
   const changeEdit = () => {
     setIsEdit(!isEdit);
   };
 
-  const delQuestion = (questionId: number) => {
-    context.delQuestionFromList(surveyId - 1, questionId);
-  };
+  // const delQuestion = (questionId: number) => {
+  //   context.delQuestionFromList(surveyId - 1, questionId);
+  // };
 
   const [surveyQuestions, setSurveyQuestions] = useState(
-    context.surveysList.find((element) => element.id === surveyId)?.questions,
+    currentSurvey?.questions,
+    // context.surveysList[surveyId - 1].questions,
   );
 
   const getNewId = () => {
@@ -33,7 +37,8 @@ function Page() {
   };
 
   const [surveyName, setSurveyName] = useState(
-    context.surveysList.find((element) => element.id === surveyId)?.name,
+    // context.surveysList[surveyId - 1].name,
+    currentSurvey?.name,
   );
 
   return (
@@ -42,14 +47,15 @@ function Page() {
         <div className="flex flex-col items-center justify-center p-8">
           <Card className="survey-component p-7">
             <CardHeader className="mb-7 p-0 flex flex-row justify-between">
-              {context.surveysList[surveyId - 1]?.name}
-              {!context.surveysList[surveyId - 1].published && (
+              {currentSurvey?.name}
+              {!currentSurvey?.published && (
                 <ActionButton actionIcon="Edit" onClickFunction={changeEdit} />
               )}
             </CardHeader>
             {!isEdit ? (
               <QuestionListView
-                questionsList={context.surveysList[surveyId - 1].questions}
+                questionsList={surveyQuestions}
+                // questionsList={context.surveysList[surveyId - 1].questions}
                 edit={false}
                 deleteQuestion={() => {}}
                 saveEditedQuestion={() => {}}
@@ -61,7 +67,7 @@ function Page() {
                 surveyName={surveyName}
                 surveyId={surveyId}
                 surveyQuestions={surveyQuestions}
-                getNewId={getNewId}
+                getNewId={() => 0}
                 saveFunction={context.updateSurvey}
               />
             )}

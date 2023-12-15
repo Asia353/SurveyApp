@@ -27,6 +27,7 @@ function SurveyListView({
   };
 
   const [show, setShow] = useState(false);
+
   return (
     <div className="flex flex-col w-full gap-2">
       {surveysList.map((element, index) => (
@@ -44,7 +45,7 @@ function SurveyListView({
         >
           <Link
             color="foregrourend"
-            to={`/description-survey?surveyid=${index + 1}`}
+            to={`/description-survey?surveyid=${element.id}`}
             className="flex flex-row w-full"
           >
             <CardHeader className="p-0 w-auto">
@@ -56,7 +57,7 @@ function SurveyListView({
               <ActionButton
                 actionIcon="Send"
                 onClickFunction={() => {
-                  surveyPublish(index);
+                  // surveyPublish(index);
                 }}
               />
             ) : (

@@ -112,7 +112,7 @@ function QuestionItemEdit({
           <p className="mb-3">Question type: {newType}</p>
           <div className="flex flex-col">
             {newOptions.map((answer, idx) => (
-              <OneAnswer answer={answer} />
+              <OneAnswer answer={answer} key={answer} />
             ))}
           </div>
         </CardFooter>

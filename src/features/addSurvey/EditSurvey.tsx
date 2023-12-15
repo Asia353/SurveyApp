@@ -25,7 +25,7 @@ function EditSurvey({
   const [newQuestionsList, setNewQuestionsList] =
     useState<Question[]>(surveyQuestions);
   const [newSurveyName, setNewSurveyName] = useState(surveyName);
-  const [newId] = useState(surveyId);
+  // const [newId] = useState(surveyId);
 
   const [newQuestion] = useState<Question>({
     description: "",
@@ -68,16 +68,16 @@ function EditSurvey({
     // setNewQuestion({ description: " ", type: " ", id: 0, options: [] });
   }
 
-  function deleteQuestion(id: number) {
+  function deleteQuestion(delElementId: number) {
     setNewQuestionsList((prevList) =>
-      prevList.filter((element, index) => index !== id),
+      prevList.filter((element, index) => index !== delElementId),
     );
   }
 
   function saveSurvey() {
     saveFunction({
       name: newSurveyName,
-      id: getNewId(),
+      id: surveyId,
       questions: newQuestionsList,
       published: false,
     });
@@ -86,14 +86,14 @@ function EditSurvey({
   }
 
   function saveEditedQuestion(
-    questionId: number,
+    questionIndex: number,
     newDescription: string,
     newType: string,
     newOptions: string[],
   ) {
     setNewQuestionsList((prevList) =>
       prevList.map((element, index) =>
-        index === questionId
+        index === questionIndex
           ? {
               ...element,
               description: newDescription,

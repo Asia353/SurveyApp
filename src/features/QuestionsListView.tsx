@@ -24,33 +24,27 @@ function QuestionListView({
 }) {
   return (
     <div>
-      {!edit ? (
-        <div className=" justify-center gap-2 flex flex-col">
-          {questionsList.map((question, index) => {
+      <div className=" justify-center gap-2 flex flex-col">
+        {questionsList.map((question, index) => {
+          if (!edit)
             return (
               <QuestionItem
-                key={`${question.description} ${question.id}`}
+                key={`${question.description} ${question.id} ${question.id}`}
                 item={question}
                 index={index}
               />
             );
-          })}
-        </div>
-      ) : (
-        <div className=" justify-center gap-2 flex flex-col">
-          {questionsList.map((question, index) => {
-            return (
-              <QuestionItemEdit
-                key={`${question.description} ${question.id}`}
-                item={question}
-                index={index}
-                deleteQuestion={deleteQuestion}
-                saveEditedQuestion={saveEditedQuestion}
-              />
-            );
-          })}
-        </div>
-      )}
+          return (
+            <QuestionItemEdit
+              key={`${question.description} ${question.id}`}
+              item={question}
+              index={index}
+              deleteQuestion={deleteQuestion}
+              saveEditedQuestion={saveEditedQuestion}
+            />
+          );
+        })}
+      </div>
     </div>
   );
 }

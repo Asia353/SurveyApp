@@ -2,43 +2,24 @@ import React, { useContext, useEffect, useMemo, useState } from "react";
 import { addDoc, collection, getDocs } from "firebase/firestore";
 import { database } from "./firebase-config";
 import { Survey, Question } from "./types";
+import loadSurveysFromFirestore, {
+  loadSurveyByIdFromFirestore,
+  writeSurveyToFirestore,
+} from "./FirebaseFunctions";
 
 type SurveysContextType = {
   surveysList: Survey[];
   addSurveyToList: (newSurvey: Survey) => void;
-  delQuestionFromList: (surveyId: number, questionId: number) => void;
+  // delQuestionFromList: (surveyId: number, questionId: number) => void;
   updateSurvey: (survey: Survey) => void;
   publishSurvey: (surveyIndex: number) => void;
   // upadteSurveyList: (surveyList: Survey[]) => void;
 };
 
-async function loadSurveysFromFirestore() {
-  try {
-    const surveysCollection = collection(database, "surveys");
-    const surveysSnapshot = await getDocs(surveysCollection);
-
-    const surveysList: Survey[] = surveysSnapshot.docs.map((doc) => {
-      const data = doc.data();
-      return {
-        id: data.id,
-        name: data.name,
-        questions: data.questions || [],
-        published: data.published || false,
-      } as Survey;
-    });
-
-    console.log("Załadowano ankiety z Firestore:", surveysList);
-    return surveysList;
-  } catch (error) {
-    console.error("Błąd podczas ładowania ankiet z Firestore:", error);
-    return [];
-  }
-}
-
 const surveysContextInitValue = {
   surveysList: [],
   addSurveyToList: () => {},
-  delQuestionFromList: () => {},
+  // delQuestionFromList: () => {},
   updateSurvey: () => {},
   publishSurvey: () => {},
   upadteSurveyList: () => {},
@@ -70,40 +51,28 @@ export function SurveysContextProvider({
   }, []);
 
   const contextValue = useMemo(() => {
-    async function addSurveyToList(newSurvey: Survey) {
-      // console.log(newSurvey);
+    function addSurveyToList(newSurvey: Survey) {
       setSurveysList((list) => [...list, newSurvey]);
-
-      await addDoc(collection(database, "surveys"), {
-        name: newSurvey.name,
-        id: newSurvey.id,
-        published: newSurvey.published,
-        questions: newSurvey.questions.map((question) => ({
-          description: question.description,
-          type: question.type,
-          id: question.id,
-          options: question.options,
-        })),
-      });
+      writeSurveyToFirestore(newSurvey);
     }
 
-    function delQuestionFromList(surveyId: number, questionId: number) {
-      // poxniej pewnie lepiej zamias sIndex i qIndex używać survey.id i question.id
-      // console.log(surveyId);
-      setSurveysList((list) =>
-        list.map((survey, sIndex) => {
-          if (sIndex === surveyId) {
-            return {
-              ...survey,
-              questions: survey.questions.filter(
-                (question, qIndex) => qIndex !== questionId,
-              ),
-            };
-          }
-          return survey;
-        }),
-      );
-    }
+    // function delQuestionFromList(surveyId: number, questionId: number) {
+    //   // poxniej pewnie lepiej zamias sIndex i qIndex używać survey.id i question.id
+    //   // console.log(surveyId);
+    //   setSurveysList((list) =>
+    //     list.map((survey, sIndex) => {
+    //       if (sIndex === surveyId) {
+    //         return {
+    //           ...survey,
+    //           questions: survey.questions.filter(
+    //             (question, qIndex) => qIndex !== questionId,
+    //           ),
+    //         };
+    //       }
+    //       return survey;
+    //     }),
+    //   );
+    // }
 
     function updateSurvey(survey: Survey) {
       setSurveysList((list) =>
@@ -139,7 +108,7 @@ export function SurveysContextProvider({
     return {
       surveysList,
       addSurveyToList,
-      delQuestionFromList,
+      // delQuestionFromList,
       updateSurvey,
       publishSurvey,
       // upadteSurveyList,
