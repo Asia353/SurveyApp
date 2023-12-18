@@ -4,6 +4,7 @@ import { database } from "./firebase-config";
 import { Survey, Question } from "./types";
 import loadSurveysFromFirestore, {
   loadSurveyByIdFromFirestore,
+  modifySurveyQuestion,
   writeSurveyToFirestore,
 } from "./FirebaseFunctions";
 
@@ -86,12 +87,13 @@ export function SurveysContextProvider({
             : currentSurvey,
         ),
       );
+      modifySurveyQuestion(survey);
     }
 
-    function publishSurvey(surveyIndex: number) {
+    function publishSurvey(surveyId: number) {
       setSurveysList((list) =>
         list.map((currentSurvey, index) =>
-          index === surveyIndex
+          currentSurvey.id === surveyId
             ? {
                 ...currentSurvey,
                 published: true,

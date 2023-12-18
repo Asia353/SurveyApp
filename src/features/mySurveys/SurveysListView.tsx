@@ -20,11 +20,11 @@ function SurveyListView({
   surveyPublish,
 }: {
   surveysList: Survey[];
-  surveyPublish: (surveyIndex: number) => void;
+  surveyPublish: (surveyId: number) => void;
 }) {
-  const publishS = (index: number) => {
-    surveyPublish(index);
-  };
+  // const publishS = (index: number) => {
+  //   surveyPublish(index);
+  // };
 
   const [show, setShow] = useState(false);
 
@@ -57,7 +57,7 @@ function SurveyListView({
               <ActionButton
                 actionIcon="Send"
                 onClickFunction={() => {
-                  // surveyPublish(index);
+                  surveyPublish(element.id);
                 }}
               />
             ) : (
@@ -68,7 +68,7 @@ function SurveyListView({
                   actionIcon="Link2"
                   onClickFunction={() =>
                     navigator.clipboard.writeText(
-                      `http://localhost:3000/survey-form?surveyid=${index + 1}`,
+                      `http://localhost:3000/survey-form?surveyid=${element.id}`,
                     )
                   }
                 />
