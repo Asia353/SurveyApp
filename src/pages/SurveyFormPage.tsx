@@ -71,7 +71,7 @@ function Page() {
               {currentSurvey?.questions.map((element, index) => (
                 <>
                   <Divider />
-                  <QuestionForm question={element} />
+                  <QuestionForm question={element} index={index} />
                 </>
               ))}
               {/* </> */}

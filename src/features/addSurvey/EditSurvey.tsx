@@ -51,7 +51,7 @@ function EditSurvey({
       newQustionId =
         newQuestionsList.length > 0
           ? newQuestionsList[newQuestionsList.length - 1].id + 1
-          : 0;
+          : 1;
 
     setNewQuestionsList([
       ...newQuestionsList,

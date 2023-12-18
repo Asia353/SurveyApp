@@ -4,7 +4,13 @@ import ManyOptionsForm from "./ManyOptionsForm";
 import OneOptionForm from "./OneOptionForm";
 import OpenForm from "./OpenForm";
 
-function QuestionForm({ question }: { question: Question }) {
+function QuestionForm({
+  question,
+  index,
+}: {
+  question: Question;
+  index: number;
+}) {
   return (
     <div className="p-7">
       <p className="m-0 p-0 mb-7">
