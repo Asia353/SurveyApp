@@ -7,9 +7,11 @@ import OpenForm from "./OpenForm";
 function QuestionForm({
   question,
   index,
+  updateAnserws,
 }: {
   question: Question;
   index: number;
+  updateAnserws: (questionId: number, newAnswers: string[]) => void;
 }) {
   return (
     <div className="p-7">
@@ -17,13 +19,25 @@ function QuestionForm({
         {question.id}. {question.description}
       </p>
       {question.type === "many options" && (
-        <ManyOptionsForm key={question.description} question={question} />
+        <ManyOptionsForm
+          key={question.description}
+          question={question}
+          updateAnserws={updateAnserws}
+        />
       )}
       {question.type === "one option" && (
-        <OneOptionForm key={question.description} question={question} />
+        <OneOptionForm
+          key={question.description}
+          question={question}
+          updateAnserws={updateAnserws}
+        />
       )}
       {question.type === "open" && (
-        <OpenForm key={question.description} question={question} />
+        <OpenForm
+          key={question.description}
+          question={question}
+          updateAnserws={updateAnserws}
+        />
       )}
     </div>
   );

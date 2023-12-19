@@ -1,10 +1,20 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Radio, RadioGroup } from "@nextui-org/react";
 
 import { Question } from "../../types";
 
-function OneOptionForm({ question }: { question: Question }) {
-  const [selectedAnswer, setSelectedAnswer] = useState<string>();
+function OneOptionForm({
+  question,
+  updateAnserws,
+}: {
+  question: Question;
+  updateAnserws: (questionId: number, newAnswers: string[]) => void;
+}) {
+  const [selectedAnswer, setSelectedAnswer] = useState<string>("");
+
+  useEffect(() => {
+    updateAnserws(question.id, [selectedAnswer]);
+  }, [selectedAnswer]);
 
   return (
     <RadioGroup

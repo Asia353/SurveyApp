@@ -5,14 +5,13 @@ import {
   addDoc,
   collection,
   doc,
-  // doc,
   getDocs,
   query,
   updateDoc,
   where,
 } from "firebase/firestore";
 import { database } from "./firebase-config";
-import { Survey } from "./types";
+import { Reply, Survey } from "./types";
 
 export default async function loadSurveysFromFirestore() {
   try {
@@ -50,6 +49,26 @@ export async function writeSurveyToFirestore(newSurvey: Survey) {
     })),
   });
 }
+
+export async function writeAnswersToFirestore(
+  surveyId: number,
+  replies: Reply[],
+) {
+  const usersCollectionRef = collection(
+    database,
+    `replies-surveyId=${surveyId}`,
+  );
+
+  await addDoc(usersCollectionRef, {
+    sid: surveyId,
+    replies: replies.map((reply) => ({
+      questionId: reply.questionId,
+      type: reply.type,
+      answers: reply.answers,
+    })),
+  });
+}
+// }
 
 export async function loadSurveyByIdFromFirestore(
   surveyId: number,

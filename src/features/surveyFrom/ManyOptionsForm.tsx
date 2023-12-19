@@ -1,10 +1,20 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Checkbox, CheckboxGroup } from "@nextui-org/react";
 
 import { Question } from "../../types";
 
-function ManyOptionsForm({ question }: { question: Question }) {
+function ManyOptionsForm({
+  question,
+  updateAnserws,
+}: {
+  question: Question;
+  updateAnserws: (questionId: number, newAnswers: string[]) => void;
+}) {
   const [selectedAnswersList, setSelectedAnserwsList] = useState<string[]>([]);
+
+  useEffect(() => {
+    updateAnserws(question.id, selectedAnswersList);
+  }, [selectedAnswersList]);
 
   return (
     <CheckboxGroup

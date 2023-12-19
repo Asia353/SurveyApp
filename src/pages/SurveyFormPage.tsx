@@ -12,8 +12,8 @@ import QuestionForm from "../features/surveyFrom/QuestionForm";
 
 import "./Page.css";
 import { useSurveyContext } from "../SurveysContext";
-import { loadSurveyByIdFromFirestore } from "../FirebaseFunctions";
-import { Question, Survey } from "../types";
+import { writeAnswersToFirestore } from "../FirebaseFunctions";
+import { Reply, Survey } from "../types";
 
 function Page() {
   const context = useSurveyContext();
@@ -22,40 +22,36 @@ function Page() {
   const searchParams = new URLSearchParams(location.search);
   const surveyId = Number(searchParams.get("surveyid"));
 
-  // const [currentSurvey, setCurrentSurvey] = useState<Survey>();
-
-  // useEffect(() => {
-  //   const asyncFunction = async () => {
-  //     setCurrentSurvey(await loadSurveyByIdFromFirestore(surveyId));
-  //   };
-  //   asyncFunction();
-  //   console.log("Id: ", surveyId);
-  //   console.log(currentSurvey);
-  // }, []);
-
   const [isEdit, setIsEdit] = useState(false);
 
-  // const changeEdit = () => {
-  //   setIsEdit(!isEdit);
-  // };
+  const [usersReplies, setUsersReplies] = useState<Reply[]>([]);
+  const [currentSurvey, setCurrentSurvey] = useState<Survey>();
 
-  const currentSurvey = context.surveysList.find(
-    (element) => element.id === surveyId,
-  );
+  useEffect(() => {
+    const survey = context.surveysList.find(
+      (element) => element.id === surveyId,
+    );
+    if (survey) {
+      setUsersReplies(
+        survey.questions.map((question) => ({
+          questionId: question.id,
+          type: question.type,
+          answers: [""],
+        })),
+      );
+      setCurrentSurvey(survey);
+    }
+  }, [context.surveysList, surveyId]);
 
-  // const [surveyQuestions, setSurveyQuestions] = useState<Question[]>([]);
-  // const [surveyName, setSurveyName] = useState<string>("");
-
-  // if (currentSurvey) {
-  //   setSurveyQuestions(currentSurvey.questions);
-  //   setSurveyName(currentSurvey.name);
-  // }
-
-  // const getNewId = () => {
-  //   return surveyIndex + 1;
-  // };
-
-  // const [surveyName, setSurveyName] = useState(currentSurvey?.name);
+  const updateAnswers = (questionId: number, newAnswers: string[]) => {
+    setUsersReplies(
+      usersReplies.map((reply) =>
+        reply.questionId === questionId
+          ? { ...reply, answers: newAnswers }
+          : reply,
+      ),
+    );
+  };
 
   return (
     <div>
@@ -70,15 +66,25 @@ function Page() {
               {/* <> */}
               {currentSurvey?.questions.map((element, index) => (
                 <>
-                  <Divider />
-                  <QuestionForm question={element} index={index} />
+                  <Divider key={(element.description, 1)} />
+                  <QuestionForm
+                    key={element.description}
+                    question={element}
+                    index={index}
+                    updateAnserws={updateAnswers}
+                  />
                 </>
               ))}
               {/* </> */}
             </CardBody>
             {/* <Divider /> */}
             <CardFooter className="p-0 pt-7 m-0">
-              <Button className=" w-full" size="lg" radius="none">
+              <Button
+                className=" w-full"
+                size="lg"
+                radius="none"
+                onClick={() => writeAnswersToFirestore(surveyId, usersReplies)}
+              >
                 Send answers
               </Button>
             </CardFooter>

@@ -11,3 +11,9 @@ export type Survey = {
   questions: Question[];
   published: boolean;
 };
+
+export type Reply = {
+  questionId: number;
+  type: string;
+  answers: string[];
+};
