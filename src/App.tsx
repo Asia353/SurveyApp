@@ -1,25 +1,76 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { useEffect, useState } from "react";
+import { Button, NextUIProvider } from "@nextui-org/react";
+import { Route, Routes, BrowserRouter as Router } from "react-router-dom";
+
+import "./App.css";
+import NavBar from "./components/NavBar";
+import {
+  AddSurveyPage,
+  MySurveysPage,
+  SurveyDescriptionPage,
+  SurveyFormPage,
+} from "./pages";
+import { SurveysContextProvider } from "./SurveysContext";
+import LogInPage from "./pages/LogInPage";
+import SignUpPage from "./pages/SignUpPage";
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Router>
+      <NextUIProvider>
+        <NavBar />
+        <Routes>
+          <Route
+            path="/add-survey"
+            element={
+              <SurveysContextProvider>
+                <AddSurveyPage />
+              </SurveysContextProvider>
+            }
+          />
+          <Route
+            path="/my-surveys"
+            element={
+              <SurveysContextProvider>
+                <MySurveysPage />
+              </SurveysContextProvider>
+            }
+          />
+          <Route
+            path="/description-survey"
+            element={
+              <SurveysContextProvider>
+                <SurveyDescriptionPage />
+              </SurveysContextProvider>
+            }
+          />
+          <Route
+            path="/survey-form"
+            element={
+              <SurveysContextProvider>
+                <SurveyFormPage />
+              </SurveysContextProvider>
+            }
+          />
+          <Route
+            path="/log-in"
+            element={
+              <SurveysContextProvider>
+                <LogInPage />
+              </SurveysContextProvider>
+            }
+          />
+          <Route
+            path="/sign-up"
+            element={
+              <SurveysContextProvider>
+                <SignUpPage />
+              </SurveysContextProvider>
+            }
+          />
+        </Routes>
+      </NextUIProvider>
+    </Router>
   );
 }
 
