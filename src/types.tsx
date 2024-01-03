@@ -17,3 +17,5 @@ export type Reply = {
   type: string;
   answers: string[];
 };
+
+export type RepliesList = { replies: Reply[]; sid: number };

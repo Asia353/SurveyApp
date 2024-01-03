@@ -7,6 +7,7 @@ import NavBar from "./components/NavBar";
 import {
   AddSurveyPage,
   MySurveysPage,
+  StatisticsPage,
   SurveyDescriptionPage,
   SurveyFormPage,
 } from "./pages";
@@ -65,6 +66,14 @@ function App() {
             element={
               <SurveysContextProvider>
                 <SignUpPage />
+              </SurveysContextProvider>
+            }
+          />
+          <Route
+            path="/statistics"
+            element={
+              <SurveysContextProvider>
+                <StatisticsPage />
               </SurveysContextProvider>
             }
           />

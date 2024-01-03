@@ -2,11 +2,7 @@ import React, { useContext, useEffect, useMemo, useState } from "react";
 import { addDoc, collection, getDocs } from "firebase/firestore";
 import { database } from "./firebase-config";
 import { Survey, Question } from "./types";
-import loadSurveysFromFirestore, {
-  loadSurveyByIdFromFirestore,
-  modifySurveyQuestion,
-  writeSurveyToFirestore,
-} from "./FirebaseFunctions";
+import * as FirebaseFunctions from "./FirebaseFunctions";
 
 type SurveysContextType = {
   surveysList: Survey[];
@@ -46,7 +42,7 @@ export function SurveysContextProvider({
 
   useEffect(() => {
     const asyncFunction = async () => {
-      setSurveysList(await loadSurveysFromFirestore());
+      setSurveysList(await FirebaseFunctions.loadSurveysFromFirestore());
     };
     asyncFunction();
   }, []);
@@ -54,7 +50,7 @@ export function SurveysContextProvider({
   const contextValue = useMemo(() => {
     function addSurveyToList(newSurvey: Survey) {
       setSurveysList((list) => [...list, newSurvey]);
-      writeSurveyToFirestore(newSurvey);
+      FirebaseFunctions.writeSurveyToFirestore(newSurvey);
     }
 
     // function delQuestionFromList(surveyId: number, questionId: number) {
@@ -87,7 +83,7 @@ export function SurveysContextProvider({
             : currentSurvey,
         ),
       );
-      modifySurveyQuestion(survey);
+      FirebaseFunctions.modifySurveyQuestion(survey);
     }
 
     function publishSurvey(surveyId: number) {

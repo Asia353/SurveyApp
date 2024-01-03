@@ -38,7 +38,7 @@ function QuestionItem({ item, index }: { item: Question; index: number }) {
           <p className="mb-3">Question type: {newType}</p>
           <div className="flex flex-col">
             {newOptions.map((answer, idx) => (
-              <OneAnswer answer={answer} />
+              <OneAnswer key={answer} answer={answer} />
             ))}
           </div>
         </CardFooter>

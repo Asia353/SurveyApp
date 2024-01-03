@@ -8,7 +8,7 @@ import {
   Tooltip,
 } from "@nextui-org/react";
 import { Link } from "react-router-dom";
-import { Link2 } from "iconsax-react";
+import { Diagram, Link2 } from "iconsax-react";
 
 import { useSurveyContext } from "../../SurveysContext";
 import { SurveyDescriptionPage } from "../../pages";
@@ -62,8 +62,14 @@ function SurveyListView({
               />
             ) : (
               <div className="flex">
-                <ActionButton actionIcon="Diagram" onClickFunction={() => {}} />
-                {/* nie działa dobrze przez całkowite odśwezanie. Będzie git z bazą pewnie */}
+                <ActionButton
+                  actionIcon="Diagram"
+                  onClickFunction={() =>
+                    navigator.clipboard.writeText(
+                      `http://localhost:3000/statistics?surveyid=${element.id}`,
+                    )
+                  }
+                />
                 <ActionButton
                   actionIcon="Link2"
                   onClickFunction={() =>
