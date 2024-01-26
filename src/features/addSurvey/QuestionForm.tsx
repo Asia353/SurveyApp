@@ -1,6 +1,6 @@
 import { Button, Card, Input, Select, SelectItem } from "@nextui-org/react";
 import React, { useState } from "react";
-import { Question } from "../../types";
+import { Question, QuestionType } from "../../types";
 import { AnswearsAdding } from "..";
 
 export const typesList = ["one option", "many options", "open"];
@@ -11,7 +11,7 @@ function QuestionForm({
 }: {
   addQuestion: (
     description: string,
-    type: string,
+    type: QuestionType,
     id: number,
     options: string[],
   ) => void;
@@ -40,9 +40,17 @@ function QuestionForm({
   function addNewQuestion() {
     addQuestion(description, type, question.id, options);
     setDescription("");
-    setType("");
+    setType(QuestionType.OneOption);
     setOptions([]);
   }
+
+  const setQuestionType = (newType: String) => {
+    if (newType === "one option") {
+      setType(QuestionType.OneOption);
+    } else if (newType === "many options") {
+      setType(QuestionType.ManyOptions);
+    } else setType(QuestionType.Open);
+  };
 
   return (
     <Card className="p-4 mt-4">
@@ -59,7 +67,7 @@ function QuestionForm({
           label="Select question's type"
           selectedKeys={[type]}
           onChange={(e) => {
-            setType(e.target.value);
+            setQuestionType(e.target.value);
           }}
         >
           {typesList.map((element) => (
@@ -68,7 +76,7 @@ function QuestionForm({
             </SelectItem>
           ))}
         </Select>
-        {(type === "one option" || type === "many options") && (
+        {(type === QuestionType.OneOption || QuestionType.ManyOptions) && (
           <AnswearsAdding
             answersList={options}
             deleteAnswerFromList={deleteAnswerFromList}

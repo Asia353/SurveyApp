@@ -1,7 +1,7 @@
 import React from "react";
 import QuestionItem from "./mySurveys/QuestionItem";
 import { useSurveyContext } from "../SurveysContext";
-import { Question, Survey } from "../types";
+import { Question, QuestionType, Survey } from "../types";
 import QuestionItemEdit from "./addSurvey/QuestionItemEdit";
 
 function QuestionListView({
@@ -17,7 +17,7 @@ function QuestionListView({
   saveEditedQuestion: (
     id: number,
     description: string,
-    type: string,
+    type: QuestionType,
     options: string[],
   ) => void;
   edit: boolean;

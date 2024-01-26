@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Card, CardBody, CardFooter } from "@nextui-org/react";
 import OneAnswer from "../addSurvey/OneAnswer";
 
-import { Question, RepliesList } from "../../types";
+import { Question, QuestionType, RepliesList } from "../../types";
 import ActionButton from "../../components/Button/ActionButton";
 
 function QuestionItemStat({
@@ -23,7 +23,7 @@ function QuestionItemStat({
   }
 
   const numberOfAnswers = () => {
-    if (item.type !== "open") {
+    if (item.type !== QuestionType.Open) {
       let sum = 0;
       repliesCounter.forEach((value) => {
         sum += value;
@@ -55,7 +55,7 @@ function QuestionItemStat({
           <p className="mb-3">Number of answers: {numberOfAnswers()}</p>
           {/* <div>{item.type === "open" && <p>dsfadfs</p>}</div> */}
           <div className="flex flex-col w-full">
-            {item.type !== "open" &&
+            {item.type !== QuestionType.Open &&
               item.options.map((answer, idx) => (
                 <div className="flex flex-row justify-between">
                   <OneAnswer key={answer} answer={answer} />
@@ -67,7 +67,7 @@ function QuestionItemStat({
                   </p>
                 </div>
               ))}
-            {item.type === "open" &&
+            {item.type === QuestionType.Open &&
               replies.map((repliy) => (
                 <p className="p-0 m-0 mr-auto">
                   - {repliy.replies[index].answers}

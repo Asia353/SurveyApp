@@ -1,5 +1,5 @@
 import React from "react";
-import { Question } from "../../types";
+import { Question, QuestionType } from "../../types";
 import ManyOptionsForm from "./ManyOptionsForm";
 import OneOptionForm from "./OneOptionForm";
 import OpenForm from "./OpenForm";
@@ -18,21 +18,21 @@ function QuestionForm({
       <p className="m-0 p-0 mb-7">
         {question.id}. {question.description}
       </p>
-      {question.type === "many options" && (
+      {question.type === QuestionType.ManyOptions && (
         <ManyOptionsForm
           key={question.description}
           question={question}
           updateAnserws={updateAnserws}
         />
       )}
-      {question.type === "one option" && (
+      {question.type === QuestionType.OneOption && (
         <OneOptionForm
           key={question.description}
           question={question}
           updateAnserws={updateAnserws}
         />
       )}
-      {question.type === "open" && (
+      {question.type === QuestionType.Open && (
         <OpenForm
           key={question.description}
           question={question}

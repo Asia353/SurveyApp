@@ -10,7 +10,7 @@ import {
 import React, { useState } from "react";
 import { Back } from "iconsax-react";
 
-import { Question } from "../../types";
+import { Question, QuestionType } from "../../types";
 import ActionButton from "../../components/Button/ActionButton";
 import OneAnswer from "./OneAnswer";
 import { typesList } from "./QuestionForm";
@@ -28,7 +28,7 @@ function QuestionItemEdit({
   saveEditedQuestion: (
     id: number,
     description: string,
-    type: string,
+    type: QuestionType,
     options: string[],
   ) => void;
 }) {
@@ -54,8 +54,12 @@ function QuestionItemEdit({
   }
 
   function editType(newValue: string) {
-    setNewType(newValue);
-    if (newValue === "open") setNewOptions([]);
+    if (newValue === "one option") setNewType(QuestionType.OneOption);
+    else if (newValue === "many options") setNewType(QuestionType.ManyOptions);
+    else {
+      setNewType(QuestionType.Open);
+      setNewOptions([]);
+    }
   }
 
   function handleSaveButtonClick() {
@@ -135,7 +139,7 @@ function QuestionItemEdit({
             </Select>
           </div>
           <div className=" mt-4 min-w-full">
-            {newType !== "open" && (
+            {newType !== QuestionType.Open && (
               <AnswersAdding
                 answersList={newOptions}
                 deleteAnswerFromList={deleteAnswerFromList}

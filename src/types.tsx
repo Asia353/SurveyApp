@@ -1,6 +1,12 @@
+export enum QuestionType {
+  Open,
+  OneOption,
+  ManyOptions,
+}
+
 export type Question = {
   description: string;
-  type: string;
+  type: QuestionType;
   id: number;
   options: string[];
 };
@@ -14,7 +20,7 @@ export type Survey = {
 
 export type Reply = {
   questionId: number;
-  type: string;
+  type: QuestionType;
   answers: string[];
 };
 

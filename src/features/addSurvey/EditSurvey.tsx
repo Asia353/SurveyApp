@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 
 // import "./Page.css";
 import { Button, Card, CardHeader, Input } from "@nextui-org/react";
-import { Question, Survey } from "../../types";
+import { Question, QuestionType, Survey } from "../../types";
 import QuestionListView from "../QuestionsListView";
 import QuestionForm from "./QuestionForm";
 
@@ -29,7 +29,7 @@ function EditSurvey({
 
   const [newQuestion] = useState<Question>({
     description: "",
-    type: "",
+    type: QuestionType.OneOption,
     id: 0,
     options: [],
   });
@@ -40,7 +40,7 @@ function EditSurvey({
 
   function addQuestion(
     description: string,
-    type: string,
+    type: QuestionType,
     id: number,
     options: string[],
   ) {
@@ -88,7 +88,7 @@ function EditSurvey({
   function saveEditedQuestion(
     questionIndex: number,
     newDescription: string,
-    newType: string,
+    newType: QuestionType,
     newOptions: string[],
   ) {
     setNewQuestionsList((prevList) =>
