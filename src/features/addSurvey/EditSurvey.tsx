@@ -3,7 +3,7 @@ import { Add } from "iconsax-react";
 import { Link } from "react-router-dom";
 
 // import "./Page.css";
-import { Button, Card, CardHeader, Input } from "@nextui-org/react";
+import { Button, CardHeader, Input } from "@nextui-org/react";
 import { Question, QuestionType, Survey } from "../../types";
 import QuestionListView from "../QuestionsListView";
 import QuestionForm from "./QuestionForm";
@@ -12,20 +12,17 @@ function EditSurvey({
   surveyName,
   surveyId,
   surveyQuestions,
-  getNewId,
   saveFunction,
 }: {
   surveyName: string;
   surveyId: number;
   surveyQuestions: Question[];
-  getNewId: () => number;
   saveFunction: (survey: Survey) => void;
 }) {
   const edit = true;
   const [newQuestionsList, setNewQuestionsList] =
     useState<Question[]>(surveyQuestions);
   const [newSurveyName, setNewSurveyName] = useState(surveyName);
-  // const [newId] = useState(surveyId);
 
   const [newQuestion] = useState<Question>({
     description: "",
@@ -44,8 +41,6 @@ function EditSurvey({
     id: number,
     options: string[],
   ) {
-    // setQuestionsList((x) => [...x, newQuestion]);
-
     let newQustionId = id;
     if (id === 0)
       newQustionId =
@@ -64,8 +59,6 @@ function EditSurvey({
     ]);
 
     setQuestionEditorAvaliable(false);
-
-    // setNewQuestion({ description: " ", type: " ", id: 0, options: [] });
   }
 
   function deleteQuestion(delElementId: number) {
@@ -81,8 +74,6 @@ function EditSurvey({
       questions: newQuestionsList,
       published: false,
     });
-    // setNewQuestionsList(surveyQuestions);
-    // setNewSurveyName(surveyName);
   }
 
   function saveEditedQuestion(
@@ -137,7 +128,6 @@ function EditSurvey({
         {/* {questionsList.map((item, index) => ( */}
         <QuestionListView
           questionsList={newQuestionsList}
-          // id={index}
           deleteQuestion={deleteQuestion}
           saveEditedQuestion={saveEditedQuestion}
           edit={edit}

@@ -1,17 +1,6 @@
-import React, { useEffect, useState } from "react";
-import {
-  Button,
-  Card,
-  CardBody,
-  CardFooter,
-  CardHeader,
-  Tooltip,
-} from "@nextui-org/react";
+import React, { useState } from "react";
+import { Card, CardFooter, CardHeader } from "@nextui-org/react";
 import { Link } from "react-router-dom";
-import { Diagram, Link2 } from "iconsax-react";
-
-import { useSurveyContext } from "../../SurveysContext";
-import { SurveyDescriptionPage } from "../../pages";
 import { Survey } from "../../types";
 import ActionButton from "../../components/Button/ActionButton";
 

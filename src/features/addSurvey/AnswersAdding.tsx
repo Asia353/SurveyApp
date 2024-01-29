@@ -5,25 +5,21 @@ import AnswerEditing from "./AnswerEditing";
 
 function AnswersAdding({
   answersList,
-  deleteAnswerFromList,
-  addAnswerToList,
-  editAnswer,
+  onDelete,
+  onAdd,
+  onEdit,
 }: {
   answersList: string[];
-  deleteAnswerFromList: (id: number) => void;
-  addAnswerToList: (newAnswer: string) => void;
-  editAnswer: (id: number, newAnswer: string) => void;
+  onDelete: (id: number) => void;
+  onAdd: (newAnswer: string) => void;
+  onEdit: (id: number, newAnswer: string) => void;
 }) {
   const [newAnswer, setNewAnswer] = useState("");
 
   function addAnswer() {
-    addAnswerToList(newAnswer);
+    onAdd(newAnswer);
     setNewAnswer("");
   }
-
-  // function editAnswer(id: number, newValue: string) {
-  //   // answersList[id] = newValue;
-  // }
 
   return (
     <Card className="p-4">
@@ -33,8 +29,8 @@ function AnswersAdding({
             key={`${answer}`}
             answer={answer}
             id={index}
-            deleteAnswerFromList={deleteAnswerFromList}
-            editAnswer={editAnswer}
+            onDelete={onDelete}
+            onEdit={onEdit}
           />
         ))}
       </div>

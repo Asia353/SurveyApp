@@ -1,4 +1,4 @@
-import { Button, Card, CardBody, CardHeader } from "@nextui-org/react";
+import { Card, CardHeader } from "@nextui-org/react";
 import React, { useState } from "react";
 import { useLocation } from "react-router-dom";
 
@@ -19,7 +19,7 @@ function Page() {
   const currentSurvey = context.surveysList.find(
     (element) => element.id === surveyId,
   );
-  const changeEdit = () => {
+  const toggleEdit = () => {
     setIsEdit(!isEdit);
   };
 
@@ -27,19 +27,9 @@ function Page() {
   //   context.delQuestionFromList(surveyId - 1, questionId);
   // };
 
-  const [surveyQuestions, setSurveyQuestions] = useState(
-    currentSurvey?.questions,
-    // context.surveysList[surveyId - 1].questions,
-  );
+  const [surveyQuestions] = useState(currentSurvey?.questions);
 
-  const getNewId = () => {
-    return surveyId;
-  };
-
-  const [surveyName, setSurveyName] = useState(
-    // context.surveysList[surveyId - 1].name,
-    currentSurvey?.name,
-  );
+  const [surveyName] = useState(currentSurvey?.name);
 
   return (
     <div>
@@ -49,30 +39,25 @@ function Page() {
             <CardHeader className="mb-7 p-0 flex flex-row justify-between">
               {currentSurvey?.name}
               {!currentSurvey?.published && (
-                <ActionButton actionIcon="Edit" onClickFunction={changeEdit} />
+                <ActionButton actionIcon="Edit" onClickFunction={toggleEdit} />
               )}
             </CardHeader>
             {!isEdit ? (
               <QuestionListView
                 questionsList={surveyQuestions}
-                // questionsList={context.surveysList[surveyId - 1].questions}
                 edit={false}
                 deleteQuestion={() => {}}
                 saveEditedQuestion={() => {}}
               />
             ) : (
               <EditSurvey
-                // questionList={context.surveysList[surveyId - 1].questions}
                 key={`${surveyName}`}
                 surveyName={surveyName}
                 surveyId={surveyId}
                 surveyQuestions={surveyQuestions}
-                getNewId={() => 0}
                 saveFunction={context.updateSurvey}
               />
             )}
-
-            {/* <Button onclick={save}>SAVE</Button> */}
           </Card>
         </div>
       ) : (

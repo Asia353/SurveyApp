@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from "react";
-import { Button, NextUIProvider } from "@nextui-org/react";
+import React from "react";
+import { NextUIProvider } from "@nextui-org/react";
 import { Route, Routes, BrowserRouter as Router } from "react-router-dom";
 
 import "./App.css";

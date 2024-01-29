@@ -6,11 +6,11 @@ import OpenForm from "./OpenForm";
 
 function QuestionForm({
   question,
-  index,
+  // index,
   updateAnserws,
 }: {
   question: Question;
-  index: number;
+  // index: number;
   updateAnserws: (questionId: number, newAnswers: string[]) => void;
 }) {
   return (

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Input, Radio, RadioGroup } from "@nextui-org/react";
+import { Input, Radio } from "@nextui-org/react";
 
 import { Question } from "../../types";
 

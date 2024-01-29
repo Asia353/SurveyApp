@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import { Button, Card, CardBody, CardHeader, Input } from "@nextui-org/react";
+import React from "react";
+import { Button, Card, CardHeader } from "@nextui-org/react";
 import { Link } from "react-router-dom";
 
 import "./Page.css";

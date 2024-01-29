@@ -3,45 +3,29 @@ import { EmojiHappy } from "iconsax-react";
 import { Input } from "@nextui-org/react";
 
 import ActionButton from "../../components/Button/ActionButton";
-import OneAnswer from "./OneAnswer";
 
 function AnswerEditing({
   answer,
   id,
-  deleteAnswerFromList,
-  editAnswer,
+  onDelete,
+  onEdit,
 }: {
   answer: string;
   id: number;
-  deleteAnswerFromList: (id: number) => void;
-  editAnswer: (id: number, newValue: string) => void;
+  onDelete: (id: number) => void;
+  onEdit: (id: number, newValue: string) => void;
 }) {
   const [isEditing, setIsEditing] = useState(false);
   const [newAnswer, setNewAnswer] = useState(answer);
 
-  function deleteAnswer() {
-    deleteAnswerFromList(id);
-  }
-
   function saveEditedAnswer() {
-    editAnswer(id, newAnswer);
+    onEdit(id, newAnswer);
     setIsEditing(false);
   }
-
-  function dontSaveEditedAnswer() {
-    setNewAnswer(answer);
-    setIsEditing(false);
-  }
-
-  // function handleKeyDown(e: React.KeyboardEvent<HTMLInputElement>) {
-  //   if (e.key === "Enter") {
-  //     setIsEditing(!isEditing);
-  //   }
-  // }
 
   return (
     <div
-      role="button" // Dodaj role przycisku, aby określić, że jest to interaktywny element
+      role="button"
       className="flex flex-row pb-3"
       tabIndex={0}
       onClick={() => setIsEditing(true)}
@@ -80,10 +64,7 @@ function AnswerEditing({
         <p className="p-0 pl-4 m-0">{newAnswer}</p>
       )}
       <div className=" self-center ml-auto">
-        <ActionButton
-          actionIcon="Trash"
-          onClickFunction={() => deleteAnswerFromList(id)}
-        />
+        <ActionButton actionIcon="Trash" onClickFunction={() => onDelete(id)} />
       </div>
     </div>
   );

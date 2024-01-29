@@ -9,9 +9,9 @@ import ActionButton from "../../components/Button/ActionButton";
 function QuestionItem({ item, index }: { item: Question; index: number }) {
   const [showDetails, setShowDetails] = useState(false);
 
-  const [newDescription, setNewDescription] = useState(item.description);
-  const [newType, setNewType] = useState(item.type);
-  const [newOptions, setNewOptions] = useState(item.options);
+  const [newDescription] = useState(item.description);
+  const [newType] = useState(item.type);
+  const [newOptions] = useState(item.options);
 
   function details() {
     setShowDetails(!showDetails);
@@ -37,7 +37,7 @@ function QuestionItem({ item, index }: { item: Question; index: number }) {
         <CardFooter className="flex flex-col items-start">
           <p className="mb-3">Question type: {newType}</p>
           <div className="flex flex-col">
-            {newOptions.map((answer, idx) => (
+            {newOptions.map((answer) => (
               <OneAnswer key={answer} answer={answer} />
             ))}
           </div>

@@ -3,8 +3,6 @@ import React, { useState } from "react";
 import { Eye, EyeSlash } from "iconsax-react";
 import { Link } from "react-router-dom";
 
-import ActionButton from "../components/Button/ActionButton";
-
 function LogInPage() {
   const [passwordIsVisible, setPasswordIsVisible] = useState(false);
   const togglepwdIsVisible = () => {

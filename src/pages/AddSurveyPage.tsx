@@ -1,9 +1,9 @@
-import React, { useContext, useState } from "react";
+import React, { useState } from "react";
 
 import "./Page.css";
 import { Card } from "@nextui-org/react";
 
-import { Question, Survey } from "../types";
+import { Question } from "../types";
 import { useSurveyContext } from "../SurveysContext";
 import { EditSurvey } from "../features";
 
@@ -16,9 +16,9 @@ function Page() {
     return 1;
   };
 
-  const [surveyName, setSurveyName] = useState("New Survey");
-  const [surveyId, setSurveyId] = useState(newId());
-  const [surveyOptions, setSurveyOptions] = useState<Question[]>([]);
+  const [surveyName] = useState("New Survey");
+  const [surveyId] = useState(newId());
+  const [surveyOptions] = useState<Question[]>([]);
 
   return (
     <div className="flex flex-col items-center justify-center p-8">
@@ -28,7 +28,7 @@ function Page() {
           surveyName={surveyName}
           surveyId={surveyId}
           surveyQuestions={surveyOptions}
-          getNewId={newId}
+          // getNewId={newId}
           saveFunction={surveysContext.addSurveyToList}
         />
       </Card>

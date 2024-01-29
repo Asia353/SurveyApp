@@ -1,8 +1,12 @@
 export enum QuestionType {
-  Open,
-  OneOption,
-  ManyOptions,
+  Open = "open",
+  OneOption = "one option",
+  ManyOptions = "many options",
 }
+
+// import { questionTypeList } from "./features/addSurvey/QuestionForm";
+
+// export type QuestionType = (typeof questionTypeList)[1];
 
 export type Question = {
   description: string;

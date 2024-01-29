@@ -1,14 +1,9 @@
-import React from "react";
 import {
-  DocumentData,
-  DocumentSnapshot,
   addDoc,
   collection,
   doc,
   getDocs,
-  query,
   updateDoc,
-  where,
 } from "firebase/firestore";
 import { database } from "./firebase-config";
 import { RepliesList, Reply, Survey } from "./types";

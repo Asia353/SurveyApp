@@ -22,7 +22,7 @@ function Page() {
   const searchParams = new URLSearchParams(location.search);
   const surveyId = Number(searchParams.get("surveyid"));
 
-  const [isEdit, setIsEdit] = useState(false);
+  // const [isEdit, setIsEdit] = useState(false);
 
   const [usersReplies, setUsersReplies] = useState<Reply[]>([]);
   const [currentSurvey, setCurrentSurvey] = useState<Survey>();
@@ -61,23 +61,19 @@ function Page() {
             <CardHeader className="p-7 flex flex-row justify-between">
               {currentSurvey?.name}
             </CardHeader>
-            {/* <Divider /> */}
             <CardBody className="m-0 p-0">
-              {/* <> */}
-              {currentSurvey?.questions.map((element, index) => (
+              {currentSurvey?.questions.map((element) => (
                 <>
                   <Divider key={(element.description, 1)} />
                   <QuestionForm
                     key={element.description}
                     question={element}
-                    index={index}
+                    // index={index}
                     updateAnserws={updateAnswers}
                   />
                 </>
               ))}
-              {/* </> */}
             </CardBody>
-            {/* <Divider /> */}
             <CardFooter className="p-0 pt-7 m-0">
               <Button
                 className=" w-full"

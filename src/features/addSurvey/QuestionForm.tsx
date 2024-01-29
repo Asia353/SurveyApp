@@ -1,9 +1,10 @@
 import { Button, Card, Input, Select, SelectItem } from "@nextui-org/react";
 import React, { useState } from "react";
 import { Question, QuestionType } from "../../types";
-import { AnswearsAdding } from "..";
+import { AnswersAdding } from "..";
 
-export const typesList = ["one option", "many options", "open"];
+export const questionTypeList = ["one option", "many options", "open"];
+// export type QuestionTypee = (typeof questionTypeList)[1];
 
 function QuestionForm({
   addQuestion,
@@ -34,8 +35,6 @@ function QuestionForm({
       prevOptions.map((option, index) => (index === id ? newValue : option)),
     );
   }
-
-  // const typesList = ["one option", "many options", "open"];
 
   function addNewQuestion() {
     addQuestion(description, type, question.id, options);
@@ -70,18 +69,18 @@ function QuestionForm({
             setQuestionType(e.target.value);
           }}
         >
-          {typesList.map((element) => (
+          {questionTypeList.map((element) => (
             <SelectItem key={element} value={element}>
               {element}
             </SelectItem>
           ))}
         </Select>
-        {(type === QuestionType.OneOption || QuestionType.ManyOptions) && (
-          <AnswearsAdding
+        {type !== QuestionType.Open && (
+          <AnswersAdding
             answersList={options}
-            deleteAnswerFromList={deleteAnswerFromList}
-            addAnswerToList={addAnswerToList}
-            editAnswer={editAnswer}
+            onDelete={deleteAnswerFromList}
+            onAdd={addAnswerToList}
+            onEdit={editAnswer}
           />
         )}
         <Button className="button self-end mt-2" onPress={addNewQuestion}>

@@ -7,19 +7,16 @@ import * as FirebaseFunctions from "./FirebaseFunctions";
 type SurveysContextType = {
   surveysList: Survey[];
   addSurveyToList: (newSurvey: Survey) => void;
-  // delQuestionFromList: (surveyId: number, questionId: number) => void;
   updateSurvey: (survey: Survey) => void;
   publishSurvey: (surveyIndex: number) => void;
-  // upadteSurveyList: (surveyList: Survey[]) => void;
 };
 
 const surveysContextInitValue = {
   surveysList: [],
   addSurveyToList: () => {},
-  // delQuestionFromList: () => {},
   updateSurvey: () => {},
   publishSurvey: () => {},
-  upadteSurveyList: () => {},
+  // updateSurveyList: () => {},
 };
 
 const SurveysContext = React.createContext<SurveysContextType>(
@@ -88,7 +85,7 @@ export function SurveysContextProvider({
 
     function publishSurvey(surveyId: number) {
       setSurveysList((list) =>
-        list.map((currentSurvey, index) =>
+        list.map((currentSurvey) =>
           currentSurvey.id === surveyId
             ? {
                 ...currentSurvey,
@@ -99,17 +96,11 @@ export function SurveysContextProvider({
       );
     }
 
-    // function upadteSurveyList(newList: Survey[]) {
-    //   setSurveysList(() => newList);
-    // }
-
     return {
       surveysList,
       addSurveyToList,
-      // delQuestionFromList,
       updateSurvey,
       publishSurvey,
-      // upadteSurveyList,
     };
   }, [surveysList]);
 
@@ -124,5 +115,5 @@ export function useSurveyContext() {
   const context = useContext(SurveysContext);
   if (context == null)
     throw new Error("must be used inside ToDoContextProvider");
-  else return context;
+  return context;
 }

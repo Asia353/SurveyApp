@@ -1,16 +1,10 @@
-import {
-  Button,
-  Card,
-  CardBody,
-  CardFooter,
-  CardHeader,
-} from "@nextui-org/react";
+import { Button, Card, CardFooter, CardHeader } from "@nextui-org/react";
 import React, { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
 
 import "./Page.css";
 import { useSurveyContext } from "../SurveysContext";
-import { Question, RepliesList, Reply, Survey } from "../types";
+import { RepliesList, Survey } from "../types";
 import * as FirebaseFunctions from "../FirebaseFunctions";
 import QuestionItemStat from "../features/statisctics/QuestionItemStat";
 
@@ -68,7 +62,7 @@ function Page() {
         returnCount(question.options, index),
       ),
     );
-    console.log("repliesCounter: ", repliesCounter);
+    // console.log("repliesCounter: ", repliesCounter);
   }, [replies]);
 
   return (
@@ -94,9 +88,9 @@ function Page() {
             className=" w-full"
             size="lg"
             radius="none"
-            onClick={() => console.log(repliesCounter)}
+            // onClick={() => console.log(repliesCounter)}
           >
-            print results TEST
+            export to pdf
           </Button>
         </CardFooter>
       </Card>

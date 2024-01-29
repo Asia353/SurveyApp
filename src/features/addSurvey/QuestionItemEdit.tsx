@@ -13,7 +13,7 @@ import { Back } from "iconsax-react";
 import { Question, QuestionType } from "../../types";
 import ActionButton from "../../components/Button/ActionButton";
 import OneAnswer from "./OneAnswer";
-import { typesList } from "./QuestionForm";
+import { questionTypeList } from "./QuestionForm";
 import AnswersAdding from "./AnswersAdding";
 
 function QuestionItemEdit({
@@ -43,12 +43,12 @@ function QuestionItemEdit({
     deleteQuestion(index);
   }
 
-  function details() {
+  function toggleDetails() {
     setEditQuestion(false);
     setShowDetails(!showDetails);
   }
 
-  function edit() {
+  function toggleEdit() {
     setShowDetails(false);
     setEditQuestion(!editQuestion);
   }
@@ -64,7 +64,7 @@ function QuestionItemEdit({
 
   function handleSaveButtonClick() {
     saveEditedQuestion(index, newDescription, newType, newOptions);
-    details();
+    toggleDetails();
   }
 
   function handleBackButtonClick() {
@@ -102,11 +102,17 @@ function QuestionItemEdit({
         </div>
         <div className=" ml-auto flex flex-row">
           {showDetails ? (
-            <ActionButton actionIcon="ArrowUp2" onClickFunction={details} />
+            <ActionButton
+              actionIcon="ArrowUp2"
+              onClickFunction={toggleDetails}
+            />
           ) : (
-            <ActionButton actionIcon="ArrowDown2" onClickFunction={details} />
+            <ActionButton
+              actionIcon="ArrowDown2"
+              onClickFunction={toggleDetails}
+            />
           )}
-          <ActionButton actionIcon="Edit" onClickFunction={edit} />
+          <ActionButton actionIcon="Edit" onClickFunction={toggleEdit} />
           <ActionButton actionIcon="Trash" onClickFunction={deleteItem} />
         </div>
       </CardBody>
@@ -115,7 +121,7 @@ function QuestionItemEdit({
         <CardFooter className="flex flex-col items-start">
           <p className="mb-3">Question type: {newType}</p>
           <div className="flex flex-col">
-            {newOptions.map((answer, idx) => (
+            {newOptions.map((answer) => (
               <OneAnswer answer={answer} key={answer} />
             ))}
           </div>
@@ -131,7 +137,7 @@ function QuestionItemEdit({
               selectedKeys={[newType]}
               onChange={(e) => editType(e.target.value)}
             >
-              {typesList.map((element) => (
+              {questionTypeList.map((element) => (
                 <SelectItem key={element} value={element}>
                   {element}
                 </SelectItem>
@@ -142,9 +148,9 @@ function QuestionItemEdit({
             {newType !== QuestionType.Open && (
               <AnswersAdding
                 answersList={newOptions}
-                deleteAnswerFromList={deleteAnswerFromList}
-                addAnswerToList={addAnswerToList}
-                editAnswer={editAnswer}
+                onDelete={deleteAnswerFromList}
+                onAdd={addAnswerToList}
+                onEdit={editAnswer}
               />
             )}
           </div>
