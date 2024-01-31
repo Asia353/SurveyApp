@@ -15,7 +15,7 @@ type EditSurveyProp = {
   saveFunction: (survey: Survey) => void;
 };
 function EditSurvey({ editSurveyProp }: { editSurveyProp: EditSurveyProp }) {
-  const edit = true;
+  const editSurvey = true;
   const [newQuestionsList, setNewQuestionsList] = useState<Question[]>(
     editSurveyProp.surveyQuestions,
   );
@@ -33,14 +33,9 @@ function EditSurvey({ editSurveyProp }: { editSurveyProp: EditSurveyProp }) {
   const [surveyNameEditorAvaliable, setSurveyNameEditorAvaliable] =
     useState(false);
 
-  function addQuestion(
-    description: string,
-    type: QuestionType,
-    id: number,
-    options: string[],
-  ) {
-    let newQustionId = id;
-    if (id === 0)
+  function addQuestion(question: Question) {
+    let newQustionId = question.id;
+    if (question.id === 0)
       newQustionId =
         newQuestionsList.length > 0
           ? newQuestionsList[newQuestionsList.length - 1].id + 1
@@ -49,10 +44,10 @@ function EditSurvey({ editSurveyProp }: { editSurveyProp: EditSurveyProp }) {
     setNewQuestionsList([
       ...newQuestionsList,
       {
-        description,
-        type,
+        description: question.description,
+        type: question.type,
         id: newQustionId,
-        options,
+        options: question.options,
       },
     ]);
 
@@ -129,7 +124,7 @@ function EditSurvey({ editSurveyProp }: { editSurveyProp: EditSurveyProp }) {
             questionsList: newQuestionsList,
             deleteQuestion,
             saveEditedQuestion,
-            edit,
+            editable: editSurvey,
           }}
         />
       </div>

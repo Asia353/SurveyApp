@@ -51,6 +51,9 @@ function AnswersAdding({ answerProp }: { answerProp: AnswersAddingProp }) {
           onChange={(e) => {
             setNewAnswer(e.target.value);
           }}
+          onKeyDown={(e) => {
+            if (e.key === "Enter") addAnswer();
+          }}
         />
         <Button
           className="self-center h-auto w-auto p-0 min-w-0 ml-4"

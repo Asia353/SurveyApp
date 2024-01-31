@@ -3,6 +3,7 @@ import { EmojiHappy } from "iconsax-react";
 import { Input } from "@nextui-org/react";
 
 import ActionButton from "../../components/Button/ActionButton";
+import Answer from "./Answer";
 
 export type AnswerEditingProp = {
   answer: string;
@@ -32,33 +33,34 @@ function AnswerEditing({ answerProp }: { answerProp: AnswerEditingProp }) {
         }
       }}
     >
-      <div className=" self-center">
-        <EmojiHappy
-          className="self-center"
-          size="22"
-          color="#A1A1AA"
-          variant="Bold"
-        />
-      </div>
-
       {isEditing ? (
-        <Input
-          className="mr-4 ml-4"
-          value={newAnswer}
-          onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
-            setNewAnswer(e.target.value);
-          }}
-          onBlur={() => {
-            saveEditedAnswer();
-          }}
-          onKeyDown={(e) => {
-            if (e.key === "Enter") {
+        <>
+          <div className=" self-center">
+            <EmojiHappy
+              className="self-center"
+              size="22"
+              color="#A1A1AA"
+              variant="Bold"
+            />
+          </div>
+          <Input
+            className="mr-4 ml-4"
+            value={newAnswer}
+            onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+              setNewAnswer(e.target.value);
+            }}
+            onBlur={() => {
               saveEditedAnswer();
-            }
-          }}
-        />
+            }}
+            onKeyDown={(e) => {
+              if (e.key === "Enter") {
+                saveEditedAnswer();
+              }
+            }}
+          />
+        </>
       ) : (
-        <p className="p-0 pl-4 m-0">{newAnswer}</p>
+        <Answer answer={answerProp.answer} />
       )}
       <div className=" self-center ml-auto">
         <ActionButton

@@ -13,7 +13,7 @@ type QuestionListViewProp = {
     type: QuestionType,
     options: string[],
   ) => void;
-  edit: boolean;
+  editable: boolean;
 };
 function QuestionListView({
   questionListViewProp,
@@ -24,7 +24,7 @@ function QuestionListView({
     <div>
       <div className=" justify-center gap-2 flex flex-col">
         {questionListViewProp.questionsList.map((question, index) => {
-          if (!questionListViewProp.edit)
+          if (!questionListViewProp.editable)
             return (
               <QuestionItem
                 key={`${question.description} ${question.id} ${question.id}`}

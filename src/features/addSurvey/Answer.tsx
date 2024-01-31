@@ -1,7 +1,7 @@
 import React from "react";
 import { EmojiHappy } from "iconsax-react";
 
-function OneAnswer({ answer }: { answer: string }) {
+function Answer({ answer }: { answer: string }) {
   return (
     <div className="flex flex-row">
       <EmojiHappy
@@ -15,4 +15,4 @@ function OneAnswer({ answer }: { answer: string }) {
   );
 }
 
-export default OneAnswer;
+export default Answer;

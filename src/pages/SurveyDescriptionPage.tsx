@@ -46,7 +46,7 @@ function Page() {
               <QuestionListView
                 questionListViewProp={{
                   questionsList: surveyQuestions,
-                  edit: false,
+                  editable: false,
                   deleteQuestion: () => {},
                   saveEditedQuestion: () => {},
                 }}

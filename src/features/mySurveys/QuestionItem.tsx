@@ -3,7 +3,7 @@ import { Card, CardBody, CardFooter } from "@nextui-org/react";
 import React, { useState } from "react";
 
 import { Question } from "../../types";
-import OneAnswer from "../addSurvey/OneAnswer";
+import Answer from "../addSurvey/Answer";
 import ActionButton from "../../components/Button/ActionButton";
 
 function QuestionItem({ item, index }: { item: Question; index: number }) {
@@ -19,23 +19,17 @@ function QuestionItem({ item, index }: { item: Question; index: number }) {
 
   return (
     // <Card shadow="sm" className="p-2">
+
     <Card shadow="sm" className="p-2" isPressable onPress={toggleDetails}>
       <CardBody className="flex flex-row">
         <div className=" self-center">
           {index + 1}. {newDescription}
         </div>
         <div className=" ml-auto flex flex-row">
-          {showDetails ? (
-            <ActionButton
-              actionIcon="ArrowUp2"
-              onClickFunction={toggleDetails}
-            />
-          ) : (
-            <ActionButton
-              actionIcon="ArrowDown2"
-              onClickFunction={toggleDetails}
-            />
-          )}
+          <ActionButton
+            actionIcon={showDetails ? "ArrowUp2" : "ArrowDown2"}
+            onClickFunction={toggleDetails}
+          />
         </div>
       </CardBody>
 
@@ -44,7 +38,7 @@ function QuestionItem({ item, index }: { item: Question; index: number }) {
           <p className="mb-3">Question type: {newType}</p>
           <div className="flex flex-col">
             {newOptions.map((answer) => (
-              <OneAnswer key={answer} answer={answer} />
+              <Answer key={answer} answer={answer} />
             ))}
           </div>
         </CardFooter>

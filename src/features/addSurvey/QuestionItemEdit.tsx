@@ -4,6 +4,7 @@ import {
   Card,
   CardBody,
   CardFooter,
+  Input,
   Select,
   SelectItem,
 } from "@nextui-org/react";
@@ -12,7 +13,7 @@ import { Back } from "iconsax-react";
 
 import { Question, QuestionType } from "../../types";
 import ActionButton from "../../components/Button/ActionButton";
-import OneAnswer from "./OneAnswer";
+import Answer from "./Answer";
 import { questionTypeList } from "./QuestionForm";
 import AnswersAdding from "./AnswersAdding";
 
@@ -27,6 +28,7 @@ type QuestionItemEditProp = {
     options: string[],
   ) => void;
 };
+
 function QuestionItemEdit({
   questionItemEditProp,
 }: {
@@ -34,6 +36,7 @@ function QuestionItemEdit({
 }) {
   const [showDetails, setShowDetails] = useState(false);
   const [editQuestion, setEditQuestion] = useState(false);
+  const [editQuestionName, setEditQuestionName] = useState(false);
 
   const [newDescription, setNewDescription] = useState(
     questionItemEditProp.item.description,
@@ -43,19 +46,23 @@ function QuestionItemEdit({
     questionItemEditProp.item.options,
   );
 
-  function deleteItem() {
-    questionItemEditProp.deleteQuestion(questionItemEditProp.index);
-  }
+  // function deleteItem() {
+  //   questionItemEditProp.deleteQuestion(questionItemEditProp.index);
+  // }
 
   function toggleDetails() {
     setEditQuestion(false);
-    setShowDetails(!showDetails);
+    setShowDetails((show) => !show);
   }
 
   function toggleEdit() {
     setShowDetails(false);
-    setEditQuestion(!editQuestion);
+    setEditQuestion((edit) => !edit);
   }
+
+  const toggleEditQuestionName = () => {
+    setEditQuestionName(!editQuestionName);
+  };
 
   function editType(newValue: string) {
     if (newValue === "one option") setNewType(QuestionType.OneOption);
@@ -97,16 +104,12 @@ function QuestionItemEdit({
   }
 
   return (
-    <Card
-      shadow="sm"
-      // onPress={details}
-      // onKeyDown={() => console.log("d")}
-      // isPressable
-    >
+    <Card shadow="sm">
       <CardBody className="flex flex-row p-5">
         <div className=" self-center">
           <p className=" text-medium">
-            {questionItemEditProp.index + 1}. {newDescription}
+            {questionItemEditProp.index + 1}.{" "}
+            {questionItemEditProp.item.description}
           </p>
         </div>
         <div className=" ml-auto flex flex-row">
@@ -122,7 +125,12 @@ function QuestionItemEdit({
             />
           )}
           <ActionButton actionIcon="Edit" onClickFunction={toggleEdit} />
-          <ActionButton actionIcon="Trash" onClickFunction={deleteItem} />
+          <ActionButton
+            actionIcon="Trash"
+            onClickFunction={() =>
+              questionItemEditProp.deleteQuestion(questionItemEditProp.index)
+            }
+          />
         </div>
       </CardBody>
 
@@ -131,7 +139,7 @@ function QuestionItemEdit({
           <p className="mb-3">Question type: {newType}</p>
           <div className="flex flex-col">
             {newOptions.map((answer) => (
-              <OneAnswer answer={answer} key={answer} />
+              <Answer answer={answer} key={answer} />
             ))}
           </div>
         </CardFooter>
@@ -139,8 +147,20 @@ function QuestionItemEdit({
 
       {editQuestion && (
         <CardFooter className="flex flex-col items-start">
-          <div className="flex flex-row w-full">
-            <p className="mb-3">Question type: </p>
+          <div className="flex flex-row w-full justify-between">
+            <p className="mb-3">Question description:</p>
+            <Input
+              className="m-0"
+              value={newDescription}
+              onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+                setNewDescription(e.target.value);
+              }}
+              onBlur={() => toggleEditQuestionName()}
+              autoFocus
+            />
+          </div>
+          <div className="flex flex-row w-full justify-between">
+            <p className="mb-3 mr-9">Question type: </p>
             <Select
               label="Select question's type"
               selectedKeys={[newType]}

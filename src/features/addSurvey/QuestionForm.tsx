@@ -8,12 +8,7 @@ export const questionTypeList = ["one option", "many options", "open"];
 
 type QuestionFormProp = {
   question: Question;
-  addQuestion: (
-    description: string,
-    type: QuestionType,
-    id: number,
-    options: string[],
-  ) => void;
+  addQuestion: (question: Question) => void;
 };
 
 function QuestionForm({ questionProp }: { questionProp: QuestionFormProp }) {
@@ -23,27 +18,27 @@ function QuestionForm({ questionProp }: { questionProp: QuestionFormProp }) {
   const [type, setType] = useState(questionProp.question.type);
   const [options, setOptions] = useState(questionProp.question.options);
 
-  function addAnswerToList(newAnswer: string) {
+  function onAdd(newAnswer: string) {
     setOptions([...options, newAnswer]);
   }
 
-  function deleteAnswerFromList(id: number) {
+  function onDelete(id: number) {
     setOptions((prevList) => prevList.filter((_, index) => index !== id));
   }
 
-  function editAnswer(id: number, newValue: string) {
+  function onEdit(id: number, newValue: string) {
     setOptions((prevOptions) =>
       prevOptions.map((option, index) => (index === id ? newValue : option)),
     );
   }
 
   function addNewQuestion() {
-    questionProp.addQuestion(
+    questionProp.addQuestion({
       description,
       type,
-      questionProp.question.id,
+      id: questionProp.question.id,
       options,
-    );
+    });
     setDescription("");
     setType(QuestionType.OneOption);
     setOptions([]);
@@ -85,9 +80,9 @@ function QuestionForm({ questionProp }: { questionProp: QuestionFormProp }) {
           <AnswersAdding
             answerProp={{
               answersList: options,
-              onDelete: deleteAnswerFromList,
-              onAdd: addAnswerToList,
-              onEdit: editAnswer,
+              onDelete,
+              onAdd,
+              onEdit,
             }}
           />
         )}

@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Card, CardBody, CardFooter } from "@nextui-org/react";
-import OneAnswer from "../addSurvey/OneAnswer";
+import Answer from "../addSurvey/Answer";
 
 import { Question, QuestionType, RepliesList } from "../../types";
 import ActionButton from "../../components/Button/ActionButton";
@@ -58,7 +58,7 @@ function QuestionItemStat({
             {item.type !== QuestionType.Open &&
               item.options.map((answer, idx) => (
                 <div className="flex flex-row justify-between">
-                  <OneAnswer key={answer} answer={answer} />
+                  <Answer key={answer} answer={answer} />
                   <p className="">
                     {Math.round(
                       ((repliesCounter[idx] * 100) / numberOfAnswers()) * 100,
