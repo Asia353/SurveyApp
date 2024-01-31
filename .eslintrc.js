@@ -32,5 +32,7 @@ module.exports = {
     "react/jsx-no-bind": "off",
     "@typescript-eslint/no-unused-vars": "warn",
     "import/no-cycle": "off",
+    "react/require-default-props": "off",
+    "react/jsx-props-no-spreading": "off",
   },
 };

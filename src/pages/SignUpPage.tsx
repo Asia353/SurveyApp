@@ -2,7 +2,7 @@ import { Button, Card, Input } from "@nextui-org/react";
 import { Eye, EyeSlash } from "iconsax-react";
 import React, { useState } from "react";
 
-function SignUpPage() {
+function Page() {
   const [passwordIsVisible, setPasswordIsVisible] = useState(false);
   const togglepwdIsVisible = () => {
     setPasswordIsVisible(!passwordIsVisible);
@@ -63,4 +63,4 @@ function SignUpPage() {
   );
 }
 
-export default SignUpPage;
+export default Page;

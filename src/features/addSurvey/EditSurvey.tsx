@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useState } from "react";
 import { Add } from "iconsax-react";
 import { Link } from "react-router-dom";
 
@@ -8,21 +8,18 @@ import { Question, QuestionType, Survey } from "../../types";
 import QuestionListView from "../QuestionsListView";
 import QuestionForm from "./QuestionForm";
 
-function EditSurvey({
-  surveyName,
-  surveyId,
-  surveyQuestions,
-  saveFunction,
-}: {
+type EditSurveyProp = {
   surveyName: string;
   surveyId: number;
   surveyQuestions: Question[];
   saveFunction: (survey: Survey) => void;
-}) {
+};
+function EditSurvey({ editSurveyProp }: { editSurveyProp: EditSurveyProp }) {
   const edit = true;
-  const [newQuestionsList, setNewQuestionsList] =
-    useState<Question[]>(surveyQuestions);
-  const [newSurveyName, setNewSurveyName] = useState(surveyName);
+  const [newQuestionsList, setNewQuestionsList] = useState<Question[]>(
+    editSurveyProp.surveyQuestions,
+  );
+  const [newSurveyName, setNewSurveyName] = useState(editSurveyProp.surveyName);
 
   const [newQuestion] = useState<Question>({
     description: "",
@@ -31,7 +28,8 @@ function EditSurvey({
     options: [],
   });
 
-  const [questionEditorAvaliable, setQuestionEditorAvaliable] = useState(false);
+  const [questionAddingFormAvaliable, setQuestionAddingFormAvaliable] =
+    useState(false);
   const [surveyNameEditorAvaliable, setSurveyNameEditorAvaliable] =
     useState(false);
 
@@ -58,7 +56,7 @@ function EditSurvey({
       },
     ]);
 
-    setQuestionEditorAvaliable(false);
+    setQuestionAddingFormAvaliable(false);
   }
 
   function deleteQuestion(delElementId: number) {
@@ -68,9 +66,9 @@ function EditSurvey({
   }
 
   function saveSurvey() {
-    saveFunction({
+    editSurveyProp.saveFunction({
       name: newSurveyName,
-      id: surveyId,
+      id: editSurveyProp.surveyId,
       questions: newQuestionsList,
       published: false,
     });
@@ -127,10 +125,12 @@ function EditSurvey({
       <div className="justify-center gap-2 flex flex-col mb-4">
         {/* {questionsList.map((item, index) => ( */}
         <QuestionListView
-          questionsList={newQuestionsList}
-          deleteQuestion={deleteQuestion}
-          saveEditedQuestion={saveEditedQuestion}
-          edit={edit}
+          questionListViewProp={{
+            questionsList: newQuestionsList,
+            deleteQuestion,
+            saveEditedQuestion,
+            edit,
+          }}
         />
       </div>
       <form
@@ -141,12 +141,16 @@ function EditSurvey({
         <div className="add-question-button-panel flex flex-col">
           <Button
             className="button self-end"
-            onClick={() => setQuestionEditorAvaliable(!questionEditorAvaliable)}
+            onClick={() =>
+              setQuestionAddingFormAvaliable(!questionAddingFormAvaliable)
+            }
           >
             <Add size="28" color="#71717A" variant="Linear" />
           </Button>
-          {questionEditorAvaliable && (
-            <QuestionForm addQuestion={addQuestion} question={newQuestion} />
+          {questionAddingFormAvaliable && (
+            <QuestionForm
+              questionProp={{ addQuestion, question: newQuestion }}
+            />
           )}
           <Button
             as={Link}

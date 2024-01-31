@@ -4,22 +4,19 @@ import { Input } from "@nextui-org/react";
 
 import ActionButton from "../../components/Button/ActionButton";
 
-function AnswerEditing({
-  answer,
-  id,
-  onDelete,
-  onEdit,
-}: {
+export type AnswerEditingProp = {
   answer: string;
   id: number;
   onDelete: (id: number) => void;
   onEdit: (id: number, newValue: string) => void;
-}) {
+};
+
+function AnswerEditing({ answerProp }: { answerProp: AnswerEditingProp }) {
   const [isEditing, setIsEditing] = useState(false);
-  const [newAnswer, setNewAnswer] = useState(answer);
+  const [newAnswer, setNewAnswer] = useState(answerProp.answer);
 
   function saveEditedAnswer() {
-    onEdit(id, newAnswer);
+    answerProp.onEdit(answerProp.id, newAnswer);
     setIsEditing(false);
   }
 
@@ -64,7 +61,10 @@ function AnswerEditing({
         <p className="p-0 pl-4 m-0">{newAnswer}</p>
       )}
       <div className=" self-center ml-auto">
-        <ActionButton actionIcon="Trash" onClickFunction={() => onDelete(id)} />
+        <ActionButton
+          actionIcon="Trash"
+          onClickFunction={() => answerProp.onDelete(answerProp.id)}
+        />
       </div>
     </div>
   );

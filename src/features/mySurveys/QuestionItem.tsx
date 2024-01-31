@@ -13,22 +13,28 @@ function QuestionItem({ item, index }: { item: Question; index: number }) {
   const [newType] = useState(item.type);
   const [newOptions] = useState(item.options);
 
-  function details() {
+  function toggleDetails() {
     setShowDetails(!showDetails);
   }
 
   return (
     // <Card shadow="sm" className="p-2">
-    <Card shadow="sm" className="p-2" isPressable onPress={details}>
+    <Card shadow="sm" className="p-2" isPressable onPress={toggleDetails}>
       <CardBody className="flex flex-row">
         <div className=" self-center">
           {index + 1}. {newDescription}
         </div>
         <div className=" ml-auto flex flex-row">
           {showDetails ? (
-            <ActionButton actionIcon="ArrowUp2" onClickFunction={details} />
+            <ActionButton
+              actionIcon="ArrowUp2"
+              onClickFunction={toggleDetails}
+            />
           ) : (
-            <ActionButton actionIcon="ArrowDown2" onClickFunction={details} />
+            <ActionButton
+              actionIcon="ArrowDown2"
+              onClickFunction={toggleDetails}
+            />
           )}
         </div>
       </CardBody>

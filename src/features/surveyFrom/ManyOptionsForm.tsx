@@ -5,22 +5,22 @@ import { Question } from "../../types";
 
 function ManyOptionsForm({
   question,
-  updateAnserws,
+  updateAnswers,
 }: {
   question: Question;
-  updateAnserws: (questionId: number, newAnswers: string[]) => void;
+  updateAnswers: (questionId: number, newAnswers: string[]) => void;
 }) {
-  const [selectedAnswersList, setSelectedAnserwsList] = useState<string[]>([]);
+  const [selectedAnswersList, setSelectedAnswersList] = useState<string[]>([]);
 
   useEffect(() => {
-    updateAnserws(question.id, selectedAnswersList);
+    updateAnswers(question.id, selectedAnswersList);
   }, [selectedAnswersList]);
 
   return (
     <CheckboxGroup
       //   label="select answers"
       value={selectedAnswersList}
-      onValueChange={setSelectedAnserwsList}
+      onValueChange={setSelectedAnswersList}
     >
       {question.options.map((element) => (
         <Checkbox key={element} value={element}>

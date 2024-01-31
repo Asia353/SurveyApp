@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import { Eye, EyeSlash } from "iconsax-react";
 import { Link } from "react-router-dom";
 
-function LogInPage() {
+function Page() {
   const [passwordIsVisible, setPasswordIsVisible] = useState(false);
   const togglepwdIsVisible = () => {
     setPasswordIsVisible(!passwordIsVisible);
@@ -53,4 +53,4 @@ function LogInPage() {
   );
 }
 
-export default LogInPage;
+export default Page;

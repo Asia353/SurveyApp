@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { Card, CardFooter, CardHeader } from "@nextui-org/react";
 import { Link } from "react-router-dom";
 import { Survey } from "../../types";
@@ -6,28 +6,18 @@ import ActionButton from "../../components/Button/ActionButton";
 
 function SurveyListView({
   surveysList,
-  surveyPublish,
+  publishSurvey,
 }: {
   surveysList: Survey[];
-  surveyPublish: (surveyId: number) => void;
+  publishSurvey: (surveyId: number) => void;
 }) {
   // const publishS = (index: number) => {
-  //   surveyPublish(index);
+  //   publishSurvey(index);
   // };
-
-  const [show, setShow] = useState(false);
 
   return (
     <div className="flex flex-col w-full gap-2">
       {surveysList.map((element, index) => (
-        // element.published ? (
-        //   <>
-        //     {/* <SurveyDescriptionPage surveyId={index} /> */}
-        //     {/* <Link color="foregrourend" to="/description-survey">
-        //       My Survey
-        //     </Link> */}
-        //   </>
-        // ) : (
         <Card
           className="flex flex-row p-5"
           key={`${element.name} ${element.id}`}
@@ -46,7 +36,7 @@ function SurveyListView({
               <ActionButton
                 actionIcon="Send"
                 onClickFunction={() => {
-                  surveyPublish(element.id);
+                  publishSurvey(element.id);
                 }}
               />
             ) : (

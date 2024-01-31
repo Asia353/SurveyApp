@@ -5,15 +5,15 @@ import { Question } from "../../types";
 
 function OneOptionForm({
   question,
-  updateAnserws,
+  updateAnswers,
 }: {
   question: Question;
-  updateAnserws: (questionId: number, newAnswers: string[]) => void;
+  updateAnswers: (questionId: number, newAnswers: string[]) => void;
 }) {
   const [selectedAnswer, setSelectedAnswer] = useState<string>("");
 
   useEffect(() => {
-    updateAnserws(question.id, [selectedAnswer]);
+    updateAnswers(question.id, [selectedAnswer]);
   }, [selectedAnswer]);
 
   return (

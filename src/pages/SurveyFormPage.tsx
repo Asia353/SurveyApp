@@ -12,7 +12,7 @@ import QuestionForm from "../features/surveyFrom/QuestionForm";
 
 import "./Page.css";
 import { useSurveyContext } from "../SurveysContext";
-import { writeAnswersToFirestore } from "../FirebaseFunctions";
+import { writeAnswers } from "../FirebaseFunctions";
 import { Reply, Survey } from "../types";
 
 function Page() {
@@ -69,7 +69,7 @@ function Page() {
                     key={element.description}
                     question={element}
                     // index={index}
-                    updateAnserws={updateAnswers}
+                    updateAnswers={updateAnswers}
                   />
                 </>
               ))}
@@ -79,7 +79,7 @@ function Page() {
                 className=" w-full"
                 size="lg"
                 radius="none"
-                onClick={() => writeAnswersToFirestore(surveyId, usersReplies)}
+                onClick={() => writeAnswers(surveyId, usersReplies)}
               >
                 Send answers
               </Button>

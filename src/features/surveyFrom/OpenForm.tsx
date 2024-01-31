@@ -5,15 +5,15 @@ import { Question } from "../../types";
 
 function OpenForm({
   question,
-  updateAnserws,
+  updateAnswers,
 }: {
   question: Question;
-  updateAnserws: (questionId: number, newAnswers: string[]) => void;
+  updateAnswers: (questionId: number, newAnswers: string[]) => void;
 }) {
   const [answer, setAnswer] = useState<string>("");
 
   useEffect(() => {
-    updateAnserws(question.id, [answer]);
+    updateAnswers(question.id, [answer]);
   }, [answer]);
 
   return (

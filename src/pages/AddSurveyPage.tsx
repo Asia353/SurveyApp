@@ -25,11 +25,12 @@ function Page() {
       <Card className="survey-component p-7">
         <EditSurvey
           key={`${surveyName}`}
-          surveyName={surveyName}
-          surveyId={surveyId}
-          surveyQuestions={surveyOptions}
-          // getNewId={newId}
-          saveFunction={surveysContext.addSurveyToList}
+          editSurveyProp={{
+            surveyName,
+            surveyId,
+            surveyQuestions: surveyOptions,
+            saveFunction: surveysContext.addSurveyToList,
+          }}
         />
       </Card>
     </div>

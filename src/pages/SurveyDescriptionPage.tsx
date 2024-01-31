@@ -44,18 +44,22 @@ function Page() {
             </CardHeader>
             {!isEdit ? (
               <QuestionListView
-                questionsList={surveyQuestions}
-                edit={false}
-                deleteQuestion={() => {}}
-                saveEditedQuestion={() => {}}
+                questionListViewProp={{
+                  questionsList: surveyQuestions,
+                  edit: false,
+                  deleteQuestion: () => {},
+                  saveEditedQuestion: () => {},
+                }}
               />
             ) : (
               <EditSurvey
                 key={`${surveyName}`}
-                surveyName={surveyName}
-                surveyId={surveyId}
-                surveyQuestions={surveyQuestions}
-                saveFunction={context.updateSurvey}
+                editSurveyProp={{
+                  surveyName,
+                  surveyId,
+                  surveyQuestions,
+                  saveFunction: context.updateSurvey,
+                }}
               />
             )}
           </Card>

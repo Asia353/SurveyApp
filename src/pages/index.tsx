@@ -4,3 +4,5 @@ export { default as MySurveysPage } from "./MySurveysPage";
 export { default as SurveyDescriptionPage } from "./SurveyDescriptionPage";
 export { default as SurveyFormPage } from "./SurveyFormPage";
 export { default as StatisticsPage } from "./StatisticsPage";
+export { default as LogInPage } from "./LogInPage";
+export { default as SignUpPage } from "./SignUpPage";

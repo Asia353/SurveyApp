@@ -1,7 +1,5 @@
 import React, { useContext, useEffect, useMemo, useState } from "react";
-import { addDoc, collection, getDocs } from "firebase/firestore";
-import { database } from "./firebase-config";
-import { Survey, Question } from "./types";
+import { Survey } from "./types";
 import * as FirebaseFunctions from "./FirebaseFunctions";
 
 type SurveysContextType = {
@@ -16,7 +14,6 @@ const surveysContextInitValue = {
   addSurveyToList: () => {},
   updateSurvey: () => {},
   publishSurvey: () => {},
-  // updateSurveyList: () => {},
 };
 
 const SurveysContext = React.createContext<SurveysContextType>(
@@ -39,7 +36,7 @@ export function SurveysContextProvider({
 
   useEffect(() => {
     const asyncFunction = async () => {
-      setSurveysList(await FirebaseFunctions.loadSurveysFromFirestore());
+      setSurveysList(await FirebaseFunctions.loadSurveys());
     };
     asyncFunction();
   }, []);
@@ -47,7 +44,7 @@ export function SurveysContextProvider({
   const contextValue = useMemo(() => {
     function addSurveyToList(newSurvey: Survey) {
       setSurveysList((list) => [...list, newSurvey]);
-      FirebaseFunctions.writeSurveyToFirestore(newSurvey);
+      FirebaseFunctions.writeSurvey(newSurvey);
     }
 
     // function delQuestionFromList(surveyId: number, questionId: number) {
@@ -80,7 +77,7 @@ export function SurveysContextProvider({
             : currentSurvey,
         ),
       );
-      FirebaseFunctions.modifySurveyQuestion(survey);
+      FirebaseFunctions.updateSurvey(survey);
     }
 
     function publishSurvey(surveyId: number) {
@@ -94,6 +91,14 @@ export function SurveysContextProvider({
             : currentSurvey,
         ),
       );
+
+      surveysList.forEach((currentSurvey) => {
+        if (currentSurvey.id === surveyId)
+          FirebaseFunctions.updateSurvey({
+            ...currentSurvey,
+            published: true,
+          });
+      });
     }
 
     return {

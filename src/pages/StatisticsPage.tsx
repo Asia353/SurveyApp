@@ -29,7 +29,7 @@ function Page() {
 
   useEffect(() => {
     const asyncFunctin = async () => {
-      setReplies(await FirebaseFunctions.loadResultsFromFirestore(surveyId));
+      setReplies(await FirebaseFunctions.loadResults(surveyId));
     };
     asyncFunctin();
   }, []);

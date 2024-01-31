@@ -6,21 +6,22 @@ import { AnswersAdding } from "..";
 export const questionTypeList = ["one option", "many options", "open"];
 // export type QuestionTypee = (typeof questionTypeList)[1];
 
-function QuestionForm({
-  addQuestion,
-  question,
-}: {
+type QuestionFormProp = {
+  question: Question;
   addQuestion: (
     description: string,
     type: QuestionType,
     id: number,
     options: string[],
   ) => void;
-  question: Question;
-}) {
-  const [description, setDescription] = useState(question.description);
-  const [type, setType] = useState(question.type);
-  const [options, setOptions] = useState(question.options);
+};
+
+function QuestionForm({ questionProp }: { questionProp: QuestionFormProp }) {
+  const [description, setDescription] = useState(
+    questionProp.question.description,
+  );
+  const [type, setType] = useState(questionProp.question.type);
+  const [options, setOptions] = useState(questionProp.question.options);
 
   function addAnswerToList(newAnswer: string) {
     setOptions([...options, newAnswer]);
@@ -37,7 +38,12 @@ function QuestionForm({
   }
 
   function addNewQuestion() {
-    addQuestion(description, type, question.id, options);
+    questionProp.addQuestion(
+      description,
+      type,
+      questionProp.question.id,
+      options,
+    );
     setDescription("");
     setType(QuestionType.OneOption);
     setOptions([]);
@@ -77,10 +83,12 @@ function QuestionForm({
         </Select>
         {type !== QuestionType.Open && (
           <AnswersAdding
-            answersList={options}
-            onDelete={deleteAnswerFromList}
-            onAdd={addAnswerToList}
-            onEdit={editAnswer}
+            answerProp={{
+              answersList: options,
+              onDelete: deleteAnswerFromList,
+              onAdd: addAnswerToList,
+              onEdit: editAnswer,
+            }}
           />
         )}
         <Button className="button self-end mt-2" onPress={addNewQuestion}>

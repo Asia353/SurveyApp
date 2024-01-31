@@ -8,7 +8,7 @@ import {
 import { database } from "./firebase-config";
 import { RepliesList, Reply, Survey } from "./types";
 
-export async function loadSurveysFromFirestore() {
+export async function loadSurveys() {
   try {
     const surveysCollection = collection(database, "surveys");
     const surveysSnapshot = await getDocs(surveysCollection);
@@ -31,7 +31,7 @@ export async function loadSurveysFromFirestore() {
   }
 }
 
-export async function writeSurveyToFirestore(newSurvey: Survey) {
+export async function writeSurvey(newSurvey: Survey) {
   await addDoc(collection(database, "surveys"), {
     name: newSurvey.name,
     id: newSurvey.id,
@@ -45,10 +45,7 @@ export async function writeSurveyToFirestore(newSurvey: Survey) {
   });
 }
 
-export async function writeAnswersToFirestore(
-  surveyId: number,
-  replies: Reply[],
-) {
+export async function writeAnswers(surveyId: number, replies: Reply[]) {
   const usersCollectionRef = collection(
     database,
     `replies-surveyId=${surveyId}`,
@@ -63,47 +60,7 @@ export async function writeAnswersToFirestore(
   });
 }
 
-// export async function loadSurveyByIdFromFirestore(
-//   surveyId: number,
-// ): Promise<Survey | undefined> {
-//   try {
-//     const surveysCollection = collection(
-//       database,
-//       `replies-surveyId=${surveyId}`,
-//     );
-
-//     // Używamy query i where, aby znaleźć dokument o konkretnym indeksie
-//     const q = query(surveysCollection, where("id", "==", surveyId));
-//     const querySnapshot = await getDocs(q);
-
-//     if (!querySnapshot.empty) {
-//       // Pobieramy pierwszy pasujący dokument
-//       const surveyDoc: DocumentSnapshot<DocumentData> = querySnapshot.docs[0];
-//       const surveyData = surveyDoc.data();
-
-//       // Sprawdzamy, czy dane istnieją
-//       if (surveyData) {
-//         const survey: Survey = {
-//           id: surveyData.id,
-//           name: surveyData.name,
-//           questions: surveyData.questions || [],
-//           published: surveyData.published || false,
-//         };
-
-//         console.log("Załadowano ankietę z Firestore:", survey);
-//         return survey;
-//       }
-//     }
-
-//     console.error("Nie znaleziono ankiety o indeksie:", surveyId);
-//     return undefined;
-//   } catch (error) {
-//     console.error("Błąd podczas ładowania ankiety z Firestore:", error);
-//     return undefined;
-//   }
-// }
-
-export async function loadResultsFromFirestore(surveyId: number) {
+export async function loadResults(surveyId: number) {
   try {
     const repliesCollection = collection(
       database,
@@ -127,7 +84,7 @@ export async function loadResultsFromFirestore(surveyId: number) {
   }
 }
 
-export async function modifySurveyQuestion(newSurvey: Survey) {
+export async function updateSurvey(newSurvey: Survey) {
   const surveysCollection = collection(database, "surveys");
   const querySnapshot = await getDocs(surveysCollection);
   querySnapshot.forEach((docc) => {

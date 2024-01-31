@@ -7,11 +7,11 @@ import OpenForm from "./OpenForm";
 function QuestionForm({
   question,
   // index,
-  updateAnserws,
+  updateAnswers,
 }: {
   question: Question;
   // index: number;
-  updateAnserws: (questionId: number, newAnswers: string[]) => void;
+  updateAnswers: (questionId: number, newAnswers: string[]) => void;
 }) {
   return (
     <div className="p-7">
@@ -22,21 +22,21 @@ function QuestionForm({
         <ManyOptionsForm
           key={question.description}
           question={question}
-          updateAnserws={updateAnserws}
+          updateAnswers={updateAnswers}
         />
       )}
       {question.type === QuestionType.OneOption && (
         <OneOptionForm
           key={question.description}
           question={question}
-          updateAnserws={updateAnserws}
+          updateAnswers={updateAnswers}
         />
       )}
       {question.type === QuestionType.Open && (
         <OpenForm
           key={question.description}
           question={question}
-          updateAnserws={updateAnserws}
+          updateAnswers={updateAnswers}
         />
       )}
     </div>

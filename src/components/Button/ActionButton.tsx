@@ -5,12 +5,23 @@ import {
   Diagram,
   Edit,
   EmojiHappy,
+  Icon,
   Link2,
   Send,
-  Sun1,
   Trash,
 } from "iconsax-react";
-import React from "react";
+import React, { ComponentPropsWithoutRef } from "react";
+
+const IconMap = {
+  Trash,
+  Edit,
+  ArrowDown2,
+  ArrowUp2,
+  Send,
+  Link2,
+  Diagram,
+  EmojiHappy,
+};
 
 function getTooltipContent(actionIcon: string) {
   switch (actionIcon) {
@@ -36,35 +47,28 @@ function getTooltipContent(actionIcon: string) {
 function ActionButton({
   actionIcon,
   onClickFunction,
+  tooltipValue,
+  iconSize = 16,
+  iconProps = {},
 }: {
-  actionIcon: string;
+  actionIcon: keyof typeof IconMap;
   onClickFunction: () => void;
+  iconSize?: number;
+  iconProps?: Partial<ComponentPropsWithoutRef<Icon>>;
+  tooltipValue?: string;
 }) {
-  const iconMap: { [key: string]: React.ReactNode } = {
-    Trash: <Trash size="16" className="m-1" />,
-    Edit: <Edit size="16" className="m-1" />,
-    ArrowDown2: <ArrowDown2 size="16" className="m-1" />,
-    ArrowUp2: <ArrowUp2 size="16" className="m-1" />,
-    Send: <Send size="16" className="m-1" />,
-    Link2: <Link2 size="16" className="m-1" />,
-    Diagram: <Diagram size="16" className="m-1" />,
-    EmojiHappy: (
-      <EmojiHappy
-        className="self-center mr-5"
-        size="22"
-        color="#A1A1AA"
-        variant="Bold"
-      />
-    ),
-    Default: <Sun1 size="16" className="m-1" />,
-  };
-
-  const icon = iconMap[actionIcon] || iconMap.Default;
+  const IconComp = IconMap[actionIcon];
   return (
-    <Tooltip content={getTooltipContent(actionIcon)} offset={10}>
-      {React.cloneElement(icon as React.ReactElement, {
-        onClick: onClickFunction,
-      })}
+    <Tooltip
+      content={!tooltipValue ? getTooltipContent(actionIcon) : tooltipValue}
+      offset={10}
+    >
+      <IconComp
+        size={iconSize}
+        onClick={onClickFunction}
+        className="m-1"
+        {...iconProps}
+      />
     </Tooltip>
   );
 }

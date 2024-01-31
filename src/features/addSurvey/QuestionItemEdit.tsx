@@ -16,12 +16,7 @@ import OneAnswer from "./OneAnswer";
 import { questionTypeList } from "./QuestionForm";
 import AnswersAdding from "./AnswersAdding";
 
-function QuestionItemEdit({
-  item,
-  index,
-  deleteQuestion,
-  saveEditedQuestion,
-}: {
+type QuestionItemEditProp = {
   item: Question;
   index: number;
   deleteQuestion: (id: number) => void;
@@ -31,16 +26,25 @@ function QuestionItemEdit({
     type: QuestionType,
     options: string[],
   ) => void;
+};
+function QuestionItemEdit({
+  questionItemEditProp,
+}: {
+  questionItemEditProp: QuestionItemEditProp;
 }) {
   const [showDetails, setShowDetails] = useState(false);
   const [editQuestion, setEditQuestion] = useState(false);
 
-  const [newDescription, setNewDescription] = useState(item.description);
-  const [newType, setNewType] = useState(item.type);
-  const [newOptions, setNewOptions] = useState(item.options);
+  const [newDescription, setNewDescription] = useState(
+    questionItemEditProp.item.description,
+  );
+  const [newType, setNewType] = useState(questionItemEditProp.item.type);
+  const [newOptions, setNewOptions] = useState(
+    questionItemEditProp.item.options,
+  );
 
   function deleteItem() {
-    deleteQuestion(index);
+    questionItemEditProp.deleteQuestion(questionItemEditProp.index);
   }
 
   function toggleDetails() {
@@ -63,14 +67,19 @@ function QuestionItemEdit({
   }
 
   function handleSaveButtonClick() {
-    saveEditedQuestion(index, newDescription, newType, newOptions);
+    questionItemEditProp.saveEditedQuestion(
+      questionItemEditProp.index,
+      newDescription,
+      newType,
+      newOptions,
+    );
     toggleDetails();
   }
 
   function handleBackButtonClick() {
-    setNewDescription(item.description);
-    setNewType(item.type);
-    setNewOptions(item.options);
+    setNewDescription(questionItemEditProp.item.description);
+    setNewType(questionItemEditProp.item.type);
+    setNewOptions(questionItemEditProp.item.options);
   }
 
   function deleteAnswerFromList(id: number) {
@@ -97,7 +106,7 @@ function QuestionItemEdit({
       <CardBody className="flex flex-row p-5">
         <div className=" self-center">
           <p className=" text-medium">
-            {index + 1}. {newDescription}
+            {questionItemEditProp.index + 1}. {newDescription}
           </p>
         </div>
         <div className=" ml-auto flex flex-row">
@@ -147,10 +156,12 @@ function QuestionItemEdit({
           <div className=" mt-4 min-w-full">
             {newType !== QuestionType.Open && (
               <AnswersAdding
-                answersList={newOptions}
-                onDelete={deleteAnswerFromList}
-                onAdd={addAnswerToList}
-                onEdit={editAnswer}
+                answerProp={{
+                  answersList: newOptions,
+                  onDelete: deleteAnswerFromList,
+                  onAdd: addAnswerToList,
+                  onEdit: editAnswer,
+                }}
               />
             )}
           </div>

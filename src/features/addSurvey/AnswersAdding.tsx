@@ -3,34 +3,32 @@ import React, { useState } from "react";
 import { Add, EmojiHappy } from "iconsax-react";
 import AnswerEditing from "./AnswerEditing";
 
-function AnswersAdding({
-  answersList,
-  onDelete,
-  onAdd,
-  onEdit,
-}: {
+export type AnswersAddingProp = {
   answersList: string[];
   onDelete: (id: number) => void;
   onAdd: (newAnswer: string) => void;
   onEdit: (id: number, newAnswer: string) => void;
-}) {
+};
+function AnswersAdding({ answerProp }: { answerProp: AnswersAddingProp }) {
   const [newAnswer, setNewAnswer] = useState("");
 
   function addAnswer() {
-    onAdd(newAnswer);
+    answerProp.onAdd(newAnswer);
     setNewAnswer("");
   }
 
   return (
     <Card className="p-4">
       <div className=" flex flex-col">
-        {answersList.map((answer, index) => (
+        {answerProp.answersList.map((answer, index) => (
           <AnswerEditing
             key={`${answer}`}
-            answer={answer}
-            id={index}
-            onDelete={onDelete}
-            onEdit={onEdit}
+            answerProp={{
+              answer,
+              id: index,
+              onDelete: answerProp.onDelete,
+              onEdit: answerProp.onEdit,
+            }}
           />
         ))}
       </div>
