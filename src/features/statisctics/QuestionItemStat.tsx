@@ -18,8 +18,8 @@ function QuestionItemStat({
 }) {
   const [showDetails, setShowDetails] = useState(false);
 
-  function details() {
-    setShowDetails(!showDetails);
+  function toggleDetails() {
+    setShowDetails((show) => !show);
   }
 
   const numberOfAnswers = () => {
@@ -35,17 +35,16 @@ function QuestionItemStat({
 
   return (
     // <Card shadow="sm" className="p-2">
-    <Card shadow="sm" className="p-2" isPressable onPress={details}>
+    <Card shadow="sm" className="p-2" isPressable onPress={toggleDetails}>
       <CardBody className="flex flex-row">
         <div className=" self-center">
           {index + 1}. {item.description}
         </div>
         <div className=" ml-auto flex flex-row">
-          {showDetails ? (
-            <ActionButton actionIcon="ArrowUp2" onClickFunction={details} />
-          ) : (
-            <ActionButton actionIcon="ArrowDown2" onClickFunction={details} />
-          )}
+          <ActionButton
+            actionIcon={showDetails ? "ArrowUp2" : "ArrowDown2"}
+            onClickFunction={toggleDetails}
+          />
         </div>
       </CardBody>
 
@@ -59,12 +58,16 @@ function QuestionItemStat({
               item.options.map((answer, idx) => (
                 <div className="flex flex-row justify-between">
                   <Answer key={answer} answer={answer} />
-                  <p className="">
-                    {Math.round(
-                      ((repliesCounter[idx] * 100) / numberOfAnswers()) * 100,
-                    ) / 100}
-                    %
-                  </p>
+                  {numberOfAnswers() > 0 ? (
+                    <p className="">
+                      {Math.round(
+                        ((repliesCounter[idx] * 100) / numberOfAnswers()) * 100,
+                      ) / 100}
+                      %
+                    </p>
+                  ) : (
+                    <p className="">0%</p>
+                  )}
                 </div>
               ))}
             {item.type === QuestionType.Open &&

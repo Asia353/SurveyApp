@@ -1,19 +1,19 @@
 import React, { useEffect, useState } from "react";
 import { Checkbox, CheckboxGroup } from "@nextui-org/react";
 
-import { Question } from "../../types";
-
 function ManyOptionsForm({
-  question,
+  questionId,
+  options,
   updateAnswers,
 }: {
-  question: Question;
+  questionId: number;
+  options: string[];
   updateAnswers: (questionId: number, newAnswers: string[]) => void;
 }) {
   const [selectedAnswersList, setSelectedAnswersList] = useState<string[]>([]);
 
   useEffect(() => {
-    updateAnswers(question.id, selectedAnswersList);
+    updateAnswers(questionId, selectedAnswersList);
   }, [selectedAnswersList]);
 
   return (
@@ -22,7 +22,7 @@ function ManyOptionsForm({
       value={selectedAnswersList}
       onValueChange={setSelectedAnswersList}
     >
-      {question.options.map((element) => (
+      {options.map((element) => (
         <Checkbox key={element} value={element}>
           {element}
         </Checkbox>

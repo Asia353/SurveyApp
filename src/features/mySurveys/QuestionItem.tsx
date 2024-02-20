@@ -14,12 +14,10 @@ function QuestionItem({ item, index }: { item: Question; index: number }) {
   const [newOptions] = useState(item.options);
 
   function toggleDetails() {
-    setShowDetails(!showDetails);
+    setShowDetails((show) => !show);
   }
 
   return (
-    // <Card shadow="sm" className="p-2">
-
     <Card shadow="sm" className="p-2" isPressable onPress={toggleDetails}>
       <CardBody className="flex flex-row">
         <div className=" self-center">

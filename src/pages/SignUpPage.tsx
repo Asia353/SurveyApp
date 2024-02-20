@@ -5,7 +5,7 @@ import React, { useState } from "react";
 function Page() {
   const [passwordIsVisible, setPasswordIsVisible] = useState(false);
   const togglepwdIsVisible = () => {
-    setPasswordIsVisible(!passwordIsVisible);
+    setPasswordIsVisible((visible) => !visible);
   };
   return (
     <div className="flex flex-col items-center justify-center p-8">

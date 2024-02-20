@@ -6,7 +6,7 @@ import { Link } from "react-router-dom";
 function Page() {
   const [passwordIsVisible, setPasswordIsVisible] = useState(false);
   const togglepwdIsVisible = () => {
-    setPasswordIsVisible(!passwordIsVisible);
+    setPasswordIsVisible((visible) => !visible);
   };
 
   return (

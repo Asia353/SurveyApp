@@ -113,17 +113,10 @@ function QuestionItemEdit({
           </p>
         </div>
         <div className=" ml-auto flex flex-row">
-          {showDetails ? (
-            <ActionButton
-              actionIcon="ArrowUp2"
-              onClickFunction={toggleDetails}
-            />
-          ) : (
-            <ActionButton
-              actionIcon="ArrowDown2"
-              onClickFunction={toggleDetails}
-            />
-          )}
+          <ActionButton
+            actionIcon={showDetails ? "ArrowUp2" : "ArrowDown2"}
+            onClickFunction={toggleDetails}
+          />
           <ActionButton actionIcon="Edit" onClickFunction={toggleEdit} />
           <ActionButton
             actionIcon="Trash"

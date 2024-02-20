@@ -19,7 +19,7 @@ function QuestionForm({ questionProp }: { questionProp: QuestionFormProp }) {
   const [options, setOptions] = useState(questionProp.question.options);
 
   function onAdd(newAnswer: string) {
-    setOptions([...options, newAnswer]);
+    setOptions((prevOption) => [...prevOption, newAnswer]);
   }
 
   function onDelete(id: number) {

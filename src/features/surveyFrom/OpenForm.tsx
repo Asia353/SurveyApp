@@ -1,19 +1,19 @@
 import React, { useEffect, useState } from "react";
 import { Input, Radio } from "@nextui-org/react";
 
-import { Question } from "../../types";
-
 function OpenForm({
-  question,
+  questionId,
+  options,
   updateAnswers,
 }: {
-  question: Question;
+  questionId: number;
+  options: string[];
   updateAnswers: (questionId: number, newAnswers: string[]) => void;
 }) {
   const [answer, setAnswer] = useState<string>("");
 
   useEffect(() => {
-    updateAnswers(question.id, [answer]);
+    updateAnswers(questionId, [answer]);
   }, [answer]);
 
   return (
@@ -22,7 +22,7 @@ function OpenForm({
       value={answer}
       onValueChange={setAnswer}
     >
-      {question.options.map((element) => (
+      {options.map((element) => (
         <Radio key={element} value={element}>
           {element}
         </Radio>

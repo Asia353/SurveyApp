@@ -21,21 +21,24 @@ function QuestionForm({
       {question.type === QuestionType.ManyOptions && (
         <ManyOptionsForm
           key={question.description}
-          question={question}
+          questionId={question.id}
+          options={question.options}
           updateAnswers={updateAnswers}
         />
       )}
       {question.type === QuestionType.OneOption && (
         <OneOptionForm
           key={question.description}
-          question={question}
+          questionId={question.id}
+          options={question.options}
           updateAnswers={updateAnswers}
         />
       )}
       {question.type === QuestionType.Open && (
         <OpenForm
           key={question.description}
-          question={question}
+          questionId={question.id}
+          options={question.options}
           updateAnswers={updateAnswers}
         />
       )}

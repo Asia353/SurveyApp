@@ -41,8 +41,8 @@ function EditSurvey({ editSurveyProp }: { editSurveyProp: EditSurveyProp }) {
           ? newQuestionsList[newQuestionsList.length - 1].id + 1
           : 1;
 
-    setNewQuestionsList([
-      ...newQuestionsList,
+    setNewQuestionsList((prevList) => [
+      ...prevList,
       {
         description: question.description,
         type: question.type,
@@ -137,7 +137,7 @@ function EditSurvey({ editSurveyProp }: { editSurveyProp: EditSurveyProp }) {
           <Button
             className="button self-end"
             onClick={() =>
-              setQuestionAddingFormAvaliable(!questionAddingFormAvaliable)
+              setQuestionAddingFormAvaliable((avaliable) => !avaliable)
             }
           >
             <Add size="28" color="#71717A" variant="Linear" />

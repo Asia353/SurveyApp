@@ -11,10 +11,6 @@ function SurveyListView({
   surveysList: Survey[];
   publishSurvey: (surveyId: number) => void;
 }) {
-  // const publishS = (index: number) => {
-  //   publishSurvey(index);
-  // };
-
   return (
     <div className="flex flex-col w-full gap-2">
       {surveysList.map((element, index) => (

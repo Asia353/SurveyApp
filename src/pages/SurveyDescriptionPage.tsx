@@ -20,7 +20,7 @@ function Page() {
     (element) => element.id === surveyId,
   );
   const toggleEdit = () => {
-    setIsEdit(!isEdit);
+    setIsEdit((edit) => !edit);
   };
 
   // const delQuestion = (questionId: number) => {
