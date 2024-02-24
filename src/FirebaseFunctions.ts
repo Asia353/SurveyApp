@@ -3,10 +3,12 @@ import {
   collection,
   doc,
   getDocs,
+  query,
   updateDoc,
+  where,
 } from "firebase/firestore";
 import { database } from "./firebase-config";
-import { RepliesList, Reply, Survey } from "./types";
+import { RepliesList, Reply, Survey, User } from "./types";
 
 export async function loadSurveys() {
   try {
@@ -103,4 +105,39 @@ export async function updateSurvey(newSurvey: Survey) {
       });
     }
   });
+}
+
+export async function writeUser(newUser: User) {
+  await addDoc(collection(database, "users"), {
+    userId: newUser.userId,
+    email: newUser.email,
+  });
+  console.log("dodano uzytkownka");
+}
+
+export async function loadUser(userId: string): Promise<User> {
+  try {
+    const usersCollection = collection(database, "users");
+    const userQuery = query(usersCollection, where("userId", "==", userId));
+    const usersSnapshot = await getDocs(userQuery);
+
+    const userDocs = usersSnapshot.docs;
+
+    if (!userDocs.length) {
+      throw new Error("user missing");
+    }
+
+    const userData = userDocs[0].data();
+
+    if (!userData.userId || !userData.email)
+      throw new Error("user data malformed");
+
+    return {
+      userId: userData.userId,
+      email: userData.email,
+    };
+  } catch (error) {
+    console.error("Błąd podczas ładowania ankiet z Firestore:", error);
+    throw error;
+  }
 }

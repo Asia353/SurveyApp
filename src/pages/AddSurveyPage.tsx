@@ -2,9 +2,8 @@ import React, { useState } from "react";
 
 import "./Page.css";
 import { Card } from "@nextui-org/react";
-
 import { Question } from "../types";
-import { useSurveyContext } from "../SurveysContext";
+import { useSurveyContext } from "../contexts/SurveysContext";
 import { EditSurvey } from "../features";
 
 function Page() {

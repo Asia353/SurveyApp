@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useMemo, useState } from "react";
-import { Survey } from "./types";
-import * as FirebaseFunctions from "./FirebaseFunctions";
+import { Survey } from "../types";
+import * as FirebaseFunctions from "../FirebaseFunctions";
 
 type SurveysContextType = {
   surveysList: Survey[];
@@ -46,24 +46,6 @@ export function SurveysContextProvider({
       setSurveysList((list) => [...list, newSurvey]);
       FirebaseFunctions.writeSurvey(newSurvey);
     }
-
-    // function delQuestionFromList(surveyId: number, questionId: number) {
-    //   // poxniej pewnie lepiej zamias sIndex i qIndex używać survey.id i question.id
-    //   // console.log(surveyId);
-    //   setSurveysList((list) =>
-    //     list.map((survey, sIndex) => {
-    //       if (sIndex === surveyId) {
-    //         return {
-    //           ...survey,
-    //           questions: survey.questions.filter(
-    //             (question, qIndex) => qIndex !== questionId,
-    //           ),
-    //         };
-    //       }
-    //       return survey;
-    //     }),
-    //   );
-    // }
 
     function updateSurvey(survey: Survey) {
       setSurveysList((list) =>

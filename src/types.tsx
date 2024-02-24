@@ -29,3 +29,8 @@ export type Reply = {
 };
 
 export type RepliesList = { replies: Reply[]; sid: number };
+
+export type User = {
+  userId: string;
+  email: string;
+};

@@ -1,15 +1,28 @@
 import { Button, Card, Input } from "@nextui-org/react";
 import { Eye, EyeSlash } from "iconsax-react";
-import React, { useState } from "react";
+import React, { useMemo, useState } from "react";
+import { signUp } from "../AuthFunctions";
 
 function Page() {
   const [passwordIsVisible, setPasswordIsVisible] = useState(false);
   const togglepwdIsVisible = () => {
     setPasswordIsVisible((visible) => !visible);
   };
+
+  const [passwordValue, setPasswordValue] = useState("");
+  const [emailValue, setEmailValue] = useState("");
+
+  const validateEmail = (value: string) =>
+    value.match(/^[A-Z0-9._%+-]+@[A-Z0-9.-]+.[A-Z]{2,4}$/i);
+
+  const emailIsInvalid = useMemo(() => {
+    if (emailValue === "") return false;
+    return !validateEmail(emailValue);
+  }, [emailValue]);
+
   return (
     <div className="flex flex-col items-center justify-center p-8">
-      <Card className="login-component p-7 gap-3">
+      <Card className="signin-component p-7 gap-3">
         <Input
           className="mt-7"
           placeholder="Enter your e-mail address"
@@ -17,6 +30,7 @@ function Page() {
           label="E-mail"
           variant="bordered"
           size="sm"
+          onValueChange={setEmailValue}
         />
 
         <Input
@@ -37,9 +51,9 @@ function Page() {
               </div>
             </button>
           }
+          onValueChange={setPasswordValue}
         />
-        <Input
-          className="mb-7"
+        {/* <Input
           placeholder="Enter your password"
           type={passwordIsVisible ? "text" : "password"}
           label="Repeat password"
@@ -56,8 +70,13 @@ function Page() {
               </div>
             </button>
           }
-        />
-        <Button>Sign up</Button>
+        /> */}
+        <Button
+          className="mt-11"
+          onClick={() => signUp(emailValue, passwordValue)}
+        >
+          Sign up
+        </Button>
       </Card>
     </div>
   );

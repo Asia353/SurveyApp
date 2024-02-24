@@ -3,10 +3,10 @@ import React, { useState } from "react";
 import { useLocation } from "react-router-dom";
 
 import "./Page.css";
-import { useSurveyContext } from "../SurveysContext";
 import QuestionListView from "../features/QuestionsListView";
 import ActionButton from "../components/Button/ActionButton";
 import EditSurvey from "../features/addSurvey/EditSurvey";
+import { useSurveyContext } from "../contexts/SurveysContext";
 
 function Page() {
   const context = useSurveyContext();

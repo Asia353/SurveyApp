@@ -11,9 +11,9 @@ import { useLocation } from "react-router-dom";
 import QuestionForm from "../features/surveyFrom/QuestionForm";
 
 import "./Page.css";
-import { useSurveyContext } from "../SurveysContext";
 import { writeAnswers } from "../FirebaseFunctions";
 import { Reply, Survey } from "../types";
+import { useSurveyContext } from "../contexts/SurveysContext";
 
 function Page() {
   const context = useSurveyContext();

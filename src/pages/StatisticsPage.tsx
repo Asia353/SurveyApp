@@ -3,10 +3,10 @@ import React, { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
 
 import "./Page.css";
-import { useSurveyContext } from "../SurveysContext";
 import { RepliesList, Survey } from "../types";
 import * as FirebaseFunctions from "../FirebaseFunctions";
 import QuestionItemStat from "../features/statisctics/QuestionItemStat";
+import { useSurveyContext } from "../contexts/SurveysContext";
 
 function Page() {
   const context = useSurveyContext();
@@ -84,12 +84,7 @@ function Page() {
             ))}
         </div>
         <CardFooter className="p-0 pt-7 m-0">
-          <Button
-            className=" w-full"
-            size="lg"
-            radius="none"
-            // onClick={() => console.log(repliesCounter)}
-          >
+          <Button className=" w-full" size="lg" radius="none">
             export to pdf
           </Button>
         </CardFooter>

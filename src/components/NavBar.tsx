@@ -7,14 +7,17 @@ import {
   NavbarContent,
   NavbarItem,
 } from "@nextui-org/react";
+import { useUserContext } from "../contexts/UserContext";
+import { signOutFunction } from "../AuthFunctions";
 
 export default function NavBar() {
   // const [selected, setSelected] = React.useState<string>("Add Survey");
 
+  const { currentUser, setCurrentUser } = useUserContext();
   return (
     <NavBarComponent>
       <NavbarBrand>
-        <p className="font-bold text-inherit">ANKIETY</p>
+        <p className="font-bold text-inherit">{currentUser.email}</p>
       </NavbarBrand>
 
       <NavbarContent className="sm:flex gap-4" justify="center">
@@ -32,13 +35,25 @@ export default function NavBar() {
 
       <NavbarContent justify="end">
         <NavbarItem className="lg:flex">
-          <Link to="/log-in">Log in</Link>
+          <Link to="/sign-in">Sign in</Link>
         </NavbarItem>
         <NavbarItem>
           {/* <Button as={Link} color="primary" href="#" variant="flat">
             Sign Up
           </Button> */}
           <Link to="/sign-up">Sign up</Link>
+        </NavbarItem>
+        <NavbarItem>
+          <Link
+            to="/sign-in"
+            onClick={() => {
+              localStorage.clear();
+              signOutFunction();
+              setCurrentUser({ userId: "", email: "" });
+            }}
+          >
+            Sign out
+          </Link>
         </NavbarItem>
       </NavbarContent>
     </NavBarComponent>

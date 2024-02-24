@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 
 import "./Page.css";
 import SurveyListView from "../features/mySurveys/SurveysListView";
-import { useSurveyContext } from "../SurveysContext";
+import { useSurveyContext } from "../contexts/SurveysContext";
 
 function Page() {
   const context = useSurveyContext();

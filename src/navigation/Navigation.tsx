@@ -7,22 +7,20 @@ import {
   SurveyDescriptionPage,
   SurveyFormPage,
 } from "../pages";
-import { SurveysContextProvider } from "../SurveysContext";
-import LogInPage from "../pages/LogInPage";
+import SignInPage from "../pages/SignInPage";
 import SignUpPage from "../pages/SignUpPage";
+import { SurveysContextProvider } from "../contexts/SurveysContext";
 
 export default function Navigation() {
   return (
-    <SurveysContextProvider>
-      <Routes>
-        <Route path="/add-survey" element={<AddSurveyPage />} />
-        <Route path="/my-surveys" element={<MySurveysPage />} />
-        <Route path="/description-survey" element={<SurveyDescriptionPage />} />
-        <Route path="/survey-form" element={<SurveyFormPage />} />
-        <Route path="/statistics" element={<StatisticsPage />} />
-        <Route path="/log-in" element={<LogInPage />} />
-        <Route path="/sign-up" element={<SignUpPage />} />{" "}
-      </Routes>
-    </SurveysContextProvider>
+    <Routes>
+      <Route path="/add-survey" element={<AddSurveyPage />} />
+      <Route path="/my-surveys" element={<MySurveysPage />} />
+      <Route path="/description-survey" element={<SurveyDescriptionPage />} />
+      <Route path="/survey-form" element={<SurveyFormPage />} />
+      <Route path="/statistics" element={<StatisticsPage />} />
+      <Route path="/sign-in" element={<SignInPage />} />
+      <Route path="/sign-up" element={<SignUpPage />} />{" "}
+    </Routes>
   );
 }
