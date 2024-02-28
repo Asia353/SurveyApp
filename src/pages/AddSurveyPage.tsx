@@ -5,9 +5,11 @@ import { Card } from "@nextui-org/react";
 import { Question } from "../types";
 import { useSurveyContext } from "../contexts/SurveysContext";
 import { EditSurvey } from "../features";
+import { useUserContext } from "../contexts/UserContext";
 
 function Page() {
   const surveysContext = useSurveyContext();
+  const { currentUser } = useUserContext();
 
   const newId = () => {
     if (surveysContext.surveysList.length)
@@ -19,6 +21,7 @@ function Page() {
   const [surveyId] = useState(newId());
   const [surveyOptions] = useState<Question[]>([]);
 
+  // console.log("current user in add survet: ", currentUser.userId);
   return (
     <div className="flex flex-col items-center justify-center p-8">
       <Card className="survey-component p-7">
@@ -27,6 +30,7 @@ function Page() {
           editSurveyProp={{
             surveyName,
             surveyId,
+            userId: currentUser.userId,
             surveyQuestions: surveyOptions,
             saveFunction: surveysContext.addSurveyToList,
           }}

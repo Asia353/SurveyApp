@@ -8,6 +8,10 @@ import { useSurveyContext } from "../contexts/SurveysContext";
 
 function Page() {
   const context = useSurveyContext();
+  // console.log("MySurveysPage");
+  // console.log(context.surveysList);
+  // console.log();
+  // console.log();
   // const cardClassValue = "flex flex-col items-center justify-center p-8";
   return (
     <div className="flex flex-col items-center justify-center p-8">

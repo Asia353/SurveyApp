@@ -56,8 +56,8 @@ function QuestionItemStat({
           <div className="flex flex-col w-full">
             {item.type !== QuestionType.Open &&
               item.options.map((answer, idx) => (
-                <div className="flex flex-row justify-between">
-                  <Answer key={answer} answer={answer} />
+                <div className="flex flex-row justify-between" key={answer}>
+                  <Answer answer={answer} />
                   {numberOfAnswers() > 0 ? (
                     <p className="">
                       {Math.round(

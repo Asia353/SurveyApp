@@ -4,11 +4,13 @@ import { User } from "../types";
 type UserContextType = {
   currentUser: User;
   setCurrentUser: (user: User) => void;
+  userIsSignedIn: boolean;
 };
 
 const userContextInitValue = {
   currentUser: { userId: "", email: "" },
   setCurrentUser: () => {},
+  userIsSignedIn: false,
 };
 
 const UserContext = React.createContext<UserContextType>(userContextInitValue);
@@ -27,29 +29,26 @@ export function UserContextProvider({
     const userId = localStorage.getItem("userId");
     const email = localStorage.getItem("email");
 
-    const asyncFunction = async () => {
-      if (userId && email) {
-        setCurrentUser({
-          userId: JSON.parse(userId),
-          email: JSON.parse(email),
-        });
-      }
-      // else {
-      //   setCurrentUser({
-      //     userId: "",
-      //     email: "",
-      //   });
-      // }
-    };
-    asyncFunction();
+    if (userId && email) {
+      setCurrentUser({
+        userId: JSON.parse(userId),
+        email: JSON.parse(email),
+      });
+    }
   }, []);
+
+  const userIsSignedIn = (() => {
+    if (currentUser.email === "" && currentUser.userId === "") return false;
+    return true;
+  })();
 
   const contextValue = useMemo(() => {
     return {
       currentUser,
       setCurrentUser,
+      userIsSignedIn,
     };
-  }, [currentUser]);
+  }, [currentUser, userIsSignedIn]);
 
   return (
     <UserContext.Provider value={contextValue}>{children}</UserContext.Provider>

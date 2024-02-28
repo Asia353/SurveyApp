@@ -11,6 +11,7 @@ import QuestionForm from "./QuestionForm";
 type EditSurveyProp = {
   surveyName: string;
   surveyId: number;
+  userId: string;
   surveyQuestions: Question[];
   saveFunction: (survey: Survey) => void;
 };
@@ -64,6 +65,7 @@ function EditSurvey({ editSurveyProp }: { editSurveyProp: EditSurveyProp }) {
     editSurveyProp.saveFunction({
       name: newSurveyName,
       id: editSurveyProp.surveyId,
+      userId: editSurveyProp.userId,
       questions: newQuestionsList,
       published: false,
     });

@@ -1,5 +1,6 @@
 import { Button, Card, Input } from "@nextui-org/react";
 import { Eye, EyeSlash } from "iconsax-react";
+import { Link } from "react-router-dom";
 import React, { useMemo, useState } from "react";
 import { signUp } from "../AuthFunctions";
 
@@ -74,6 +75,8 @@ function Page() {
         <Button
           className="mt-11"
           onClick={() => signUp(emailValue, passwordValue)}
+          as={Link}
+          to="/sign-in"
         >
           Sign up
         </Button>

@@ -11,7 +11,7 @@ import { useLocation } from "react-router-dom";
 import QuestionForm from "../features/surveyFrom/QuestionForm";
 
 import "./Page.css";
-import { writeAnswers } from "../FirebaseFunctions";
+import { writeReplies } from "../FirebaseFunctions";
 import { Reply, Survey } from "../types";
 import { useSurveyContext } from "../contexts/SurveysContext";
 
@@ -79,7 +79,7 @@ function Page() {
                 className=" w-full"
                 size="lg"
                 radius="none"
-                onClick={() => writeAnswers(surveyId, usersReplies)}
+                onClick={() => writeReplies(surveyId, " ", usersReplies)}
               >
                 Send answers
               </Button>

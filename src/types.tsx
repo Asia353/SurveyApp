@@ -18,6 +18,7 @@ export type Question = {
 export type Survey = {
   name: string;
   id: number;
+  userId: string;
   questions: Question[];
   published: boolean;
 };
@@ -28,7 +29,11 @@ export type Reply = {
   answers: string[];
 };
 
-export type RepliesList = { replies: Reply[]; sid: number };
+export type RepliesList = {
+  surveyId: number;
+  userName: string;
+  replies: Reply[];
+};
 
 export type User = {
   userId: string;

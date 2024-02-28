@@ -7,9 +7,11 @@ import QuestionListView from "../features/QuestionsListView";
 import ActionButton from "../components/Button/ActionButton";
 import EditSurvey from "../features/addSurvey/EditSurvey";
 import { useSurveyContext } from "../contexts/SurveysContext";
+import { useUserContext } from "../contexts/UserContext";
 
 function Page() {
   const context = useSurveyContext();
+  const { currentUser } = useUserContext();
 
   const location = useLocation();
   const searchParams = new URLSearchParams(location.search);
@@ -57,6 +59,7 @@ function Page() {
                 editSurveyProp={{
                   surveyName,
                   surveyId,
+                  userId: currentUser.userId,
                   surveyQuestions,
                   saveFunction: context.updateSurvey,
                 }}

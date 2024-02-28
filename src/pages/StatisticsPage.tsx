@@ -29,41 +29,36 @@ function Page() {
 
   useEffect(() => {
     const asyncFunctin = async () => {
-      setReplies(await FirebaseFunctions.loadResults(surveyId));
+      setReplies(await FirebaseFunctions.loadReplies(surveyId));
     };
     asyncFunctin();
-  }, []);
-
-  const numberOfAnswers = (option: string, index: number) => {
-    let counter = 0;
-    if (replies) {
-      for (let i = 0; i < replies.length; i += 1) {
-        if (replies[i].replies[index].answers.includes(option)) {
-          counter += 1;
-        }
-      }
-    }
-    // console.log("counter: ", counter);
-
-    return counter;
-  };
-
-  const returnCount = (questionOptions: string[], index: number) => {
-    // console.log("question description: ", questionOptions);
-    const counter = questionOptions.map((option) =>
-      numberOfAnswers(option, index),
-    );
-    return counter;
-  };
+  }, [surveyId]);
 
   useEffect(() => {
+    const numberOfAnswers = (option: string, index: number) => {
+      let counter = 0;
+      if (replies) {
+        for (let i = 0; i < replies.length; i += 1) {
+          if (replies[i].replies[index].answers.includes(option)) {
+            counter += 1;
+          }
+        }
+      }
+      return counter;
+    };
+
+    const returnCount = (questionOptions: string[], index: number) => {
+      const counter = questionOptions.map((option) =>
+        numberOfAnswers(option, index),
+      );
+      return counter;
+    };
     setRepliesCounter(
       currentSurvey?.questions.map((question, index) =>
         returnCount(question.options, index),
       ),
     );
-    // console.log("repliesCounter: ", repliesCounter);
-  }, [replies]);
+  }, [currentSurvey?.questions, replies]);
 
   return (
     <div className="flex flex-col items-center p-8 form-component">

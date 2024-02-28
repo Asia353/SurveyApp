@@ -1,6 +1,7 @@
 import React, { useContext, useEffect, useMemo, useState } from "react";
 import { Survey } from "../types";
 import * as FirebaseFunctions from "../FirebaseFunctions";
+import { useUserContext } from "./UserContext";
 
 type SurveysContextType = {
   surveysList: Survey[];
@@ -19,6 +20,7 @@ const surveysContextInitValue = {
 const SurveysContext = React.createContext<SurveysContextType>(
   surveysContextInitValue,
 );
+
 // const SurveysContext = React.createContext<{
 //   surveysList: Survey[];
 //   addSurveyToList: (newSurvey: Survey) => void;
@@ -33,13 +35,21 @@ export function SurveysContextProvider({
   children: React.ReactNode;
 }) {
   const [surveysList, setSurveysList] = useState<Survey[]>([]);
+  const { currentUser, userIsSignedIn } = useUserContext();
 
   useEffect(() => {
-    const asyncFunction = async () => {
-      setSurveysList(await FirebaseFunctions.loadSurveys());
-    };
-    asyncFunction();
-  }, []);
+    // const user = localStorage.getItem("userId").toString();
+    if (userIsSignedIn) {
+      const asyncFunction = async () => {
+        setSurveysList(await FirebaseFunctions.loadSurveys(currentUser.userId));
+        // const user = localStorage.getItem("userId");
+        // if (user !== null) {
+        //   setSurveysList(await FirebaseFunctions.loadSurveys(JSON.parse(user)));
+        // } else setSurveysList(await FirebaseFunctions.loadSurveys(""));
+      };
+      asyncFunction();
+    }
+  }, [userIsSignedIn, currentUser.userId]);
 
   const contextValue = useMemo(() => {
     function addSurveyToList(newSurvey: Survey) {

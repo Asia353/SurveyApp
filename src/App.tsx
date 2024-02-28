@@ -12,12 +12,12 @@ function App() {
   return (
     <Router>
       <NextUIProvider>
-        <SurveysContextProvider>
-          <UserContextProvider>
+        <UserContextProvider>
+          <SurveysContextProvider>
             <NavBar />
             <Navigation />
-          </UserContextProvider>
-        </SurveysContextProvider>
+          </SurveysContextProvider>
+        </UserContextProvider>
       </NextUIProvider>
     </Router>
   );
