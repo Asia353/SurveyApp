@@ -63,7 +63,7 @@ export async function writeSurvey(newSurvey: Survey) {
 }
 
 export async function writeReplies(
-  surveyId: number,
+  surveyId: string,
   userName: string,
   replies: Reply[],
 ) {
@@ -84,7 +84,7 @@ export async function writeReplies(
   });
 }
 
-export async function loadReplies(surveyId: number) {
+export async function loadReplies(surveyId: string) {
   try {
     const repliesCollection = collection(database, `replies`);
     const repliesSnapshot = await getDocs(repliesCollection);

@@ -20,7 +20,7 @@ function Page() {
 
   const location = useLocation();
   const searchParams = new URLSearchParams(location.search);
-  const surveyId = Number(searchParams.get("surveyid"));
+  const surveyId = String(searchParams.get("surveyid"));
 
   // const [isEdit, setIsEdit] = useState(false);
 

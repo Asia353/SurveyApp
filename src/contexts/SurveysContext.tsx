@@ -7,7 +7,7 @@ type SurveysContextType = {
   surveysList: Survey[];
   addSurveyToList: (newSurvey: Survey) => void;
   updateSurvey: (survey: Survey) => void;
-  publishSurvey: (surveyIndex: number) => void;
+  publishSurvey: (surveyIndex: string) => void;
 };
 
 const surveysContextInitValue = {
@@ -72,7 +72,7 @@ export function SurveysContextProvider({
       FirebaseFunctions.updateSurvey(survey);
     }
 
-    function publishSurvey(surveyId: number) {
+    function publishSurvey(surveyId: string) {
       setSurveysList((list) =>
         list.map((currentSurvey) =>
           currentSurvey.id === surveyId

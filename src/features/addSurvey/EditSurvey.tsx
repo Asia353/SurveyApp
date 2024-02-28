@@ -10,7 +10,7 @@ import QuestionForm from "./QuestionForm";
 
 type EditSurveyProp = {
   surveyName: string;
-  surveyId: number;
+  surveyId: string;
   userId: string;
   surveyQuestions: Question[];
   saveFunction: (survey: Survey) => void;

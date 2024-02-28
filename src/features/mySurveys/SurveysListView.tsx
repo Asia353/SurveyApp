@@ -9,30 +9,27 @@ function SurveyListView({
   publishSurvey,
 }: {
   surveysList: Survey[];
-  publishSurvey: (surveyId: number) => void;
+  publishSurvey: (surveyId: string) => void;
 }) {
   return (
     <div className="flex flex-col w-full gap-2">
-      {surveysList.map((element, index) => (
-        <Card
-          className="flex flex-row p-5"
-          key={`${element.name} ${element.id}`}
-        >
+      {surveysList.map((survey, index) => (
+        <Card className="flex flex-row p-5" key={`${survey.name} ${survey.id}`}>
           <Link
             color="foregrourend"
-            to={`/description-survey?surveyid=${element.id}`}
+            to={`/description-survey?surveyid=${survey.id}`}
             className="flex flex-row w-full"
           >
             <CardHeader className="p-0 w-auto">
-              {index + 1}. {element.name}
+              {index + 1}. {survey.name}
             </CardHeader>
           </Link>
           <CardFooter className="p-0 justify-end">
-            {!element.published ? (
+            {!survey.published ? (
               <ActionButton
                 actionIcon="Send"
                 onClickFunction={() => {
-                  publishSurvey(element.id);
+                  publishSurvey(survey.id);
                 }}
               />
             ) : (
@@ -41,7 +38,7 @@ function SurveyListView({
                   actionIcon="Diagram"
                   onClickFunction={() =>
                     navigator.clipboard.writeText(
-                      `http://localhost:3000/statistics?surveyid=${element.id}`,
+                      `http://localhost:3000/statistics?surveyid=${survey.id}`,
                     )
                   }
                 />
@@ -49,7 +46,7 @@ function SurveyListView({
                   actionIcon="Link2"
                   onClickFunction={() =>
                     navigator.clipboard.writeText(
-                      `http://localhost:3000/survey-form?surveyid=${element.id}`,
+                      `http://localhost:3000/survey-form?surveyid=${survey.id}`,
                     )
                   }
                 />

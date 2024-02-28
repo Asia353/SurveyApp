@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useId, useState } from "react";
 
 import "./Page.css";
 import { Card } from "@nextui-org/react";
@@ -11,14 +11,14 @@ function Page() {
   const surveysContext = useSurveyContext();
   const { currentUser } = useUserContext();
 
-  const newId = () => {
-    if (surveysContext.surveysList.length)
-      return surveysContext.surveysList.length + 1;
-    return 1;
-  };
+  // const newId = () => {
+  //   if (surveysContext.surveysList.length)
+  //     return surveysContext.surveysList.length + 1;
+  //   return 1;
+  // };
 
   const [surveyName] = useState("New Survey");
-  const [surveyId] = useState(newId());
+  const [surveyId] = useState(useId());
   const [surveyOptions] = useState<Question[]>([]);
 
   // console.log("current user in add survet: ", currentUser.userId);

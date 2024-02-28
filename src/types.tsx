@@ -17,7 +17,7 @@ export type Question = {
 
 export type Survey = {
   name: string;
-  id: number;
+  id: string;
   userId: string;
   questions: Question[];
   published: boolean;
@@ -30,7 +30,7 @@ export type Reply = {
 };
 
 export type RepliesList = {
-  surveyId: number;
+  surveyId: string;
   userName: string;
   replies: Reply[];
 };
