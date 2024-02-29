@@ -10,18 +10,10 @@ import { useUserContext } from "../contexts/UserContext";
 function Page() {
   const surveysContext = useSurveyContext();
   const { currentUser } = useUserContext();
-
-  // const newId = () => {
-  //   if (surveysContext.surveysList.length)
-  //     return surveysContext.surveysList.length + 1;
-  //   return 1;
-  // };
-
   const [surveyName] = useState("New Survey");
   const [surveyId] = useState(useId());
   const [surveyOptions] = useState<Question[]>([]);
 
-  // console.log("current user in add survet: ", currentUser.userId);
   return (
     <div className="flex flex-col items-center justify-center p-8">
       <Card className="survey-component p-7">

@@ -1,6 +1,6 @@
 import React from "react";
 import { Card, CardFooter, CardHeader } from "@nextui-org/react";
-import { Link } from "react-router-dom";
+import { Link, Navigate, useNavigate } from "react-router-dom";
 import { Survey } from "../../types";
 import ActionButton from "../../components/Button/ActionButton";
 
@@ -11,6 +11,12 @@ function SurveyListView({
   surveysList: Survey[];
   publishSurvey: (surveyId: string) => void;
 }) {
+  const navigate = useNavigate();
+
+  const navigateToStatistics = (surveyId: string) => {
+    navigate(`/statistics?surveyid=${surveyId}`);
+  };
+
   return (
     <div className="flex flex-col w-full gap-2">
       {surveysList.map((survey, index) => (
@@ -36,11 +42,7 @@ function SurveyListView({
               <div className="flex">
                 <ActionButton
                   actionIcon="Diagram"
-                  onClickFunction={() =>
-                    navigator.clipboard.writeText(
-                      `http://localhost:3000/statistics?surveyid=${survey.id}`,
-                    )
-                  }
+                  onClickFunction={() => navigateToStatistics(survey.id)}
                 />
                 <ActionButton
                   actionIcon="Link2"
