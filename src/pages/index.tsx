@@ -7,3 +7,4 @@ export { default as StatisticsPage } from "./StatisticsPage";
 export { default as SignInPage } from "./SignInPage";
 export { default as SignUpPage } from "./SignUpPage";
 export { default as NoMatchPage } from "./NoMatchPage";
+export { default as AfterSendAnswersPage } from "./AfterSendAnswersPage";

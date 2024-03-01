@@ -2,6 +2,7 @@ import React from "react";
 import { Route, Routes } from "react-router-dom";
 import {
   AddSurveyPage,
+  AfterSendAnswersPage,
   MySurveysPage,
   NoMatchPage,
   StatisticsPage,
@@ -17,6 +18,7 @@ export default function AuthenticatedStack() {
       <Route path="/my-surveys" element={<MySurveysPage />} />
       <Route path="/description-survey" element={<SurveyDescriptionPage />} />
       <Route path="/survey-form" element={<SurveyFormPage />} />
+      <Route path="/replies-sent" element={<AfterSendAnswersPage />} />
       <Route path="/statistics" element={<StatisticsPage />} />
       <Route path="*" element={<NoMatchPage />} />
     </Routes>

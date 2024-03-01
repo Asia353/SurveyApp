@@ -7,7 +7,7 @@ import {
   Divider,
 } from "@nextui-org/react";
 import React, { useEffect, useState } from "react";
-import { useLocation } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import QuestionForm from "../features/surveyFrom/QuestionForm";
 
 import "./Page.css";
@@ -79,6 +79,8 @@ function Page() {
                 className=" w-full"
                 size="lg"
                 radius="none"
+                as={Link}
+                to="/replies-sent"
                 onClick={() => writeReplies(surveyId, " ", usersReplies)}
               >
                 Send answers

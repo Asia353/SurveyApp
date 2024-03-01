@@ -48,7 +48,7 @@ function SurveyListView({
                   actionIcon="Link2"
                   onClickFunction={() =>
                     navigator.clipboard.writeText(
-                      `http://localhost:3000/survey-form?surveyid=${survey.id}`,
+                      `https://surveysreactapp.web.app/survey-form?surveyid=${survey.id}`,
                     )
                   }
                 />
