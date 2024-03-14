@@ -14,8 +14,8 @@ function Page() {
   // console.log();
   // const cardClassValue = "flex flex-col items-center justify-center p-8";
   return (
-    <div className="flex flex-col items-center justify-center p-8">
-      <Card className="survey-component p-7">
+    <div className="flex flex-col items-center justify-center p-4 sm:px-4 md:px-20 lg:px-48">
+      <Card className="p-7 w-full" style={{ minWidth: 300, maxWidth: 600 }}>
         <CardHeader className="mb-7 p-0">
           <p>My Surveys</p>
         </CardHeader>

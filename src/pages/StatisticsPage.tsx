@@ -1,4 +1,4 @@
-import { Button, Card, CardFooter, CardHeader } from "@nextui-org/react";
+import { Card, CardFooter, CardHeader } from "@nextui-org/react";
 import React, { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
 
@@ -61,8 +61,10 @@ function Page() {
   }, [currentSurvey?.questions, replies]);
 
   return (
-    <div className="flex flex-col items-center p-8 form-component">
-      <Card className="survey-component p-7">
+    // <div className="flex flex-col items-center p-8 form-component">
+    //   <Card className="ml-3/12 mr-3/12 p-7">
+    <div className="flex flex-col items-center justify-center p-4 sm:px-4 md:px-20 lg:px-48">
+      <Card className="p-7 w-full" style={{ minWidth: 300, maxWidth: 600 }}>
         <CardHeader className="mb-7 p-0"> My surveys</CardHeader>
         <p className="p-0 m-0 mb-7">Number of answers: {replies?.length}</p>
         <div className=" flex flex-col gap-2">
@@ -79,9 +81,9 @@ function Page() {
             ))}
         </div>
         <CardFooter className="p-0 pt-7 m-0">
-          <Button className=" w-full" size="lg" radius="none">
+          {/* <Button className=" w-full" size="lg" radius="none">
             export to pdf
-          </Button>
+          </Button> */}
         </CardFooter>
       </Card>
     </div>

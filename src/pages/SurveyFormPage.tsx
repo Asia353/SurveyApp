@@ -56,8 +56,8 @@ function Page() {
   return (
     <div>
       {currentSurvey ? (
-        <div className="flex flex-col items-center p-8 form-component">
-          <Card className="survey-component">
+        <div className="flex flex-col items-center justify-center p-4 sm:px-4 md:px-20 lg:px-48">
+          <Card className="p-7 w-full" style={{ minWidth: 300, maxWidth: 600 }}>
             <CardHeader className="p-7 flex flex-row justify-between">
               {currentSurvey?.name}
             </CardHeader>

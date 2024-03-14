@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unused-expressions */
 import {
   Button,
   Card,
@@ -7,6 +6,7 @@ import {
   Input,
   Select,
   SelectItem,
+  useDisclosure,
 } from "@nextui-org/react";
 import React, { useState } from "react";
 import { Back } from "iconsax-react";
@@ -16,6 +16,7 @@ import ActionButton from "../../components/Button/ActionButton";
 import Answer from "./Answer";
 import { questionTypeList } from "./QuestionForm";
 import AnswersAdding from "./AnswersAdding";
+import { ModalElement } from "../../components/ModalElement";
 
 type QuestionItemEditProp = {
   item: Question;
@@ -103,6 +104,12 @@ function QuestionItemEdit({
     );
   }
 
+  const { isOpen, onOpen, onClose } = useDisclosure();
+
+  const handleOpen = () => {
+    onOpen();
+  };
+
   return (
     <Card shadow="sm">
       <CardBody className="flex flex-row p-5">
@@ -120,9 +127,19 @@ function QuestionItemEdit({
           <ActionButton actionIcon="Edit" onClickFunction={toggleEdit} />
           <ActionButton
             actionIcon="Trash"
-            onClickFunction={() =>
+            onClickFunction={
+              handleOpen
+              // questionItemEditProp.deleteQuestion(questionItemEditProp.index)
+            }
+          />
+          <ModalElement
+            closeFunction={() =>
               questionItemEditProp.deleteQuestion(questionItemEditProp.index)
             }
+            handleOpen={handleOpen}
+            isOpen={isOpen}
+            onOpen={onOpen}
+            onClose={onClose}
           />
         </div>
       </CardBody>
@@ -140,32 +157,28 @@ function QuestionItemEdit({
 
       {editQuestion && (
         <CardFooter className="flex flex-col items-start">
-          <div className="flex flex-row w-full justify-between">
-            <p className="mb-3">Question description:</p>
-            <Input
-              className="m-0"
-              value={newDescription}
-              onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
-                setNewDescription(e.target.value);
-              }}
-              onBlur={() => toggleEditQuestionName()}
-              autoFocus
-            />
-          </div>
-          <div className="flex flex-row w-full justify-between">
-            <p className="mb-3 mr-9">Question type: </p>
-            <Select
-              label="Select question's type"
-              selectedKeys={[newType]}
-              onChange={(e) => editType(e.target.value)}
-            >
-              {questionTypeList.map((element) => (
-                <SelectItem key={element} value={element}>
-                  {element}
-                </SelectItem>
-              ))}
-            </Select>
-          </div>
+          <Input
+            className=""
+            value={newDescription}
+            label="Question description"
+            onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+              setNewDescription(e.target.value);
+            }}
+            onBlur={() => toggleEditQuestionName()}
+            autoFocus
+          />
+          <Select
+            className="mt-2"
+            label="Select question's type"
+            selectedKeys={[newType]}
+            onChange={(e) => editType(e.target.value)}
+          >
+            {questionTypeList.map((element) => (
+              <SelectItem key={element} value={element}>
+                {element}
+              </SelectItem>
+            ))}
+          </Select>
           <div className=" mt-4 min-w-full">
             {newType !== QuestionType.Open && (
               <AnswersAdding

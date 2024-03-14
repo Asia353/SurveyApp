@@ -15,8 +15,8 @@ function Page() {
   const [surveyOptions] = useState<Question[]>([]);
 
   return (
-    <div className="flex flex-col items-center justify-center p-8">
-      <Card className="survey-component p-7">
+    <div className="flex flex-col items-center justify-center p-4 sm:px-4 md:px-20 lg:px-48">
+      <Card className="p-7 w-full" style={{ minWidth: 300, maxWidth: 600 }}>
         <EditSurvey
           key={`${surveyName}`}
           editSurveyProp={{

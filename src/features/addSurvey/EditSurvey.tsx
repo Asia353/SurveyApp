@@ -3,7 +3,7 @@ import { Add } from "iconsax-react";
 import { Link } from "react-router-dom";
 
 // import "./Page.css";
-import { Button, CardHeader, Input } from "@nextui-org/react";
+import { Button } from "@nextui-org/react";
 import { Question, QuestionType, Survey } from "../../types";
 import QuestionListView from "../QuestionsListView";
 import QuestionForm from "./QuestionForm";
@@ -20,7 +20,8 @@ function EditSurvey({ editSurveyProp }: { editSurveyProp: EditSurveyProp }) {
   const [newQuestionsList, setNewQuestionsList] = useState<Question[]>(
     editSurveyProp.surveyQuestions,
   );
-  const [newSurveyName, setNewSurveyName] = useState(editSurveyProp.surveyName);
+
+  const [newSurveyName] = useState(editSurveyProp.surveyName);
 
   const [newQuestion] = useState<Question>({
     description: "",
@@ -31,8 +32,8 @@ function EditSurvey({ editSurveyProp }: { editSurveyProp: EditSurveyProp }) {
 
   const [questionAddingFormAvaliable, setQuestionAddingFormAvaliable] =
     useState(false);
-  const [surveyNameEditorAvaliable, setSurveyNameEditorAvaliable] =
-    useState(false);
+  // const [surveyNameEditorAvaliable, setSurveyNameEditorAvaliable] =
+  //   useState(false);
 
   function addQuestion(question: Question) {
     let newQustionId = question.id;
@@ -93,7 +94,7 @@ function EditSurvey({ editSurveyProp }: { editSurveyProp: EditSurveyProp }) {
 
   return (
     <>
-      <CardHeader className="mb-7 p-0">
+      {/* <CardHeader className="mb-7 p-0">
         {surveyNameEditorAvaliable ? (
           <Input
             className="m-0"
@@ -118,8 +119,8 @@ function EditSurvey({ editSurveyProp }: { editSurveyProp: EditSurveyProp }) {
             <p>{newSurveyName}</p>
           </div>
         )}
-      </CardHeader>
-      <div className="justify-center gap-2 flex flex-col mb-4">
+      </CardHeader> */}
+      <div className="justify-center gap-2 flex flex-col">
         {/* {questionsList.map((item, index) => ( */}
         <QuestionListView
           questionListViewProp={{
@@ -136,18 +137,19 @@ function EditSurvey({ editSurveyProp }: { editSurveyProp: EditSurveyProp }) {
         }}
       >
         <div className="add-question-button-panel flex flex-col">
-          <Button
-            className="button self-end"
-            onClick={() =>
-              setQuestionAddingFormAvaliable((avaliable) => !avaliable)
-            }
-          >
-            <Add size="28" color="#71717A" variant="Linear" />
-          </Button>
-          {questionAddingFormAvaliable && (
+          {questionAddingFormAvaliable ? (
             <QuestionForm
               questionProp={{ addQuestion, question: newQuestion }}
             />
+          ) : (
+            <Button
+              className="button self-end mt-4"
+              onClick={() =>
+                setQuestionAddingFormAvaliable((avaliable) => !avaliable)
+              }
+            >
+              <Add size="28" color="#71717A" variant="Linear" />
+            </Button>
           )}
           <Button
             as={Link}

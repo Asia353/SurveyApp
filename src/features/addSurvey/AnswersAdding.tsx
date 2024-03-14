@@ -18,7 +18,8 @@ function AnswersAdding({ answerProp }: { answerProp: AnswersAddingProp }) {
   }
 
   return (
-    <Card className="p-4">
+    // <Card className="p-4">
+    <div>
       <div className=" flex flex-col">
         {answerProp.answersList.map((answer, index) => (
           <AnswerEditing
@@ -64,7 +65,8 @@ function AnswersAdding({ answerProp }: { answerProp: AnswersAddingProp }) {
           <Add size="28" color="#71717A" variant="Linear" />
         </Button>
       </div>
-    </Card>
+    </div>
+    // </Card>
   );
 }
 

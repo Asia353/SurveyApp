@@ -48,18 +48,22 @@ export async function loadSurveys(userId: string) {
 }
 
 export async function writeSurvey(newSurvey: Survey) {
-  await addDoc(collection(database, "surveys"), {
-    name: newSurvey.name,
-    id: newSurvey.id,
-    userId: newSurvey.userId,
-    published: newSurvey.published,
-    questions: newSurvey.questions.map((question) => ({
-      description: question.description,
-      type: question.type,
-      id: question.id,
-      options: question.options,
-    })),
-  });
+  try {
+    await addDoc(collection(database, "surveys"), {
+      name: newSurvey.name,
+      id: newSurvey.id,
+      userId: newSurvey.userId,
+      published: newSurvey.published,
+      questions: newSurvey.questions.map((question) => ({
+        description: question.description,
+        type: question.type,
+        id: question.id,
+        options: question.options,
+      })),
+    });
+  } catch (error) {
+    console.error("Błąd podczas zapisywania ankiety do Firestore:", error);
+  }
 }
 
 export async function writeReplies(
